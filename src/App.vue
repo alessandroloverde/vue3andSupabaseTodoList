@@ -12,10 +12,10 @@
         <ul>
             <li v-for="(todo, index) in todos" :key="index">
                 <span :class="{ done: todo.done }" @click="doneTodo(todo)">{{ todo.content }}</span>
-                <select :id="`castoro-${index}`" @change="assignCategory(todo)" v-model="todo.category">
+                <select :id="`castoro-${index}`" @change="assignCategory(todo)" v-model="todo.category ">
                     <option>Assign a category</option>
                     <option>Remove category</option>
-                    <option v-for="category in categories">{{category}}</option>
+                    <option v-for="category in categories">{{category.name}}</option>
                 </select>
                 <span>{{todo.category}}</span>
                 <button @click="removeItem('todos', index)">Remove</button>
@@ -35,7 +35,12 @@
         <p>lunghezza: {{categories.length}}</p>
         <ul>
             <li v-for="(category, index) in categories">
-                {{category}}
+                <span>{{category.name}}</span>
+                <select :id="`volpe-${index}`" @change="assignColor(category)" v-model="category.color">
+                    <option>Assign a category</option>
+                    <option>Remove category</option>
+                    <option v-for="color in colors">{{color}}</option>
+                </select>
                 <button @click="removeItem('categories', index)">Remove</button>
             </li>
         </ul>
@@ -52,12 +57,15 @@
             const newCategory = ref('');
             const newTodo = ref('');
             const assignedCategory = ref('');
+            const assignedColor = ref('');
 
             const todosData = JSON.parse(localStorage.getItem('todos')) || [];
             const categoriesData = JSON.parse(localStorage.getItem('categories')) || [];
 
             const todos = ref(todosData);
             const categories = ref(categoriesData);
+
+            const colors = ['Salmon', 'PaleVioletRed', 'Tomato', 'Khaki', 'DarkKhaki', 'Plum', 'LightGreen', 'MediumAquamarine', 'LightSteelBlue']
 
             let todo_eseguiti = computed(() => {
                 return todos.value.filter(item => item.done).length
@@ -71,14 +79,17 @@
                         content: newTodo.value,
                         category: ''
                     });
-                    //newTodo.value = '';
+                    newTodo.value = '';
                 }
                 saveData();
             }
 
             function addCategory() {
                 if (newCategory.value) {
-                    categories.value.push(newCategory.value);
+                    categories.value.push({
+                        name: newCategory.value,
+                        color: ''
+                    });
                     newCategory.value = '';
                 }
                 saveData('categories');
@@ -95,6 +106,15 @@
                 todos.value.splice(index, 1);
 
                 saveData();
+            }
+
+            /**
+             * * Assign a color to a category
+             */
+            const assignColor = (category) => {
+                category.color = event.target.value
+
+                saveData('categories')
             }
 
 
@@ -158,13 +178,20 @@
                 removeItem,
                 saveData,
                 todo_eseguiti,
-                assignedCategory
+                assignedCategory,
+                colors,
+                assignedColor,
+                assignColor
             }
         }
     }
 </script>
 
 <style lang="scss">
+    :root {
+    --categoryColor: #8d8dbe:
+    }
+
     $border: 2px solid rgba($color: white, $alpha: 0.35);
     $size1: 6px;
     $size2: 12px;
@@ -173,7 +200,7 @@
     $size5: 48px;
     $backgroundColor: #27292d;
     $textColor: white;
-    $primaryColor: #a0a4d9;
+    $primaryColor: salmon;
     $secondTextColor: #1f2023;
 
     #toDoArea {
