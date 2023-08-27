@@ -10,7 +10,10 @@
         <p>lunghezza: {{todos.length}}</p>
         <p>to-do eseguiti reac: {{todo_eseguiti}}</p>
         <ul>
-            <li v-for="(todo, index) in todos" :key="index">
+            <li v-for="(todo, index) in todos" :key="index" :class="[
+                'category-' + todo.category,
+                computedColor(todo.category,todo)
+            ]">
                 <span :class="{ done: todo.done }" @click="doneTodo(todo)">{{ todo.content }}</span>
                 <select :id="`castoro-${index}`" @change="assignCategory(todo)" v-model="todo.category ">
                     <option>Assign a category</option>
@@ -39,7 +42,7 @@
                 <select :id="`volpe-${index}`" @change="assignColor(category)" v-model="category.color">
                     <option>Assign a category</option>
                     <option>Remove category</option>
-                    <option v-for="color in colors">{{color}}</option>
+                    <option v-for="color in colors()">{{color}}</option>
                 </select>
                 <button @click="removeItem('categories', index)">Remove</button>
             </li>
@@ -65,11 +68,29 @@
             const todos = ref(todosData);
             const categories = ref(categoriesData);
 
-            const colors = ['Salmon', 'PaleVioletRed', 'Tomato', 'Khaki', 'DarkKhaki', 'Plum', 'LightGreen', 'MediumAquamarine', 'LightSteelBlue']
+            //const colori = ['Salmon', 'PaleVioletRed', 'Tomato', 'Khaki', 'DarkKhaki', 'Plum', 'LightGreen', 'MediumAquamarine', 'LightSteelBlue']
+
+            const colors = () => {
+                const r = document.querySelector(':root');
+                const rs = getComputedStyle(r);
+                const prefix = "--color--";
+
+                const result = Object.values(rs).filter(el => el.startsWith(prefix))
+
+                return result.map(el => el.replace(prefix, ''))
+            }
+
+            console.log(colors())
 
             let todo_eseguiti = computed(() => {
                 return todos.value.filter(item => item.done).length
             })
+
+            const computedColor = (category, todo) => {
+                const foundCategory = categories.value.find(category => category.name === todo.category);
+
+                return foundCategory ? foundCategory.color : undefined;
+            };
 
 
             function addTodo () {
@@ -92,27 +113,33 @@
                     });
                     newCategory.value = '';
                 }
-                saveData('categories');
+
+                saveData('categories')
             }
 
             function doneTodo (todo) {
                 todo.done = !todo.done;
 
-                saveData();
+                saveData()
             }
 
             function removeTodo (index) {
                 console.log(todos.value)
                 todos.value.splice(index, 1);
 
-                saveData();
+                saveData()
             }
 
             /**
              * * Assign a color to a category
              */
             const assignColor = (category) => {
+                var r = document.querySelector(':root');
+                var rs = getComputedStyle(r);
+
                 category.color = event.target.value
+
+                r.style.setProperty('--topo', category.color)
 
                 saveData('categories')
             }
@@ -130,7 +157,7 @@
                     todo.category = inputValue
                 }
                 
-                saveData();  
+                saveData()
             }
 
             /**
@@ -181,17 +208,37 @@
                 assignedCategory,
                 colors,
                 assignedColor,
-                assignColor
+                assignColor,
+                computedColor
             }
         }
     }
 </script>
 
 <style lang="scss">
-    :root {
-    --categoryColor: #8d8dbe:
-    }
+    $colors: (
+        Salmon: Salmon,
+        PaleVioletRed: PaleVioletRed,
+        Tomato: Tomato,
+        Khaki: Khaki,
+        DarkKhaki: DarkKhaki,
+        Plum: Plum,
+        LightGreen: LightGreen,
+        MediumAquamarine: MediumAquamarine,
+        LightSteelBlue: LightSteelBlue,
+        DarkSlateGray: DarkSlateGray
+    );
 
+    :root {
+        --topo: BlanchmagentaedAlmond;
+
+        @each $name, $color in $colors {
+            --color--#{$name}: #{$color};
+        }
+    }
+</style>
+
+<style lang="scss">
     $border: 2px solid rgba($color: white, $alpha: 0.35);
     $size1: 6px;
     $size2: 12px;
@@ -200,24 +247,30 @@
     $size5: 48px;
     $backgroundColor: #27292d;
     $textColor: white;
-    $primaryColor: salmon;
+    $primaryColor: var(--topo);
     $secondTextColor: #1f2023;
 
     #toDoArea {
         width: 50%;
         padding: 10px;
+        background-color: $castoro;
     }
     #categoriesArea {
         width: 50%;
         padding: 10px;
     }
+    #app {
+        ul > li {
 
+        }
+      
+    }
     body {
         margin: 0;
         padding: 0;
         font-family: Avenir, Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+         -webkit-font-smoothing: antialiased;
         background-color: $backgroundColor;
         color: $textColor;
 
@@ -228,10 +281,12 @@
             padding: 20px;
             display: flex;
 
+
             h1 {
                 font-weight: bold;
                 font-size: 28px;
                 text-align: center;
+                color: var(--topo);
             }
             form {
                 display: flex;
@@ -275,6 +330,7 @@
             }
             ul {
                 padding: 10px;
+
                 li {
                     display: flex;
                     justify-content: space-between;
