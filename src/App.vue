@@ -9,7 +9,7 @@
         <h2>ToDo List</h2>
         <p>lunghezza: {{todos.length}}</p>
         <p>to-do eseguiti reac: {{todo_eseguiti}}</p>
-        <ul>
+        <ul class="toDoList">
             <li v-for="(todo, index) in todos" :key="index" :class="[
                 'category-' + todo.category,
                 computedColor(todo.category,todo)
@@ -36,7 +36,7 @@
         </form>
         <h2>Categories List</h2>
         <p>lunghezza: {{categories.length}}</p>
-        <ul>
+        <ul class="categoryList">
             <li v-for="(category, index) in categories">
                 <span>{{category.name}}</span>
                 <select :id="`volpe-${index}`" @change="assignColor(category)" v-model="category.color">
@@ -139,7 +139,7 @@
 
                 category.color = event.target.value
 
-                r.style.setProperty('--topo', category.color)
+                /* r.style.setProperty('--topo', category.color) */
 
                 saveData('categories')
             }
@@ -216,29 +216,8 @@
 </script>
 
 <style lang="scss">
-    $colors: (
-        Salmon: Salmon,
-        PaleVioletRed: PaleVioletRed,
-        Tomato: Tomato,
-        Khaki: Khaki,
-        DarkKhaki: DarkKhaki,
-        Plum: Plum,
-        LightGreen: LightGreen,
-        MediumAquamarine: MediumAquamarine,
-        LightSteelBlue: LightSteelBlue,
-        DarkSlateGray: DarkSlateGray
-    );
+    @import "./assets/_variables.scss";
 
-    :root {
-        --topo: BlanchmagentaedAlmond;
-
-        @each $name, $color in $colors {
-            --color--#{$name}: #{$color};
-        }
-    }
-</style>
-
-<style lang="scss">
     $border: 2px solid rgba($color: white, $alpha: 0.35);
     $size1: 6px;
     $size2: 12px;
@@ -247,24 +226,23 @@
     $size5: 48px;
     $backgroundColor: #27292d;
     $textColor: white;
-    $primaryColor: var(--topo);
+    $primaryColor: lightgrey;
     $secondTextColor: #1f2023;
 
     #toDoArea {
         width: 50%;
         padding: 10px;
-        background-color: $castoro;
     }
     #categoriesArea {
         width: 50%;
         padding: 10px;
     }
-    #app {
-        ul > li {
-
+    .toDoList > li {
+        @each $key, $name in $colors {
+            &.#{$key} { background-color: #{$name}; }
         }
-      
-    }
+    } 
+    
     body {
         margin: 0;
         padding: 0;

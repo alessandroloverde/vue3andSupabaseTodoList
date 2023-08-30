@@ -1,0 +1,26 @@
+/** 
+* * User can add any custom colors into the $colors variable. The color must be taken form HTML5 Color Names List 
+*/
+
+$colors: (
+    Salmon: salmon,
+    PaleVioletRed: palevioletred,
+    Tomato: tomato,
+    Khaki: khaki,
+    DarkKhaki: darkkhaki,
+    Plum: plum,
+    LightGreen: lightgreen,
+    MediumAquamarine: mediumaquamarine,
+    LightSteelBlue: lightsteelblue,
+    DarkSlateGray: darkslategray,
+    Magenta: magenta,
+    Burlywood: burlywood
+);
+
+:root {
+    --topo: ghostwhite;
+
+    @each $name, $color in $colors {
+        --color--#{$name}: #{$color};
+    }
+}
