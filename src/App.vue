@@ -37,11 +37,11 @@
         <h2>Categories List</h2>
         <p>lunghezza: {{categories.length}}</p>
         <ul class="categoryList">
-            <li v-for="(category, index) in categories">
+            <li v-for="(category, index) in categories" :class="categories[index].color">
                 <span>{{category.name}}</span>
                 <select :id="`volpe-${index}`" @change="assignColor(category)" v-model="category.color">
-                    <option>Assign a category</option>
-                    <option>Remove category</option>
+                    <option>Assign a color</option>
+                    <option>Remove color</option>
                     <option v-for="color in colors()">{{color}}</option>
                 </select>
                 <button @click="removeItem('categories', index)">Remove</button>
@@ -229,6 +229,13 @@
     $primaryColor: lightgrey;
     $secondTextColor: #1f2023;
 
+    #app {
+        width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 20px;
+        display: flex;
+    }
     #toDoArea {
         width: 50%;
         padding: 10px;
@@ -237,106 +244,114 @@
         width: 50%;
         padding: 10px;
     }
-    .toDoList > li {
-        @each $key, $name in $colors {
-            &.#{$key} { background-color: #{$name}; }
-        }
-    } 
+
+
     
     body {
         margin: 0;
         padding: 0;
         font-family: Avenir, Helvetica, Arial, sans-serif;
-        -moz-osx-font-smoothing: grayscale;
-         -webkit-font-smoothing: antialiased;
         background-color: $backgroundColor;
         color: $textColor;
+    }
+    h1 {
+        font-weight: bold;
+        font-size: 28px;
+        text-align: center;
+        color: var(--topo);
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        
+        label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        input,
+        button {
+            height: $size5;
+            box-shadow: none;
+            outline: none;
+            padding-left: $size2;
+            padding-right: $size2;
+            border-radius: $size1;
+            font-size: 18px;
+            margin-top: $size1;
+            margin-bottom: $size2;
+        }
+        input {
+            background-color: transparent;
+            border: $border;
+            color: inherit;
+        }
+    }
+    button {
+        cursor: pointer;
+        background-color: $primaryColor;
+        border: 1px solid $primaryColor;
+        color: $secondTextColor;
+        font-weight: bold;
+        outline: none;
+        border-radius: $size1;
+    }
+    h2 {
+        font-size: 22px;
+        border-bottom: $border;
+        padding-bottom: $size1;
+    }
+    ul {
+        padding: 10px;
 
-        #app {
-            width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 20px;
+        li {
             display: flex;
-
-
-            h1 {
-                font-weight: bold;
-                font-size: 28px;
-                text-align: center;
-                color: var(--topo);
-            }
-            form {
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-                label {
-                    font-size: 14px;
-                    font-weight: bold;
-                }
-                input,
-                button {
-                    height: $size5;
-                    box-shadow: none;
-                    outline: none;
-                    padding-left: $size2;
-                    padding-right: $size2;
-                    border-radius: $size1;
-                    font-size: 18px;
-                    margin-top: $size1;
-                    margin-bottom: $size2;
-                }
-                input {
-                    background-color: transparent;
-                    border: $border;
-                    color: inherit;
-                }
+            justify-content: space-between;
+            align-items: center;
+            border: $border;
+            padding: $size2 $size4;
+            border-radius: $size1;
+            margin-bottom: $size2;
+            
+            span { cursor: pointer; }
+            .done {
+                text-decoration: line-through;
+                color: red;
             }
             button {
-                cursor: pointer;
-                background-color: $primaryColor;
-                border: 1px solid $primaryColor;
-                color: $secondTextColor;
-                font-weight: bold;
-                outline: none;
-                border-radius: $size1;
-            }
-            h2 {
-                font-size: 22px;
-                border-bottom: $border;
-                padding-bottom: $size1;
-            }
-            ul {
-                padding: 10px;
-
-                li {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    border: $border;
-                    padding: $size2 $size4;
-                    border-radius: $size1;
-                    margin-bottom: $size2;
-                    
-                    span {
-                        cursor: pointer;
-                    }
-                    .done {
-                        text-decoration: line-through;
-                        color: red;
-                    }
-                    button {
-                        font-size: $size2;
-                        padding: $size1;
-                    }
-                }
-            }
-            h4 {
-                text-align: center;
-                opacity: 0.5;
-                margin: 0;
+                font-size: $size2;
+                padding: $size1;
             }
         }
     }
+    h4 {
+        text-align: center;
+        opacity: 0.5;
+        margin: 0;
+    }    
+        .toDoList > li {
+        @each $key, $name in $colors {
+            &.#{$key} { 
+                background-color: #{$name};
+                border-color: darken($name, 20%);
+                
+                span { color: darken($name, 40%)}
+            }
+        }
+    }
+    .categoryList > li {
+        @each $key, $name in $colors {
+            &.#{$key} { 
+                border-color: #{$name};
+
+                button { 
+                    background-color: #{$name};
+                    border-color: darken($name, 20%);
+                    color: darken($name, 40%);
+                }
+                span { color: #{$name}}
+            }
+        }
+    } 
 </style>
  
