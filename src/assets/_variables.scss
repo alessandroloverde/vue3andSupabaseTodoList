@@ -1,5 +1,6 @@
 /** 
-* * User can add any custom colors into the $colors variable. The color must be taken form HTML5 Color Names List 
+* * User can add any custom colors into the $colors variable. The color must be taken form HTML5 Color Names List.
+* * The color must be in SCSS map format, with a key as left-assigment and a correspondent HTML color name as right-assigment.
 */
 
 $colors: (
@@ -12,7 +13,7 @@ $colors: (
     LightGreen: lightgreen,
     MediumAquamarine: mediumaquamarine,
     LightSteelBlue: lightsteelblue,
-    DarkSlateGray: darkslategray,
+    SteelBlue: steelblue,
     Magenta: magenta,
     Burlywood: burlywood
 );

@@ -245,7 +245,6 @@
         padding: 10px;
     }
 
-
     
     body {
         margin: 0;
@@ -313,7 +312,7 @@
             border-radius: $size1;
             margin-bottom: $size2;
             
-            span { cursor: pointer; }
+            span { cursor: pointer }
             .done {
                 text-decoration: line-through;
                 color: red;
@@ -329,13 +328,19 @@
         opacity: 0.5;
         margin: 0;
     }    
-        .toDoList > li {
+    .toDoList > li {
+        background-color: whitesmoke;
+
         @each $key, $name in $colors {
             &.#{$key} { 
                 background-color: #{$name};
                 border-color: darken($name, 20%);
-                
-                span { color: darken($name, 40%)}
+
+                button { 
+                    border-color: darken($name, 20%);
+                    color: darken($name, 50%);
+                }
+                span { color: darken($name, 40%) }
             }
         }
     }
@@ -347,9 +352,9 @@
                 button { 
                     background-color: #{$name};
                     border-color: darken($name, 20%);
-                    color: darken($name, 40%);
+                    color: darken($name, 50%);
                 }
-                span { color: #{$name}}
+                span { color: #{$name} }
             }
         }
     } 
