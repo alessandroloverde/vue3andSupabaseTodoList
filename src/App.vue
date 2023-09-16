@@ -1,4 +1,5 @@
 <template>
+    <div></div>
     <div id="toDoArea">
         <h1>ToDo Area</h1>
         <form @submit.prevent="addTodo()">
@@ -22,6 +23,7 @@
                 </select>
                 <span>{{todo.category}}</span>
                 <button @click="removeItem('todos', index)">Remove</button>
+                <button @click="S_saveData()">Save</button>
             </li>
         </ul>
         <h4 v-if="todos.length === 0">Empty list.</h4>
@@ -51,12 +53,16 @@
 </template>
 
 <script>
-    import { ref } from 'vue';
+    import { ref, onMounted } from 'vue';
     import { computed } from 'vue';
+
+    import { createClient } from '@supabase/supabase-js';
 
     export default {
         name: 'App',
         setup () {
+            const supabase = createClient('https://fsgwoyxsgndqfwratjco.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzZ3dveXhzZ25kcWZ3cmF0amNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODk0NDE2MDYsImV4cCI6MjAwNTAxNzYwNn0.DLMt0QG2OJ03CrfjGkosjNPYsh8DGS6jaeelxjvNZ0Y');
+
             const newCategory = ref('');
             const newTodo = ref('');
             const assignedCategory = ref('');
@@ -68,8 +74,6 @@
             const todos = ref(todosData);
             const categories = ref(categoriesData);
 
-            //const colori = ['Salmon', 'PaleVioletRed', 'Tomato', 'Khaki', 'DarkKhaki', 'Plum', 'LightGreen', 'MediumAquamarine', 'LightSteelBlue']
-
             const colors = () => {
                 const r = document.querySelector(':root');
                 const rs = getComputedStyle(r);
@@ -80,7 +84,8 @@
                 return result.map(el => el.replace(prefix, ''))
             }
 
-            console.log(colors())
+            //console.log(getComputedStyle(document.querySelector(':root')).length)
+            console.log(colors());
 
             let todo_eseguiti = computed(() => {
                 return todos.value.filter(item => item.done).length
@@ -192,7 +197,50 @@
                 localStorage.setItem(type, storageData)
             }
             
+            /**
+             * * Supabase - fetch
+             */
+            const S_tasks = ref([])
+
+            async function S_fetchData() {
+                const { data } = await supabase.from('tasks').select()
+
+                S_tasks.value = data
+
+                console.log(S_tasks)
+            }
+
+            /**
+             * * Supabase - save
+             */
+            async function S_saveData() {
+                const { data, error } = await supabase.from('tasks').insert([
+                    { content: 'miao!' },
+                ]).select()
+
+                await S_fetchData();
+            }
+
+            /**
+             * * Supabase - remove
+             */
+            async function S_deleteData(S_id) {
+                const { data, error } = await supabase.from('tasks').delete().eq('id', S_id)
+
+                await S_fetchData();
+            }
+
+
+
+
+
+            onMounted(() => {
+                //S_fetchData();
+            })
+            
             return {
+                S_tasks,
+                S_saveData,
                 todos,
                 categories,
                 newTodo,
