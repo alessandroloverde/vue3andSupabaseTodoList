@@ -11,7 +11,7 @@
         <p>lunghezza: {{todos.length}}</p>
         <p>to-do eseguiti reac: {{todo_eseguiti}}</p>
         <ul class="toDoList">
-            <li v-for="(todo, index) in todos" :key="index" :class="[
+            <li v-for="(todo, index) in S_tasks" :key="index" :class="[
                 'category-' + todo.category,
                 computedColor(todo.category,todo)
             ]">
@@ -22,7 +22,7 @@
                     <option v-for="category in categories">{{category.name}}</option>
                 </select>
                 <span>{{todo.category}}</span>
-                <button @click="removeItem('todos', index)">Remove</button>
+                <button @click="S_deleteData(todo.id)">Remove</button>
                 <button @click="S_saveData()">Save</button>
             </li>
         </ul>
@@ -62,6 +62,9 @@
         name: 'App',
         setup () {
             const supabase = createClient('https://fsgwoyxsgndqfwratjco.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzZ3dveXhzZ25kcWZ3cmF0amNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODk0NDE2MDYsImV4cCI6MjAwNTAxNzYwNn0.DLMt0QG2OJ03CrfjGkosjNPYsh8DGS6jaeelxjvNZ0Y');
+
+            const S_tasks = ref([])
+
 
             const newCategory = ref('');
             const newTodo = ref('');
@@ -200,7 +203,6 @@
             /**
              * * Supabase - fetch
              */
-            const S_tasks = ref([])
 
             async function S_fetchData() {
                 const { data } = await supabase.from('tasks').select()
@@ -225,8 +227,8 @@
              * * Supabase - remove
              */
             async function S_deleteData(S_id) {
-                const { data, error } = await supabase.from('tasks').delete().eq('id', S_id)
-
+                const { error } = await supabase.from('tasks').delete().eq('id', S_id)
+                
                 await S_fetchData();
             }
 
@@ -235,12 +237,13 @@
 
 
             onMounted(() => {
-                //S_fetchData();
+                S_fetchData();
             })
             
             return {
                 S_tasks,
                 S_saveData,
+                S_deleteData,
                 todos,
                 categories,
                 newTodo,
@@ -377,8 +380,9 @@
         margin: 0;
     }    
     .toDoList > li {
-        background-color: whitesmoke;
+        background-color: lightgoldenrodyellow;
 
+        span { color: black; } // ** temp
         @each $key, $name in $colors {
             &.#{$key} { 
                 background-color: #{$name};
@@ -388,7 +392,9 @@
                     border-color: darken($name, 20%);
                     color: darken($name, 50%);
                 }
-                span { color: darken($name, 40%) }
+                span { 
+                    color: darken($name, 40%) 
+                }
             }
         }
     }
