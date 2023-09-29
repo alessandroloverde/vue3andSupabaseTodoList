@@ -16,14 +16,13 @@
                 computedColor(todo.category,todo)
             ]">
                 <span :class="{ done: todo.done }" @click="doneTodo(todo)">{{ todo.content }}</span>
-                <select :id="`castoro-${index}`" @change="assignCategory(todo)" v-model="todo.category ">
+                <select :id="`castoro-${index}`" @change="S_updateCategory(todo.id, 'tasks', todo.category)" v-model="todo.category ">
                     <option>Assign a category</option>
                     <option>Remove category</option>
-                    <option v-for="category in categories">{{category.name}}</option>
+                    <option v-for="category in S_categories">{{category.name}}</option>
                 </select>
                 <span>{{todo.category}}</span>
                 <button @click="S_deleteData(todo.id)">Remove</button>
-                <button @click="S_saveData()">Save</button>
             </li>
         </ul>
         <h4 v-if="todos.length === 0">Empty list.</h4>
@@ -31,17 +30,17 @@
 
     <div id="categoriesArea">
         <h1>Categories Area</h1>
-        <form @submit.prevent="addCategory()">
+        <form @submit.prevent="S_saveCategory()">
             <label>New category</label>
             <input v-model="newCategory" name="newCategory" autocomplete="off">
             <button>Add category</button>
         </form>
         <h2>Categories List</h2>
-        <p>lunghezza: {{categories.length}}</p>
+        <p>lunghezza: {{S_categories.length}}</p>
         <ul class="categoryList">
-            <li v-for="(category, index) in categories" :class="categories[index].color">
+            <li v-for="(category, index) in S_categories" :class="S_categories[index].color">
                 <span>{{category.name}}</span>
-                <select :id="`volpe-${index}`" @change="assignColor(category)" v-model="category.color">
+                <select :id="`volpe-${index}`" @change="S_assignColor(category.color, category.id)" v-model="category.color">
                     <option>Assign a color</option>
                     <option>Remove color</option>
                     <option v-for="color in colors()">{{color}}</option>
@@ -63,8 +62,9 @@
         setup () {
             const supabase = createClient('https://fsgwoyxsgndqfwratjco.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzZ3dveXhzZ25kcWZ3cmF0amNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODk0NDE2MDYsImV4cCI6MjAwNTAxNzYwNn0.DLMt0QG2OJ03CrfjGkosjNPYsh8DGS6jaeelxjvNZ0Y');
 
-            const S_tasks = ref([])
-
+            const S_tasks = ref([]);
+            const S_categories = ref([]);
+          
 
             const newCategory = ref('');
             const newTodo = ref('');
@@ -95,22 +95,27 @@
             })
 
             const computedColor = (category, todo) => {
-                const foundCategory = categories.value.find(category => category.name === todo.category);
+                const foundCategory = S_categories.value.find(category => category.name === todo.category);
 
                 return foundCategory ? foundCategory.color : undefined;
             };
 
 
-            function addTodo () {
-                if (newTodo.value) {
-                    todos.value.push({
-                        done: false,
-                        content: newTodo.value,
-                        category: ''
-                    });
-                    newTodo.value = '';
+            function addTodo() {
+                let today = new Date();
+
+                const newTodoData = {
+                    done: false,
+                    content: newTodo.value,
+                    category: null,
+                    /* created_at: today.setHours(0, 0, 0, 0) */
                 }
-                saveData();
+                
+                if (newTodo.value) {
+                    S_tasks.value.push(newTodoData);
+                    S_tasks.value = '';
+                }
+                S_saveData('tasks', newTodoData);
             }
 
             function addCategory() {
@@ -132,7 +137,6 @@
             }
 
             function removeTodo (index) {
-                console.log(todos.value)
                 todos.value.splice(index, 1);
 
                 saveData()
@@ -203,24 +207,81 @@
             /**
              * * Supabase - fetch
              */
+            async function S_fetchData(S_table) {
+                const { data } = await supabase.from(S_table).select()
 
-            async function S_fetchData() {
-                const { data } = await supabase.from('tasks').select()
-
-                S_tasks.value = data
-
-                console.log(S_tasks)
+                if (S_table === "tasks") {
+                    S_tasks.value = data
+                } else if (S_table === "categories") {
+                    S_categories.value = data
+                }
             }
 
             /**
              * * Supabase - save
              */
-            async function S_saveData() {
-                const { data, error } = await supabase.from('tasks').insert([
-                    { content: 'miao!' },
+            async function S_saveData(S_table, S_content) {
+                const { data, error } = await supabase.from(S_table).insert([
+                    { 
+                        completed: S_content.done,
+                        content: S_content.content,
+                        //category: S_content.category,
+                        //created_at: S_content.created_at
+                    },
                 ]).select()
 
-                await S_fetchData();
+                errorHandling(error)
+
+                await S_fetchData(S_table);
+            }
+
+            /**
+             * * Supabase - save category
+             */
+            async function S_saveCategory() {
+                const newCategoryData = {
+                    name: newCategory.value,
+                }
+
+                const { data, error } = await supabase.from('categories').insert(newCategoryData).select()
+
+                if (newCategory.value) {
+                    S_categories.value.push({
+                        name: newCategory.value,
+                        color: ''
+                    });
+                    newCategory.value = '';
+                }
+
+                errorHandling(error)
+            }
+
+            /**
+             * * Supabase - assign a color to a category
+             */
+            const S_assignColor = (color, id) => {
+                var r = document.querySelector(':root');
+                var rs = getComputedStyle(r);
+
+                color = event.target.value
+
+                /* r.style.setProperty('--topo', category.color) */
+
+                S_updateColorCategory(color, id)
+            }
+
+            /**
+             * * Supabase - update color category
+             */
+            async function S_updateColorCategory(S_content, S_id) { 
+                const { error } = await supabase.from("categories").update({ color: S_content }).eq('id', S_id)
+            }
+
+            /**
+             * * Supabase - update category in todo
+             */
+            async function S_updateCategory(S_id, S_table, S_content) { 
+                const { error } = await supabase.from(S_table).update({ category: S_content }).eq('id', S_id)
             }
 
             /**
@@ -229,21 +290,35 @@
             async function S_deleteData(S_id) {
                 const { error } = await supabase.from('tasks').delete().eq('id', S_id)
                 
-                await S_fetchData();
+                await S_fetchData('tasks');
+            }
+
+            /**
+             * * Supabase - error handling function
+             */
+            let errorHandling = error => {
+                if(error) {
+                    alert(error.message)
+                    console.log(error.code)
+                }
             }
 
 
-
-
-
             onMounted(() => {
-                S_fetchData();
+                S_fetchData('tasks');
+                S_fetchData('categories');
             })
             
             return {
                 S_tasks,
+                S_categories,
+                S_updateCategory,
+                S_updateColorCategory,
                 S_saveData,
                 S_deleteData,
+                S_saveCategory,
+                S_assignColor,
+                errorHandling,
                 todos,
                 categories,
                 newTodo,
