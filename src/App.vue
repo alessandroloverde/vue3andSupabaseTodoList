@@ -15,7 +15,7 @@
                 'category-' + todo.category,
                 computedColor(todo.category,todo)
             ]">
-                <span :class="{ done: todo.done }" @click="doneTodo(todo)">{{ todo.content }}</span>
+                <span :class="{ done: todo.done }" @click="S_doneTodo(todo.id, todo)">{{ todo.content }}</span>
                 <select :id="`castoro-${index}`" @change="S_updateCategory(todo.id, 'tasks', todo.category)" v-model="todo.category ">
                     <option>Assign a category</option>
                     <option>Remove category</option>
@@ -303,6 +303,15 @@
                 }
             }
 
+            /**
+             * * Supabase – set a to todo to done
+             */
+            async function S_doneTodo (S_id, todo) {
+                todo.done = !todo.done;
+
+                const { error } = await supabase.from("tasks").update({ completed: todo.done }).eq('id', S_id)
+            }
+
 
             onMounted(() => {
                 S_fetchData('tasks');
@@ -318,6 +327,7 @@
                 S_deleteData,
                 S_saveCategory,
                 S_assignColor,
+                S_doneTodo,
                 errorHandling,
                 todos,
                 categories,
