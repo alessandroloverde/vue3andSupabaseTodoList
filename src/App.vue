@@ -8,7 +8,7 @@
             <button>Add ToDo</button>
         </form>
         <h2>ToDo List</h2>
-        <p>lunghezza: {{todos.length}}</p>
+        <p>lunghezza: {{S_tasks.length}}</p>
         <p>to-do eseguiti reac: {{todo_eseguiti}}</p>
         <ul class="toDoList">
             <li v-for="(todo, index) in S_tasks" :key="index" :class="[
@@ -45,7 +45,7 @@
                     <option>Remove color</option>
                     <option v-for="color in colors()">{{color}}</option>
                 </select>
-                <button @click="removeItem('categories', index)">Remove</button>
+                <button @click="S_removeItem('categories', category.id)">Remove</button>
             </li>
         </ul>
     </div>
@@ -91,7 +91,7 @@
             console.log(colors());
 
             let todo_eseguiti = computed(() => {
-                return todos.value.filter(item => item.done).length
+                return S_tasks.value.filter(item => item.done).length
             })
 
             const computedColor = (category, todo) => {
@@ -113,7 +113,7 @@
                 
                 if (newTodo.value) {
                     S_tasks.value.push(newTodoData);
-                    S_tasks.value = '';
+                    newTodo.value = '';
                 }
                 S_saveData('tasks', newTodoData);
             }
@@ -194,6 +194,18 @@
                 saveData(reference)
             }
 
+
+            /**
+             * * Supabase – remove task or category
+             */
+            async function S_removeItem(S_table, S_id) {
+                let reference = S_table === "tasks" ? ref(S_tasks) : ref(S_categories)
+
+                const { error } = await supabase.from(S_table).delete().eq('id', S_id)
+
+                reference.value.splice(reference.value.findIndex(el => el.id === S_id), 1)
+            }
+
             /**
              * * Save data function. Param passed is a string that is avaluated as a variable.
              */
@@ -254,6 +266,8 @@
                 }
 
                 errorHandling(error)
+
+                await S_fetchData('categories');
             }
 
             /**
@@ -328,6 +342,7 @@
                 S_saveCategory,
                 S_assignColor,
                 S_doneTodo,
+                S_removeItem,
                 errorHandling,
                 todos,
                 categories,
