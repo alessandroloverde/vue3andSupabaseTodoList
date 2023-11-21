@@ -6,6 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "type-check": "tsc --noEmit",
+    "vue-typecheck": "vuedx-typecheck ./",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
@@ -15,11 +17,19 @@
   },
   "devDependencies": {
     "@nuxtjs/style-resources": "^1.2.1",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
     "@vitejs/plugin-vue": "^4.3.4",
+    "@vue/tsconfig": "^0.4.0",
+    "@vuedx/typecheck": "^0.7.6",
+    "esbuild": "^0.19.5",
+    "esbuild-loader": "^4.0.2",
     "eslint": "^8.39.0",
     "eslint-plugin-vue": "^9.11.0",
     "sass": "^1.66.1",
     "sass-loader": "^10.4.1",
-    "vite": "^4.3.9"
+    "typescript": "^5.2.2",
+    "vite": "^4.3.9",
+    "vite-plugin-checker": "^0.6.2"
   }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div></div>
+    <!--  <div></div> -->
     <div id="toDoArea">
         <h1>ToDo Area</h1>
         <form @submit.prevent="addTodo()">
@@ -8,362 +8,206 @@
             <button>Add ToDo</button>
         </form>
         <h2>ToDo List</h2>
-        <p>lunghezza: {{S_tasks.length}}</p>
+        <p>lunghezza: {{tasks ? tasks.length : 0}}</p>
         <p>to-do eseguiti reac: {{todo_eseguiti}}</p>
         <ul class="toDoList">
-            <li v-for="(todo, index) in S_tasks" :key="index" :class="[
+            <li v-for="(todo, index) in tasks" :key="index" :class="[
                 'category-' + todo.category,
-                computedColor(todo.category,todo)
+                computedColor(todo),
+                { completed: todo.completed }
             ]">
-                <span :class="{ done: todo.done }" @click="S_doneTodo(todo.id, todo)">{{ todo.content }}</span>
-                <select :id="`castoro-${index}`" @change="S_updateCategory(todo.id, 'tasks', todo.category)" v-model="todo.category ">
+                <span :class="{ completed: todo.completed }" @click="S_doneTodo(todo.id, todo)">{{ todo.content }}</span>
+                <select 
+                    :id="`castoro-${index}`" 
+                    @change="S_updateCategory(todo.id, 'tasks', todo.category)" 
+                    v-model="todo.category"
+                >
                     <option>Assign a category</option>
                     <option>Remove category</option>
-                    <option v-for="category in S_categories">{{category.name}}</option>
+                    <option v-for="category in categories" :key=category.id>{{category.name}}</option>
                 </select>
                 <span>{{todo.category}}</span>
-                <button @click="S_deleteData(todo.id)">Remove</button>
+                <button @click="removeItem('tasks', todo.id, tasks, categories)">Remove</button>
             </li>
         </ul>
-        <h4 v-if="todos.length === 0">Empty list.</h4>
+        <h4 v-if="tasks!.length === 0 ">Empty list.</h4>
     </div>
 
     <div id="categoriesArea">
         <h1>Categories Area</h1>
-        <form @submit.prevent="S_saveCategory()">
+        <form @submit.prevent="onSaveCat(categoryName)">
             <label>New category</label>
-            <input v-model="newCategory" name="newCategory" autocomplete="off">
+            <input v-model="categoryName" name="categoryName" autocomplete="off">
             <button>Add category</button>
         </form>
         <h2>Categories List</h2>
-        <p>lunghezza: {{S_categories.length}}</p>
+        <p>lunghezza: {{categories ? categories.length : 0}}</p>
         <ul class="categoryList">
-            <li v-for="(category, index) in S_categories" :class="S_categories[index].color">
+            <li v-for="(category, index) in categories" :key=category.id :class="categories ? categories[index].color : ''">
                 <span>{{category.name}}</span>
-                <select :id="`volpe-${index}`" @change="S_assignColor(category.color, category.id)" v-model="category.color">
+                <select :id="`volpe-${index}`" @change="S_assignColor($event, category.color, category.id)" v-model="category.color">
                     <option>Assign a color</option>
                     <option>Remove color</option>
-                    <option v-for="color in colors()">{{color}}</option>
+                    <option v-for="color, index in colors()" :key=index>{{color}}</option>
                 </select>
-                <button @click="S_removeItem('categories', category.id)">Remove</button>
+                <button @click="removeItem('categories', category.id, tasks, categories)">Remove</button>
             </li>
         </ul>
     </div>
 </template>
 
-<script>
-    import { ref, onMounted } from 'vue';
+<script setup lang="ts">
+    import { ref, onMounted, watch, watchEffect} from 'vue';
     import { computed } from 'vue';
-
     import { createClient } from '@supabase/supabase-js';
+    import { fetchTasks, fetchCategories, removeItem, saveCategory } from './api/apiSupabase';
+    import type { Ref } from 'vue';
+    import type { TASK, CAT } from './api/apiSupabase';
+   
+    const supabase = createClient(import.meta.env.VITE_SUPABASE_API_URL, import.meta.env.VITE_SUPABASE_API_KEY);
 
-    export default {
-        name: 'App',
-        setup () {
-            const supabase = createClient('https://fsgwoyxsgndqfwratjco.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzZ3dveXhzZ25kcWZ3cmF0amNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODk0NDE2MDYsImV4cCI6MjAwNTAxNzYwNn0.DLMt0QG2OJ03CrfjGkosjNPYsh8DGS6jaeelxjvNZ0Y');
+    const tasks: Ref<TASK[] | null> = ref([]);
+    const categories: Ref<CAT[] | null> = ref([]);
+    
+    const categoryName: Ref<CAT["name"] | null> = ref(null);
+    const newTodo = ref('');
 
-            const S_tasks = ref([]);
-            const S_categories = ref([]);
-          
+    const onSaveCat = async (name: CAT["name"] | null) => {
+        const data = await saveCategory(name)
 
-            const newCategory = ref('');
-            const newTodo = ref('');
-            const assignedCategory = ref('');
-            const assignedColor = ref('');
-
-            const todosData = JSON.parse(localStorage.getItem('todos')) || [];
-            const categoriesData = JSON.parse(localStorage.getItem('categories')) || [];
-
-            const todos = ref(todosData);
-            const categories = ref(categoriesData);
-
-            const colors = () => {
-                const r = document.querySelector(':root');
-                const rs = getComputedStyle(r);
-                const prefix = "--color--";
-
-                const result = Object.values(rs).filter(el => el.startsWith(prefix))
-
-                return result.map(el => el.replace(prefix, ''))
-            }
-
-            //console.log(getComputedStyle(document.querySelector(':root')).length)
-            console.log(colors());
-
-            let todo_eseguiti = computed(() => {
-                return S_tasks.value.filter(item => item.done).length
-            })
-
-            const computedColor = (category, todo) => {
-                const foundCategory = S_categories.value.find(category => category.name === todo.category);
-
-                return foundCategory ? foundCategory.color : undefined;
-            };
-
-
-            function addTodo() {
-                let today = new Date();
-
-                const newTodoData = {
-                    done: false,
-                    content: newTodo.value,
-                    category: null,
-                    /* created_at: today.setHours(0, 0, 0, 0) */
-                }
-                
-                if (newTodo.value) {
-                    S_tasks.value.push(newTodoData);
-                    newTodo.value = '';
-                }
-                S_saveData('tasks', newTodoData);
-            }
-
-            function addCategory() {
-                if (newCategory.value) {
-                    categories.value.push({
-                        name: newCategory.value,
-                        color: ''
-                    });
-                    newCategory.value = '';
-                }
-
-                saveData('categories')
-            }
-
-            function doneTodo (todo) {
-                todo.done = !todo.done;
-
-                saveData()
-            }
-
-            function removeTodo (index) {
-                todos.value.splice(index, 1);
-
-                saveData()
-            }
-
-            /**
-             * * Assign a color to a category
-             */
-            const assignColor = (category) => {
-                var r = document.querySelector(':root');
-                var rs = getComputedStyle(r);
-
-                category.color = event.target.value
-
-                /* r.style.setProperty('--topo', category.color) */
-
-                saveData('categories')
-            }
-
-
-            /**
-             * * Assign a category to a to-do. 
-             */
-            const assignCategory = (todo) => {
-                const inputValue = event.target.value;
-
-                if(inputValue === "Remove category") {
-                    todo.category = ''
-                } else {
-                    todo.category = inputValue
-                }
-                
-                saveData()
-            }
-
-            /**
-             * * Remove item (category or todo). Param passed is a string that is avaluated as a variable.
-             * * When a category, it will be removed form the todo, if assigned.
-             */
-            const removeItem = (itemType, index) => {
-                const reference = ref(itemType).value
-
-                if(itemType === "categories") {
-                    todos.value.forEach(element => {
-                        element.category === eval(itemType).value[index] ? element.category = '' : element.category = element.category
-                    });
-                    
-                    eval(itemType).value.splice(index, 1)
-
-                    saveData()
-                } else {
-                    eval(itemType).value.splice(index, 1)
-                }
-
-                saveData(reference)
-            }
-
-
-            /**
-             * * Supabase – remove task or category
-             */
-            async function S_removeItem(S_table, S_id) {
-                let reference = S_table === "tasks" ? ref(S_tasks) : ref(S_categories)
-
-                const { error } = await supabase.from(S_table).delete().eq('id', S_id)
-
-                reference.value.splice(reference.value.findIndex(el => el.id === S_id), 1)
-            }
-
-            /**
-             * * Save data function. Param passed is a string that is avaluated as a variable.
-             */
-            const saveData = (type='todos') => {
-                const reference = ref(type).value;
-                const storageData = JSON.stringify(eval(reference).value);
-
-                localStorage.setItem(type, storageData)
-            }
-            
-            /**
-             * * Supabase - fetch
-             */
-            async function S_fetchData(S_table) {
-                const { data } = await supabase.from(S_table).select()
-
-                if (S_table === "tasks") {
-                    S_tasks.value = data
-                } else if (S_table === "categories") {
-                    S_categories.value = data
-                }
-            }
-
-            /**
-             * * Supabase - save
-             */
-            async function S_saveData(S_table, S_content) {
-                const { data, error } = await supabase.from(S_table).insert([
-                    { 
-                        completed: S_content.done,
-                        content: S_content.content,
-                        //category: S_content.category,
-                        //created_at: S_content.created_at
-                    },
-                ]).select()
-
-                errorHandling(error)
-
-                await S_fetchData(S_table);
-            }
-
-            /**
-             * * Supabase - save category
-             */
-            async function S_saveCategory() {
-                const newCategoryData = {
-                    name: newCategory.value,
-                }
-
-                const { data, error } = await supabase.from('categories').insert(newCategoryData).select()
-
-                if (newCategory.value) {
-                    S_categories.value.push({
-                        name: newCategory.value,
-                        color: ''
-                    });
-                    newCategory.value = '';
-                }
-
-                errorHandling(error)
-
-                await S_fetchData('categories');
-            }
-
-            /**
-             * * Supabase - assign a color to a category
-             */
-            const S_assignColor = (color, id) => {
-                var r = document.querySelector(':root');
-                var rs = getComputedStyle(r);
-
-                color = event.target.value
-
-                /* r.style.setProperty('--topo', category.color) */
-
-                S_updateColorCategory(color, id)
-            }
-
-            /**
-             * * Supabase - update color category
-             */
-            async function S_updateColorCategory(S_content, S_id) { 
-                const { error } = await supabase.from("categories").update({ color: S_content }).eq('id', S_id)
-            }
-
-            /**
-             * * Supabase - update category in todo
-             */
-            async function S_updateCategory(S_id, S_table, S_content) { 
-                const { error } = await supabase.from(S_table).update({ category: S_content }).eq('id', S_id)
-            }
-
-            /**
-             * * Supabase - remove
-             */
-            async function S_deleteData(S_id) {
-                const { error } = await supabase.from('tasks').delete().eq('id', S_id)
-                
-                await S_fetchData('tasks');
-            }
-
-            /**
-             * * Supabase - error handling function
-             */
-            let errorHandling = error => {
-                if(error) {
-                    alert(error.message)
-                    console.log(error.code)
-                }
-            }
-
-            /**
-             * * Supabase – set a to todo to done
-             */
-            async function S_doneTodo (S_id, todo) {
-                todo.done = !todo.done;
-
-                const { error } = await supabase.from("tasks").update({ completed: todo.done }).eq('id', S_id)
-            }
-
-
-            onMounted(() => {
-                S_fetchData('tasks');
-                S_fetchData('categories');
-            })
-            
-            return {
-                S_tasks,
-                S_categories,
-                S_updateCategory,
-                S_updateColorCategory,
-                S_saveData,
-                S_deleteData,
-                S_saveCategory,
-                S_assignColor,
-                S_doneTodo,
-                S_removeItem,
-                errorHandling,
-                todos,
-                categories,
-                newTodo,
-                newCategory,
-                addTodo,
-                addCategory,
-                assignCategory,
-                doneTodo,
-                removeTodo,
-                removeItem,
-                saveData,
-                todo_eseguiti,
-                assignedCategory,
-                colors,
-                assignedColor,
-                assignColor,
-                computedColor
-            }
-        }
+        categories.value = data
     }
+
+    
+
+    /**
+     * ! Chrome does not load :root
+     */
+    const colors = () => {
+        const r = document.querySelector(':root'),
+                rs = r ? getComputedStyle(r) : [],
+                prefix = "--color--";
+
+        const result = Object.values(rs).filter(el => el.startsWith(prefix))
+
+        //console.log('r', r)
+        //console.log('rs', rs)
+
+        return result.map(el => el.replace(prefix, ''))
+    }
+
+    //console.log(colors());
+
+    let todo_eseguiti = computed(() => {
+        return tasks.value!.filter(item => item.completed).length
+    })
+
+    const computedColor = (todo: TASK) => {
+        const foundCategory = categories.value!.find(category => category.name === todo.category);
+
+        return foundCategory?.color
+    };
+
+    function addTodo() {
+        let today = new Date();
+
+        const newTodoData: TASK = {
+            id: 6666666666666,
+            completed: false,
+            content: newTodo.value,
+            created_at: null,
+            category: null,
+            user: null
+            /* created_at: today.setHours(0, 0, 0, 0) */
+        }
+        
+        if (newTodo.value) {
+            tasks.value?.push(newTodoData);
+            newTodo.value = '';
+        }
+        S_saveData('tasks', newTodoData);
+    }
+
+
+
+    /**
+     * * Supabase - save
+     */
+    async function S_saveData(S_table: string, S_content: TASK) {
+        const { error } = await supabase.from(S_table).insert([
+            { 
+                completed: false,
+                content: S_content.content,
+                //category: S_content.category,
+                //created_at: S_content.created_at
+            },
+        ]).select()
+
+        console.log('save content', S_content)
+
+        S_table ? "tasks" && await fetchTasks(tasks) : await fetchCategories()
+    }
+
+
+    /**
+     * * Supabase - assign a color to a category
+     */
+    const S_assignColor = ($event: Event, color: string|null, S_id: number) => {
+        color = ($event.target as HTMLInputElement).value
+
+        S_updateColorCategory(color, S_id)
+    }
+
+    /**
+     * * Supabase - update color category
+     */
+    async function S_updateColorCategory(S_content: string, S_id: number) { 
+        const { error } = await supabase.from("categories").update({ color: S_content }).eq('id', S_id)
+
+        return error
+    }
+
+    /**
+     * * Supabase - update category in todo
+     */
+    async function S_updateCategory(S_id: number, S_table: string, S_content: string|null) { 
+        await supabase.from(S_table).update({ category: S_content }).eq('id', S_id)
+    }
+
+
+    /**
+     * * Supabase: set a to todo to done
+     * ! Done sorting is not reactive on start
+     */
+    async function S_doneTodo (S_id: number, todo: TASK) {
+        todo.completed = !todo.completed;
+
+        await supabase.from("tasks").update({ completed: todo.completed }).eq('id', S_id)
+
+        console.log(tasks.value)
+
+        tasks.value!.sort((a, b) => {
+            const x = a.completed
+            const y = b.completed
+
+            if(x && y && x > y) { return 1 }
+            if(x && y && x < y) { return -1 }
+            return 0
+        })
+    }
+
+    /**
+     * ! Edit a ToDo still missing
+     */
+
+
+     onMounted(async () => {
+        const data = await fetchCategories();
+        categories.value = data
+        fetchTasks(tasks);
+    })
+                
+    
 </script>
 
 <style lang="scss">
@@ -464,9 +308,10 @@
             margin-bottom: $size2;
             
             span { cursor: pointer }
-            .done {
-                text-decoration: line-through;
-                color: red;
+            &.completed {
+                text-decoration-line: line-through;
+                text-decoration-color: gray;
+                opacity: 0.5;
             }
             button {
                 font-size: $size2;
@@ -483,6 +328,7 @@
         background-color: lightgoldenrodyellow;
 
         span { color: black; } // ** temp
+
         @each $key, $name in $colors {
             &.#{$key} { 
                 background-color: #{$name};
@@ -492,9 +338,7 @@
                     border-color: darken($name, 20%);
                     color: darken($name, 50%);
                 }
-                span { 
-                    color: darken($name, 40%) 
-                }
+                span { color: darken($name, 40%) }
             }
         }
     }
