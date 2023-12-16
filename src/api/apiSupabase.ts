@@ -1,5 +1,4 @@
 import { createClient, type PostgrestError } from '@supabase/supabase-js';
-import type { Ref } from 'vue';
 import type { Database } from '../types/supabase';
 
 const supabase = createClient(import.meta.env.VITE_SUPABASE_API_URL, import.meta.env.VITE_SUPABASE_API_KEY);
@@ -7,46 +6,29 @@ const supabase = createClient(import.meta.env.VITE_SUPABASE_API_URL, import.meta
 export type TASK = Database["public"]["Tables"]["tasks"]["Row"]
 export type CAT = Database["public"]["Tables"]["categories"]["Row"]
 
-// Save tasks
-// Delete tasks
-// Update tasks
-// Save categories
-// Delete categories
-// Update categories
-
 
 /**
- * * Fetch task or category
+ * * Fetching either tasks or category table.
+ * @param tableType => The type of table to fetch data from
+ * @returns 
  */
-export const fetchTasks = async (tasks: Ref<TASK[]|null>) => {
-    try { 
-        const { data, error }: { data: TASK[]|null, error: PostgrestError|null} = await supabase.from("tasks").select();
-
-        if (error) { 
-            console.log(error.message)
-
-            return
-        } else { tasks.value = data }     
-    }
-    catch (err) { 
-        console.error(err)
-     }
-    
-}
-export const fetchCategories = async () => {
+export const fetchTable = async (tableType: string) => {
     try {
-        const { data }: { data: CAT[]|null, error: PostgrestError|null } = await supabase.from("categories").select();
+        const {data} = await supabase.from(tableType).select();
+
         return data
     }
     catch(err) {
-        console.log(err)
-        return null
-    }   
+        console.error(err)
+    }
 }
 
-
 /**
- * * Remove task or category
+ * * Remove task or category.
+ * @param S_table       => The type of table to fetch data from
+ * @param S_id          => Table ID 
+ * @param tasks         => Data Object
+ * @param categories    => Data Object
  */
 export const removeItem = async (S_table: string , S_id: number, tasks: TASK[]|null, categories: CAT[]|null) => {
     const reference = S_table === "tasks" ? tasks : categories
@@ -54,19 +36,30 @@ export const removeItem = async (S_table: string , S_id: number, tasks: TASK[]|n
     await supabase.from(S_table).delete().eq('id', S_id)
 
     reference ? reference.splice(reference.findIndex(el => el.id === S_id), 1) : []
-
-    console.log(categories)
 }
-
 
 /**
- * * Save category
+ * * Changes the color of a category.
+ * TODO $event is there just for testing: to be removed
+ * @param colorClass    => The class that defines a color 
+ * @param S_id          => Table ID 
+ * @param $event        => Event target is the color's name
  */
-export const saveCategory = async (name: CAT["name"] | null) => {
-    await supabase.from('categories').insert({name}).select()
-
-    const data = await fetchCategories()
-
-    return data
+export const updateColor = async (colorClass: string, S_id: number, $event: Event) => {
+    try {
+        await supabase.from("categories").update({ color: colorClass }).eq('id', S_id)
+    }
+    catch(err) {
+        console.error(err)
+    }
 }
 
+/**
+ * * Changes the category of a task.
+ * @param S_table       => The type of table to fetch data from
+ * @param S_id          => Table ID 
+ * @param S_content     => Category name 
+ */
+export const updateCategory = async ( S_table: string, S_id: number, S_content: string|null) => { 
+    await supabase.from(S_table).update({ category: S_content }).eq('id', S_id)
+}

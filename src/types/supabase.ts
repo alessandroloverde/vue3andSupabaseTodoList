@@ -11,10 +11,10 @@ export interface Database {
     Tables: {
       categories: {
         Row: {
-          color: string | null
-          created_at: string
-          id: number
           name: string
+          id?: number
+          color?: string | null
+          created_at?: string
         }
         Insert: {
           color?: string | null
@@ -32,12 +32,12 @@ export interface Database {
       }
       tasks: {
         Row: {
-          category: string | null
+          name: string | null
+          id?: number
+          category?: string | null
           completed: boolean | null
-          content: string | null
-          created_at: string | null
-          id: number
-          user: string | null
+          user?: string | null
+          created_at?: string | null
         }
         Insert: {
           category?: string | null

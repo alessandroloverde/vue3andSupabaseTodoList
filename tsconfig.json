@@ -5,7 +5,7 @@
     "target": "esnext",
     "module": "esnext",
     "isolatedModules": true,
-    "strict": true,
+    "strict": false,
     "noImplicitThis": true,
     "importHelpers": true,
     "jsx": "preserve",

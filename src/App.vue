@@ -1,8 +1,9 @@
 <template>
-    <!--  <div></div> -->
+    <div></div>
+    <!-- Tasks Area-->
     <div id="toDoArea">
         <h1>ToDo Area</h1>
-        <form @submit.prevent="addTodo()">
+        <form @submit.prevent="addElement('tasks')">
             <label>New ToDo </label>
             <input v-model="newTodo" name="newTodo" autocomplete="off">
             <button>Add ToDo</button>
@@ -16,10 +17,10 @@
                 computedColor(todo),
                 { completed: todo.completed }
             ]">
-                <span :class="{ completed: todo.completed }" @click="S_doneTodo(todo.id, todo)">{{ todo.content }}</span>
+                <span :class="{ completed: todo.completed }" @click="S_doneTodo(todo.id, todo)">{{ todo.name }}</span>
                 <select 
                     :id="`castoro-${index}`" 
-                    @change="S_updateCategory(todo.id, 'tasks', todo.category)" 
+                    @change="updateCategory('tasks', todo.id, todo.category)" 
                     v-model="todo.category"
                 >
                     <option>Assign a category</option>
@@ -33,9 +34,10 @@
         <h4 v-if="tasks!.length === 0 ">Empty list.</h4>
     </div>
 
+    <!-- Categories Area -->
     <div id="categoriesArea">
         <h1>Categories Area</h1>
-        <form @submit.prevent="onSaveCat(categoryName)">
+        <form @submit.prevent="addElement('categories')">
             <label>New category</label>
             <input v-model="categoryName" name="categoryName" autocomplete="off">
             <button>Add category</button>
@@ -45,7 +47,7 @@
         <ul class="categoryList">
             <li v-for="(category, index) in categories" :key=category.id :class="categories ? categories[index].color : ''">
                 <span>{{category.name}}</span>
-                <select :id="`volpe-${index}`" @change="S_assignColor($event, category.color, category.id)" v-model="category.color">
+                <select :id="`volpe-${index}`" @change="updateColor(category.color, category.id, $event)" v-model="category.color">
                     <option>Assign a color</option>
                     <option>Remove color</option>
                     <option v-for="color, index in colors()" :key=index>{{color}}</option>
@@ -57,10 +59,9 @@
 </template>
 
 <script setup lang="ts">
-    import { ref, onMounted, watch, watchEffect} from 'vue';
-    import { computed } from 'vue';
+    import { ref, onMounted, computed } from 'vue';
     import { createClient } from '@supabase/supabase-js';
-    import { fetchTasks, fetchCategories, removeItem, saveCategory } from './api/apiSupabase';
+    import { removeItem, fetchTable, updateColor, updateCategory } from './api/apiSupabase';
     import type { Ref } from 'vue';
     import type { TASK, CAT } from './api/apiSupabase';
    
@@ -70,17 +71,26 @@
     const categories: Ref<CAT[] | null> = ref([]);
     
     const categoryName: Ref<CAT["name"] | null> = ref(null);
-    const newTodo = ref('');
+    const newTodo = ref(null);
+    
+    /**
+     * * Helper function for fetching Tasks or Categories.
+     * @param tableType 
+     */
+    const onFetch = async (tableType: string) => {
+        const data: CAT[] & TASK[]  = await fetchTable(tableType)
 
-    const onSaveCat = async (name: CAT["name"] | null) => {
-        const data = await saveCategory(name)
-
-        categories.value = data
+        tableType === "tasks" ? tasks.value = data : categories.value = data   
     }
 
     /**
-     * ! Test
+     * * Function for saving a Task or a Category.
      */
+     async function S_saveData(S_table: string, S_content: TASK | CAT) {
+        const { error } = await supabase.from(S_table).insert([{ name: S_content.name }]).select()
+
+       S_table && S_table === "tasks" ?  await onFetch('tasks') : await onFetch('categories')
+    }
 
     /**
      * ! Chrome does not load :root
@@ -98,84 +108,50 @@
         return result.map(el => el.replace(prefix, ''))
     }
 
-    //console.log(colors());
-
+    /**
+     * * Computed property that counts done todos.
+     */
     let todo_eseguiti = computed(() => {
         return tasks.value!.filter(item => item.completed).length
     })
 
+    /**
+     * * Function that assign the category's color to a class for a todo.
+     * @param todo 
+     */
     const computedColor = (todo: TASK) => {
         const foundCategory = categories.value!.find(category => category.name === todo.category);
 
         return foundCategory?.color
     };
 
-    function addTodo() {
-        let today = new Date();
-
+    /**
+     * * Function for adding a Task or a Category.
+     * @param S_table 
+     */
+    const addElement = async (S_table: string) => {
         const newTodoData: TASK = {
-            id: 6666666666666,
             completed: false,
-            content: newTodo.value,
-            created_at: null,
-            category: null,
-            user: null
-            /* created_at: today.setHours(0, 0, 0, 0) */
+            name: newTodo.value
         }
-        
-        if (newTodo.value) {
+        const newCategoryData: CAT = {
+            name: categoryName.value
+        }
+
+        if (S_table === 'tasks' && newTodo.value) {
             tasks.value?.push(newTodoData);
+
             newTodo.value = '';
-        }
-        S_saveData('tasks', newTodoData);
+
+            S_saveData('tasks', newTodoData);
+        } else if (S_table === 'categories' && categoryName.value) {
+            categories.value?.push(newCategoryData);
+
+            categoryName.value = '';
+
+            S_saveData('categories', newCategoryData);
+        } 
     }
-
-
-
-    /**
-     * * Supabase - save
-     */
-    async function S_saveData(S_table: string, S_content: TASK) {
-        const { error } = await supabase.from(S_table).insert([
-            { 
-                completed: false,
-                content: S_content.content,
-                //category: S_content.category,
-                //created_at: S_content.created_at
-            },
-        ]).select()
-
-        console.log('save content', S_content)
-
-        S_table ? "tasks" && await fetchTasks(tasks) : await fetchCategories()
-    }
-
-
-    /**
-     * * Supabase - assign a color to a category
-     */
-    const S_assignColor = ($event: Event, color: string|null, S_id: number) => {
-        color = ($event.target as HTMLInputElement).value
-
-        S_updateColorCategory(color, S_id)
-    }
-
-    /**
-     * * Supabase - update color category
-     */
-    async function S_updateColorCategory(S_content: string, S_id: number) { 
-        const { error } = await supabase.from("categories").update({ color: S_content }).eq('id', S_id)
-
-        return error
-    }
-
-    /**
-     * * Supabase - update category in todo
-     */
-    async function S_updateCategory(S_id: number, S_table: string, S_content: string|null) { 
-        await supabase.from(S_table).update({ category: S_content }).eq('id', S_id)
-    }
-
 
     /**
      * * Supabase: set a to todo to done
@@ -185,8 +161,6 @@
         todo.completed = !todo.completed;
 
         await supabase.from("tasks").update({ completed: todo.completed }).eq('id', S_id)
-
-        console.log(tasks.value)
 
         tasks.value!.sort((a, b) => {
             const x = a.completed
@@ -198,15 +172,15 @@
         })
     }
 
+
     /**
      * ! Edit a ToDo still missing
      */
-
+    
 
      onMounted(async () => {
-        const data = await fetchCategories();
-        categories.value = data
-        fetchTasks(tasks);
+        onFetch('tasks')
+        onFetch('categories')
     })
                 
     

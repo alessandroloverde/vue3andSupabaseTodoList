@@ -3,12 +3,12 @@ module.exports = {
   root: true,
   extends: [
     'plugin:vue/vue3-essential',
-    'eslint:recommended',
+    'eslint:disable',
     "plugin:@typescript-eslint/recommended",
   ],
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint"],
   parserOptions: {
-    ecmaVersion: 'latest'
+    ecmaVersion: 2020
   }
 }

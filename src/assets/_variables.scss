@@ -1,5 +1,5 @@
 /** 
-* * User can add any custom colors into the $colors variable. The color must be taken form HTML5 Color Names List.
+* * User can add any custom colors into the $colors variable. 
 * * The color must be in SCSS map format, with a key as left-assigment and a correspondent HTML color name as right-assigment.
 */
 
@@ -20,7 +20,8 @@ $colors: (
     Wheat: wheat,
     Rebeccapurple: rebeccapurple,
     Lime: lime,
-    Crimson: crimson
+    Crimson: crimson,
+    PurpleWine: #664157
 );
 
 :root {
