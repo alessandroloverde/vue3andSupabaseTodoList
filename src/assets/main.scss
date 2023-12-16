@@ -1,6 +1,33 @@
 @import "./_variables.scss";
 @import "./_base.scss";
+@import "./fonts.scss";
 
+.iconTopo {
+  &::before {
+    content: buttonIcon('star');
+    font-family: $icomoon-font-family;
+    display: inline-block;
+    color: red;
+  }
+}
+.btn {
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: $border-radius;
+  display: inline-block;
+
+  @each $key, $value in $icons {
+    &--icn--#{$key} {
+      @extend .btn;
+      &::before {
+        content: buttonIcon($key);
+        font-family: $icomoon-font-family;
+        font-size: 1.5em;
+        color: inherit;
+      }
+    }
+  }
+}
 
 #app {
   max-width: 1280px;

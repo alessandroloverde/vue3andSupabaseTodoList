@@ -2,6 +2,7 @@
 * * User can add any custom colors into the $colors variable. 
 * * The color must be in SCSS map format, with a key as left-assigment and a correspondent HTML color name as right-assigment.
 */
+@use "sass:map";
 
 $colors: (
     Salmon: salmon,
@@ -30,4 +31,151 @@ $colors: (
     @each $name, $color in $colors {
         --color--#{$name}: #{$color};
     }
+}
+
+$border-radius: 6px;
+
+
+$icomoon-font-family: "icomoon" !default;
+$icomoon-font-path: "fonts" !default;
+
+$icon-plus: "\f067";
+$icon-minus: "\f068";
+$icon-search: "\f002";
+$icon-envelope-o: "\f003";
+$icon-heart: "\f004";
+$icon-star: "\f005";
+$icon-star-o: "\f006";
+$icon-user: "\f007";
+$icon-check: "\f00c";
+$icon-close: "\f00d";
+$icon-remove: "\f00d";
+$icon-times: "\f00d";
+$icon-cog: "\f013";
+$icon-gear: "\f013";
+$icon-trash-o: "\f014";
+$icon-home: "\f015";
+$icon-bookmark: "\f02e";
+$icon-pencil: "\f040";
+$icon-arrows: "\f047";
+$icon-chevron-left: "\f053";
+$icon-chevron-right: "\f054";
+$icon-plus-circle: "\f055";
+$icon-minus-circle: "\f056";
+$icon-times-circle: "\f057";
+$icon-check-circle: "\f058";
+$icon-question-circle: "\f059";
+$icon-info-circle: "\f05a";
+$icon-arrow-left: "\f060";
+$icon-arrow-right: "\f061";
+$icon-arrow-up: "\f062";
+$icon-arrow-down: "\f063";
+$icon-mail-forward: "\f064";
+$icon-share: "\f064";
+$icon-exclamation-triangle: "\f071";
+$icon-warning: "\f071";
+$icon-calendar: "\f073";
+$icon-arrow-circle-left: "\f0a8";
+$icon-arrow-circle-right: "\f0a9";
+$icon-arrow-circle-up: "\f0aa";
+$icon-arrow-circle-down: "\f0ab";
+$icon-filter: "\f0b0";
+$icon-bars: "\f0c9";
+$icon-navicon: "\f0c9";
+$icon-reorder: "\f0c9";
+$icon-list-ul: "\f0ca";
+$icon-list-ol: "\f0cb";
+$icon-caret-down: "\f0d7";
+$icon-caret-up: "\f0d8";
+$icon-caret-left: "\f0d9";
+$icon-caret-right: "\f0da";
+$icon-sort: "\f0dc";
+$icon-unsorted: "\f0dc";
+$icon-sort-desc: "\f0dd";
+$icon-sort-down: "\f0dd";
+$icon-sort-asc: "\f0de";
+$icon-sort-up: "\f0de";
+$icon-envelope: "\f0e0";
+$icon-chevron-circle-left: "\f137";
+$icon-chevron-circle-right: "\f138";
+$icon-chevron-circle-up: "\f139";
+$icon-chevron-circle-down: "\f13a";
+$icon-check-square: "\f14a";
+$icon-pencil-square: "\f14b";
+$icon-sliders: "\f1de";
+$icon-eyedropper: "\f1fb";
+
+
+$icons: (
+    icon-plus: "\f067",
+    icon-minus: "\f068",
+    icon-search: "\f002",
+    icon-envelope-o: "\f003",
+    icon-heart: "\f004",
+    icon-star: "\f005",
+    icon-star-o: "\f006",
+    icon-user: "\f007",
+    icon-check: "\f00c",
+    icon-close: "\f00d",
+    icon-remove: "\f00d",
+    icon-times: "\f00d",
+    icon-cog: "\f013",
+    icon-gear: "\f013",
+    icon-trash-o: "\f014",
+    icon-home: "\f015",
+    icon-bookmark: "\f02e",
+    icon-pencil: "\f040",
+    icon-arrows: "\f047",
+    icon-chevron-left: "\f053",
+    icon-chevron-right: "\f054",
+    icon-plus-circle: "\f055",
+    icon-minus-circle: "\f056",
+    icon-times-circle: "\f057",
+    icon-check-circle: "\f058",
+    icon-question-circle: "\f059",
+    icon-info-circle: "\f05a",
+    icon-arrow-left: "\f060",
+    icon-arrow-right: "\f061",
+    icon-arrow-up: "\f062",
+    icon-arrow-down: "\f063",
+    icon-mail-forward: "\f064",
+    icon-share: "\f064",
+    icon-exclamation-triangle: "\f071",
+    icon-warning: "\f071",
+    icon-calendar: "\f073",
+    icon-arrow-circle-left: "\f0a8",
+    icon-arrow-circle-right: "\f0a9",
+    icon-arrow-circle-up: "\f0aa",
+    icon-arrow-circle-down: "\f0ab",
+    icon-filter: "\f0b0",
+    icon-bars: "\f0c9",
+    icon-navicon: "\f0c9",
+    icon-reorder: "\f0c9",
+    icon-list-ul: "\f0ca",
+    icon-list-ol: "\f0cb",
+    icon-caret-down: "\f0d7",
+    icon-caret-up: "\f0d8",
+    icon-caret-left: "\f0d9",
+    icon-caret-right: "\f0da",
+    icon-sort: "\f0dc",
+    icon-unsorted: "\f0dc",
+    icon-sort-desc: "\f0dd",
+    icon-sort-down: "\f0dd",
+    icon-sort-asc: "\f0de",
+    icon-sort-up: "\f0de",
+    icon-envelope: "\f0e0",
+    icon-chevron-circle-left: "\f137",
+    icon-chevron-circle-right: "\f138",
+    icon-chevron-circle-up: "\f139",
+    icon-chevron-circle-down: "\f13a",
+    icon-check-square: "\f14a",
+    icon-pencil-square: "\f14b",
+    icon-sliders: "\f1de",
+    icon-eyedropper: "\f1fb",
+);
+
+@function buttonIcon($name) {
+    $currenIcon: map.get($icons, $name);
+
+    @return $currenIcon
 }

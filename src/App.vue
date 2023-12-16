@@ -2,13 +2,13 @@
     <div></div>
     <!-- Tasks Area-->
     <div id="toDoArea">
-        <h1>ToDo Area</h1>
+        <h1><i class="icon-plus"></i>ToDo Area</h1>
         <form @submit.prevent="addElement('tasks')">
             <label>New ToDo </label>
             <input v-model="newTodo" name="newTodo" autocomplete="off">
             <button>Add ToDo</button>
         </form>
-        <h2>ToDo List</h2>
+        <h2 class="iconTopo">ToDo List</h2>
         <p>lunghezza: {{tasks ? tasks.length : 0}}</p>
         <p>to-do eseguiti reac: {{todo_eseguiti}}</p>
         <ul class="toDoList">
@@ -28,7 +28,11 @@
                     <option v-for="category in categories" :key=category.id>{{category.name}}</option>
                 </select>
                 <span>{{todo.category}}</span>
-                <button @click="removeItem('tasks', todo.id, tasks, categories)">Remove</button>
+                <button
+                    role="button" 
+                    class="btn--icn--icon-trash-o"  
+                    @click="removeItem('tasks', todo.id, tasks, categories)"
+                ></button>
             </li>
         </ul>
         <h4 v-if="tasks!.length === 0 ">Empty list.</h4>
@@ -52,7 +56,11 @@
                     <option>Remove color</option>
                     <option v-for="color, index in colors()" :key=index>{{color}}</option>
                 </select>
-                <button @click="removeItem('categories', category.id, tasks, categories)">Remove</button>
+                <button
+                    role="button" 
+                    class="btn--icn--icon-trash-o" 
+                    @click="removeItem('categories', category.id, tasks, categories)"
+                ></button>
             </li>
         </ul>
     </div>
@@ -143,13 +151,13 @@
 
             newTodo.value = '';
 
-            S_saveData('tasks', newTodoData);
+            S_saveData(S_table, newTodoData);
         } else if (S_table === 'categories' && categoryName.value) {
             categories.value?.push(newCategoryData);
 
             categoryName.value = '';
 
-            S_saveData('categories', newCategoryData);
+            S_saveData(S_table, newCategoryData);
         } 
     }
 
