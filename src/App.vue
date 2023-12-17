@@ -29,7 +29,8 @@
                 </select>
                 <span>{{todo.category}}</span>
                 <button
-                    role="button" 
+                    role="button"
+                    aria-label="Remove task" 
                     class="btn--icn--icon-trash-o"  
                     @click="removeItem('tasks', todo.id, tasks, categories)"
                 ></button>
@@ -51,13 +52,26 @@
         <ul class="categoryList">
             <li v-for="(category, index) in categories" :key=category.id :class="categories ? categories[index].color : ''">
                 <span>{{category.name}}</span>
-                <select :id="`volpe-${index}`" @change="updateColor(category.color, category.id, $event)" v-model="category.color">
+                <div class="colorPicker">
+                    <input 
+                        type="radio"
+                        name="colorPicker"
+                        v-for="color, index in colors()" 
+                        :value="color"
+                        v-model="category.color" 
+                        :key=index 
+                        :class="color" 
+                        @change="updateColor(category.color, category.id, $event)"
+                    >
+                </div>
+                <!-- <select :id="`volpe-${index}`" @change="updateColor(category.color, category.id, $event)" v-model="category.color">
                     <option>Assign a color</option>
                     <option>Remove color</option>
                     <option v-for="color, index in colors()" :key=index>{{color}}</option>
-                </select>
+                </select> -->
                 <button
-                    role="button" 
+                    role="button"
+                    aria-label="Remove category" 
                     class="btn--icn--icon-trash-o" 
                     @click="removeItem('categories', category.id, tasks, categories)"
                 ></button>

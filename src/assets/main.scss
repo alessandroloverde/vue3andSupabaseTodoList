@@ -19,12 +19,26 @@
   @each $key, $value in $icons {
     &--icn--#{$key} {
       @extend .btn;
+      
       &::before {
         content: buttonIcon($key);
         font-family: $icomoon-font-family;
         font-size: 1.5em;
         color: inherit;
       }
+    }
+  }
+}
+.colorPicker {
+
+  span {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+
+    @each $key, $name in $colors {
+      &.#{$key} { background-color: $name }
     }
   }
 }
