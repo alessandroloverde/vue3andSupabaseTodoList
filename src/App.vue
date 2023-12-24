@@ -52,18 +52,30 @@
         <ul class="categoryList">
             <li v-for="(category, index) in categories" :key=category.id :class="categories ? categories[index].color : ''">
                 <span>{{category.name}}</span>
-                <div class="colorPicker">
-                    <input 
-                        type="radio"
-                        name="colorPicker"
-                        v-for="color, index in colors()" 
-                        :value="color"
-                        v-model="category.color" 
-                        :key=index 
-                        :class="color" 
-                        @change="updateColor(category.color, category.id, $event)"
-                    >
-                </div>
+                <Popper :placement="'top'" arrow>
+                    <template #content>
+                        <div class="colorPicker">
+                            <input 
+                                type="radio"
+                                :name="`colorPicker-${category.id}`"
+                                :checked="false"
+                                v-for="color, index in colors()" 
+                                :value="color"
+                                v-model="category.color" 
+                                :key=index 
+                                :class="color" 
+                                @change="updateColor(category.color, category.id, $event)"
+                            >
+                        </div>
+                    </template>
+                    <button
+                        role="button"
+                        aria-label="Open Color Picker" 
+                        class="btn--icn--icon-eyedropper" 
+                        @click=""
+                    ></button>
+                </Popper>
+
                 <!-- <select :id="`volpe-${index}`" @change="updateColor(category.color, category.id, $event)" v-model="category.color">
                     <option>Assign a color</option>
                     <option>Remove color</option>
@@ -82,6 +94,7 @@
 
 <script setup lang="ts">
     import { ref, onMounted, computed } from 'vue';
+    import Popper from "vue3-popper";
     import { createClient } from '@supabase/supabase-js';
     import { removeItem, fetchTable, updateColor, updateCategory } from './api/apiSupabase';
     import type { Ref } from 'vue';
@@ -221,6 +234,7 @@
     $textColor: white;
     $primaryColor: lightgrey;
     $secondTextColor: #1f2023;
+    
 
     #app {
         width: 1200px;
@@ -266,12 +280,12 @@
             height: $size5;
             box-shadow: none;
             outline: none;
-            padding-left: $size2;
-            padding-right: $size2;
+            padding-left: $standardMargin;
+            padding-right: $standardMargin;
             border-radius: $size1;
             font-size: 18px;
             margin-top: $size1;
-            margin-bottom: $size2;
+            margin-bottom: $standardMargin;
         }
         input {
             background-color: transparent;
@@ -301,9 +315,9 @@
             justify-content: space-between;
             align-items: center;
             border: $border;
-            padding: $size2 $size4;
+            padding: $standardMargin ($standardMargin * 2);
             border-radius: $size1;
-            margin-bottom: $size2;
+            margin-bottom: $standardMargin;
             
             span { cursor: pointer }
             &.completed {
@@ -312,7 +326,7 @@
                 opacity: 0.5;
             }
             button {
-                font-size: $size2;
+                font-size: $standardMargin;
                 padding: $size1;
             }
         }
@@ -341,6 +355,9 @@
         }
     }
     .categoryList > li {
+        display: flex;
+        justify-content: flex-end;
+        
         @each $key, $name in $colors {
             &.#{$key} { 
                 border-color: #{$name};
@@ -349,8 +366,15 @@
                     background-color: #{$name};
                     border-color: darken($name, 20%);
                     color: darken($name, 50%);
+
+                    margin: $standardMargin/2;
+
+                    &:last-child { margin-right: 0 }
                 }
-                span { color: #{$name} }
+                span { 
+                    color: #{$name};
+                    margin-right: auto; 
+                }
             }
         }
     } 

@@ -354,6 +354,11 @@
     glob-all "^3.2.1"
     sass-resources-loader "^2.2.4"
 
+"@popperjs/core@^2.9.2":
+  version "2.11.8"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
+  integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
+
 "@sentry/core@5.30.0":
   version "5.30.0"
   resolved "https://registry.yarnpkg.com/@sentry/core/-/core-5.30.0.tgz#6b203664f69e75106ee8b5a2fe1d717379b331f3"
@@ -1073,6 +1078,11 @@ d@1, d@^1.0.1:
   dependencies:
     es5-ext "^0.10.50"
     type "^1.0.1"
+
+debounce@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.2.1.tgz#38881d8f4166a5c5848020c11827b834bcb3e0a5"
+  integrity sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==
 
 debug@4, debug@^4.1.1, debug@^4.3.2, debug@^4.3.4:
   version "4.3.4"
@@ -2478,6 +2488,14 @@ vue-eslint-parser@^9.3.1:
     esquery "^1.4.0"
     lodash "^4.17.21"
     semver "^7.3.6"
+
+vue3-popper@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/vue3-popper/-/vue3-popper-1.5.0.tgz#eeac767e1011942fe1737e8299a832b530c0a997"
+  integrity sha512-xaEnx90YBnlSg5G2yWqm2DHWHg+DB99UVRp4VsyTF0QLXyHrqSuE1Xo5+sG0AQq/lBcrGMlk5NU5xE2MDLKViw==
+  dependencies:
+    "@popperjs/core" "^2.9.2"
+    debounce "^1.2.1"
 
 vue@^3.3.4:
   version "3.3.8"
