@@ -1,3 +1,4 @@
+
 /** 
 * * User can add any custom colors into the $colors variable. 
 * * The color must be in SCSS map format, with a key as left-assigment and a correspondent HTML color name as right-assigment.
@@ -22,12 +23,28 @@ $colors: (
     CustomDarkYellow: #facd60,
     CustomRed: #e74645
 );
+$iconsSelected: (
+    icon-plus: "\f067",
+    icon-minus: "\f068",
+    icon-search: "\f002",
+    icon-envelope-o: "\f003",
+    icon-heart: "\f004",
+    icon-star: "\f005",
+    icon-star-o: "\f006",
+    icon-user: "\f007",
+    icon-check: "\f00c",
+    icon-close: "\f00d",
+);
 
 :root {
     --topo: ghostwhite;
 
     @each $name, $color in $colors {
         --color--#{$name}: #{$color};
+    }
+
+    @each $class, $value in $iconsSelected {
+        --icons--#{$class}: #{$value};
     }
 
     --radio-border-color: #8b8c89;
@@ -51,6 +68,8 @@ $icon-heart: "\f004";
 $icon-star: "\f005";
 $icon-star-o: "\f006";
 $icon-user: "\f007";
+$icon-th: "\f00a";
+$icon-th-list: "\f00b";
 $icon-check: "\f00c";
 $icon-close: "\f00d";
 $icon-remove: "\f00d";
@@ -89,6 +108,7 @@ $icon-navicon: "\f0c9";
 $icon-reorder: "\f0c9";
 $icon-list-ul: "\f0ca";
 $icon-list-ol: "\f0cb";
+$icon-magic: "\f0d0";
 $icon-caret-down: "\f0d7";
 $icon-caret-up: "\f0d8";
 $icon-caret-left: "\f0d9";
@@ -108,6 +128,7 @@ $icon-check-square: "\f14a";
 $icon-pencil-square: "\f14b";
 $icon-sliders: "\f1de";
 $icon-eyedropper: "\f1fb";
+$icon-diamond: "\f219";
 
 
 $icons: (
@@ -119,6 +140,8 @@ $icons: (
     icon-star: "\f005",
     icon-star-o: "\f006",
     icon-user: "\f007",
+    icon-th: "\f00a",
+    icon-th-list: "\f00b",
     icon-check: "\f00c",
     icon-close: "\f00d",
     icon-remove: "\f00d",
@@ -176,7 +199,11 @@ $icons: (
     icon-pencil-square: "\f14b",
     icon-sliders: "\f1de",
     icon-eyedropper: "\f1fb",
+    icon-magic: "\f0d0",
+    icon-diamond: "\f219",
 );
+
+
 
 @function buttonIcon($name) {
     $currenIcon: map.get($icons, $name);

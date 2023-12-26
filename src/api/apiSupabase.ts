@@ -46,8 +46,28 @@ export const removeItem = async (S_table: string , S_id: number, tasks: TASK[]|n
  * @param $event        => Event target is the color's name
  */
 export const updateColor = async (colorClass: string, S_id: number, $event: Event) => {
+    console.log(colorClass)
     try {
         await supabase.from("categories").update({ color: colorClass }).eq('id', S_id)
+    }
+    catch(err) {
+        console.error(err)
+    }
+}
+
+/**
+ * * Changes the icon of a category.
+ * @param iconClass    => The class that defines an icon 
+ * @param S_id          => Table ID 
+ */
+export const updateIcon = async (iconClass: string, S_id: number, $event: Event) => {
+
+    let topo: EventTarget = $event.target
+
+    console.log(iconClass)
+    console.log('event', topo)
+    try {
+        await supabase.from("categories").update({ icon: iconClass }).eq('id', S_id)
     }
     catch(err) {
         console.error(err)

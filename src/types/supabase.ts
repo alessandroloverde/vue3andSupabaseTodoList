@@ -14,6 +14,7 @@ export interface Database {
           name: string
           id?: number
           color?: string | null
+          icon?: string | null
           created_at?: string
         }
         Insert: {

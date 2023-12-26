@@ -51,6 +51,7 @@
         <p>lunghezza: {{categories ? categories.length : 0}}</p>
         <ul class="categoryList">
             <li v-for="(category, index) in categories" :key=category.id :class="categories ? categories[index].color : ''">
+                <span v-if="category.icon" :class="category.icon"></span>
                 <span>{{category.name}}</span>
                 <Popper :placement="'top'" arrow>
                     <template #content>
@@ -64,7 +65,7 @@
                                 v-model="category.color" 
                                 :key=index 
                                 :class="color" 
-                                @change="updateColor(category.color, category.id, $event)"
+                                @change="updateColor(color, category.id, $event)"
                             >
                         </div>
                     </template>
@@ -72,7 +73,6 @@
                         role="button"
                         aria-label="Open Color Picker" 
                         class="btn--icn--icon-eyedropper" 
-                        @click=""
                     ></button>
                 </Popper>
 
@@ -81,6 +81,29 @@
                     <option>Remove color</option>
                     <option v-for="color, index in colors()" :key=index>{{color}}</option>
                 </select> -->
+                <Popper :placement="'top'" arrow>
+                    <template #content>
+                        <div class="iconPicker">
+                            <input 
+                                type="radio"
+                                :name="`iconPicker-${category.id}`"
+                                :checked="false"
+                                v-for="icon, index in icons()" 
+                                :value="icon"
+                                v-model="category.icon" 
+                                :key=index 
+                                :class="icon" 
+                                @click="updateIcon(icon, category.id, $event)"
+                            >
+                        </div>
+                    </template>
+                    <button
+                        role="button"
+                        aria-label="Choose custom icon"
+                        class="btn--icn--icon-diamond"
+                    ></button>
+                </Popper>
+
                 <button
                     role="button"
                     aria-label="Remove category" 
@@ -96,7 +119,7 @@
     import { ref, onMounted, computed } from 'vue';
     import Popper from "vue3-popper";
     import { createClient } from '@supabase/supabase-js';
-    import { removeItem, fetchTable, updateColor, updateCategory } from './api/apiSupabase';
+    import { removeItem, fetchTable, updateColor, updateCategory, updateIcon } from './api/apiSupabase';
     import type { Ref } from 'vue';
     import type { TASK, CAT } from './api/apiSupabase';
    
@@ -132,13 +155,22 @@
      */
     const colors = () => {
         const r = document.querySelector(':root'),
-                rs = r ? getComputedStyle(r) : [],
-                prefix = "--color--";
+              rs = r ? getComputedStyle(r) : [],
+              prefix = "--color--";
 
         const result = Object.values(rs).filter(el => el.startsWith(prefix))
 
-        //console.log('r', r)
-        //console.log('rs', rs)
+/*         console.log('r', r)
+        console.log('rs', rs) */
+
+        return result.map(el => el.replace(prefix, ''))
+    }
+    const icons = () => {
+        const r = document.querySelector(':root'),
+              rs = r ? getComputedStyle(r) : [],
+              prefix = "--icons--";
+
+        const result = Object.values(rs).filter(el => el.startsWith(prefix))
 
         return result.map(el => el.replace(prefix, ''))
     }
