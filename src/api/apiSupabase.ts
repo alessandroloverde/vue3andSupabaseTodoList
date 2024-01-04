@@ -46,7 +46,6 @@ export const removeItem = async (S_table: string , S_id: number, tasks: TASK[]|n
  * @param $event        => Event target is the color's name
  */
 export const updateColor = async (colorClass: string, S_id: number, $event: Event) => {
-    console.log(colorClass)
     try {
         await supabase.from("categories").update({ color: colorClass }).eq('id', S_id)
     }

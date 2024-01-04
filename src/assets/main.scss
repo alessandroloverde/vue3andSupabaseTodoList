@@ -14,10 +14,11 @@
   --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
 }
 
-
 *,
 *:before,
 *:after { box-sizing: border-box }
+
+.spacer { width: $standardMargin }
 
 .iconTopo {
   &::before {
@@ -50,6 +51,34 @@
 }
 
 // --- Icon and color picker -------------------------------------------------------------------------------- //
+.selectedIcon {
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: center;
+    align-items: center;
+    margin: 0 $standardMargin 0 0;
+    border: 2px solid white;
+    opacity: 0.75;
+    transition: opacity 0.3s;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    padding: 2px;
+    appearance: none;
+    outline: none;
+    background-clip: content-box;
+    background-color: transparent;
+
+    @each $key, $name in $colors {
+      &.#{$key} { 
+        border-color: $name;
+
+        &::before {
+          color: $name;
+        }
+      }
+    }
+}
 .iconPicker,
 .colorPicker {
   max-width: 20rem;

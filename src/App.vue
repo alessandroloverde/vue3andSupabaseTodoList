@@ -11,13 +11,17 @@
         <h2 class="iconTopo">ToDo List</h2>
         <p>lunghezza: {{tasks ? tasks.length : 0}}</p>
         <p>to-do eseguiti reac: {{todo_eseguiti}}</p>
-        <ul class="toDoList">
-            <li v-for="(todo, index) in tasks" :key="index" :class="[
-                'category-' + todo.category,
-                computedColor(todo),
-                { completed: todo.completed }
-            ]">
-                <span :class="{ completed: todo.completed }" @click="S_doneTodo(todo.id, todo)">{{ todo.name }}</span>
+        <ul class="taskList">
+            <li v-for="(todo, index) in tasks" 
+                :key="index" 
+                :class="['category-' + todo.category, computedColor(todo), { completed: todo.completed }]"
+            >
+                <div class="selectedIcon" :class="
+                    categories.some(category => category.name === todo.category) ? 
+                    categories.find(category => category.name === todo.category).icon : 
+                    'to be replaced'">
+                </div>
+                <div class="taskName" :class="{ completed: todo.completed }" @click="S_doneTodo(todo.id, todo)">{{ todo.name }}</div>
                 <select 
                     :id="`castoro-${index}`" 
                     @change="updateCategory('tasks', todo.id, todo.category)" 
@@ -27,7 +31,6 @@
                     <option>Remove category</option>
                     <option v-for="category in categories" :key=category.id>{{category.name}}</option>
                 </select>
-                <span>{{todo.category}}</span>
                 <button
                     role="button"
                     aria-label="Remove task" 
@@ -51,8 +54,19 @@
         <p>lunghezza: {{categories ? categories.length : 0}}</p>
         <ul class="categoryList">
             <li v-for="(category, index) in categories" :key=category.id :class="categories ? categories[index].color : ''">
-                <span v-if="category.icon" :class="category.icon"></span>
-                <span>{{category.name}}</span>
+                <div 
+                    v-if="category.icon" 
+                    :class="[category.icon, category.color]" 
+                    class="selectedIcon"
+                ></div>
+                <div v-if="editingCat[index]">
+                    <input 
+                        type="text" 
+                        v-model="tempEditName[index]" 
+                        @blur="saveName(index, category.name)"
+                        @keypress.enter="saveName(index, category.name)">
+                </div>
+                <div v-else class="categoryName">{{category.name}}</div>
                 <Popper :placement="'top'" arrow>
                     <template #content>
                         <div class="colorPicker">
@@ -103,7 +117,13 @@
                         class="btn--icn--icon-diamond"
                     ></button>
                 </Popper>
-
+                <div class="spacer"></div>
+                <button
+                    role="button"
+                    aria-label="Edit name" 
+                    class="btn--icn--icon-pencil" 
+                    @click="editName(index)"
+                ></button>
                 <button
                     role="button"
                     aria-label="Remove category" 
@@ -116,7 +136,7 @@
 </template>
 
 <script setup lang="ts">
-    import { ref, onMounted, computed } from 'vue';
+    import { ref, reactive, onMounted, computed } from 'vue';
     import Popper from "vue3-popper";
     import { createClient } from '@supabase/supabase-js';
     import { removeItem, fetchTable, updateColor, updateCategory, updateIcon } from './api/apiSupabase';
@@ -131,37 +151,26 @@
     const categoryName: Ref<CAT["name"] | null> = ref(null);
     const newTodo = ref(null);
     
-    /**
-     * * Helper function for fetching Tasks or Categories.
-     * @param tableType 
-     */
-    const onFetch = async (tableType: string) => {
-        const data: CAT[] & TASK[]  = await fetchTable(tableType)
+    let editingCat = reactive([false]);
+    let tempEditName = reactive(Array(categories.value.length).fill('temp'));
 
-        tableType === "tasks" ? tasks.value = data : categories.value = data   
+
+    const editName = (index: number) => {
+        editingCat[index] = !editingCat[index]
+      
+        tempEditName[index] = categories.value[index].name
     }
 
-    /**
-     * * Function for saving a Task or a Category.
-     */
-     async function S_saveData(S_table: string, S_content: TASK | CAT) {
-        const { error } = await supabase.from(S_table).insert([{ name: S_content.name }]).select()
-
-       S_table && S_table === "tasks" ?  await onFetch('tasks') : await onFetch('categories')
-    }
 
     /**
      * ! Chrome does not load :root
      */
-    const colors = () => {
+     const colors = () => {
         const r = document.querySelector(':root'),
               rs = r ? getComputedStyle(r) : [],
               prefix = "--color--";
 
         const result = Object.values(rs).filter(el => el.startsWith(prefix))
-
-/*         console.log('r', r)
-        console.log('rs', rs) */
 
         return result.map(el => el.replace(prefix, ''))
     }
@@ -178,7 +187,7 @@
     /**
      * * Computed property that counts done todos.
      */
-    let todo_eseguiti = computed(() => {
+     let todo_eseguiti = computed(() => {
         return tasks.value!.filter(item => item.completed).length
     })
 
@@ -186,11 +195,71 @@
      * * Function that assign the category's color to a class for a todo.
      * @param todo 
      */
-    const computedColor = (todo: TASK) => {
+     const computedColor = (todo: TASK) => {
         const foundCategory = categories.value!.find(category => category.name === todo.category);
 
         return foundCategory?.color
     };
+
+
+
+
+    const saveName = async ( index: number, oldCatName: string) => {
+        let newCategoryName = tempEditName[index]
+
+        try {
+            // Update the category name in the 'tasks' table
+            const { data: tasksToUpdate, error: tasksError } = await supabase.from('tasks').select('id').eq('category', oldCatName);
+
+            if (tasksError) {
+                console.error('Error fetching tasks to update:', tasksError)
+
+                return
+            }
+
+            // Update the category name in the 'categories' table
+            const { error: updateCategoryError } = await supabase
+                .from('categories')
+                .update({ name: newCategoryName })
+                .eq('name', oldCatName);
+
+            if (updateCategoryError) {
+                console.error('Error updating category:', updateCategoryError);
+
+                return;
+            }
+
+            tempEditName[index] = categories.value[index].name
+            editingCat[index] = false
+
+            console.log('Category and tasks updated successfully.');
+        } catch (error) {
+            console.error('An unexpected error occurred:', error);
+        }
+
+        onFetch('tasks')
+        onFetch('categories')
+    }
+
+
+    /**
+     * * Helper function for fetching Tasks or Categories.
+     * @param tableType 
+     */
+    const onFetch = async (tableType: string) => {
+        const data: CAT[] & TASK[]  = await fetchTable(tableType)
+
+        tableType === "tasks" ? tasks.value = data : categories.value = data
+    }
+
+    /**
+     * * Function for saving a Task or a Category.
+     */
+     async function S_saveData(S_table: string, S_content: TASK | CAT) {
+        const { error } = await supabase.from(S_table).insert([{ name: S_content.name }]).select()
+
+       S_table && S_table === "tasks" ?  await onFetch('tasks') : await onFetch('categories')
+    }
 
     /**
      * * Function for adding a Task or a Category.
@@ -248,6 +317,8 @@
      onMounted(async () => {
         onFetch('tasks')
         onFetch('categories')
+
+        editingCat = reactive(Array(categories.value.length).fill(false));
     })
                 
     
@@ -276,11 +347,11 @@
         display: flex;
     }
     #toDoArea {
-        width: 50%;
+        width: 60%;
         padding: 10px;
     }
     #categoriesArea {
-        width: 50%;
+        width: 40%;
         padding: 10px;
     }
 
@@ -367,11 +438,16 @@
         text-align: center;
         opacity: 0.5;
         margin: 0;
-    }    
-    .toDoList > li {
+    }
+    .taskName,
+    .categoryName {
+        display: flex;
+        flex: 1 1 auto;
+    }
+    .taskList > li {
         background-color: lightgoldenrodyellow;
 
-        span { color: black; } // ** temp
+
 
         @each $key, $name in $colors {
             &.#{$key} { 
@@ -380,7 +456,10 @@
 
                 button { 
                     border-color: darken($name, 20%);
-                    color: darken($name, 50%);
+                    color: darken($name, 40%);
+                    margin: $standardMargin/4;
+
+                    &:not(:only-child):last-child { margin-right: 0 }
                 }
                 span { color: darken($name, 40%) }
             }
@@ -397,11 +476,10 @@
                 button { 
                     background-color: #{$name};
                     border-color: darken($name, 20%);
-                    color: darken($name, 50%);
+                    color: darken($name, 40%);
+                    margin: $standardMargin/4;
 
-                    margin: $standardMargin/2;
-
-                    &:last-child { margin-right: 0 }
+                    &:not(:only-child):last-child { margin-right: 0 }
                 }
                 span { 
                     color: #{$name};
