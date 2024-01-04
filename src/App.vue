@@ -21,7 +21,20 @@
                     categories.find(category => category.name === todo.category).icon : 
                     'to be replaced'">
                 </div>
-                <div class="taskName" :class="{ completed: todo.completed }" @click="S_doneTodo(todo.id, todo)">{{ todo.name }}</div>
+                <div v-if="editingTask[index]">
+                    <input 
+                        type="text" 
+                        v-model="tempEditName[index]" 
+                        @blur="updateTaskName(index, todo.name)"
+                        @keypress.enter="updateTaskName(index, todo.name)">
+                </div>
+                <div v-else class="taskName" :class="{ completed: todo.completed }" @click="S_doneTodo(todo.id, todo)">{{ todo.name }}</div>
+                <button
+                    role="button"
+                    aria-label="Edit name" 
+                    class="btn--icn--icon-pencil"
+                    @click="editTaskName(index)"
+                ></button>
                 <select 
                     :id="`castoro-${index}`" 
                     @change="updateCategory('tasks', todo.id, todo.category)" 
@@ -63,8 +76,8 @@
                     <input 
                         type="text" 
                         v-model="tempEditName[index]" 
-                        @blur="saveName(index, category.name)"
-                        @keypress.enter="saveName(index, category.name)">
+                        @blur="updateCatName(index, category.name)"
+                        @keypress.enter="updateCatName(index, category.name)">
                 </div>
                 <div v-else class="categoryName">{{category.name}}</div>
                 <Popper :placement="'top'" arrow>
@@ -122,7 +135,7 @@
                     role="button"
                     aria-label="Edit name" 
                     class="btn--icn--icon-pencil" 
-                    @click="editName(index)"
+                    @click="editCatName(index)"
                 ></button>
                 <button
                     role="button"
@@ -152,15 +165,25 @@
     const newTodo = ref(null);
     
     let editingCat = reactive([false]);
-    let tempEditName = reactive(Array(categories.value.length).fill('temp'));
+    let editingTask = reactive([false]);
+    let tempEditName = reactive(Array(categories.value.length).fill(''));
 
-
-    const editName = (index: number) => {
+    
+    /**
+     * * Helper function for allowing the edit of a category 
+     * @param index
+     */
+    const editCatName = (index: number) => {
         editingCat[index] = !editingCat[index]
       
         tempEditName[index] = categories.value[index].name
     }
 
+    const editTaskName = (index: number) => {
+        editingTask[index] = !editingTask[index]
+      
+        tempEditName[index] = tasks.value[index].name
+    }
 
     /**
      * ! Chrome does not load :root
@@ -196,28 +219,20 @@
      * @param todo 
      */
      const computedColor = (todo: TASK) => {
-        const foundCategory = categories.value!.find(category => category.name === todo.category);
+        const foundCategory = categories.value!.find(category => category.name === todo.category)
 
         return foundCategory?.color
     };
 
-
-
-
-    const saveName = async ( index: number, oldCatName: string) => {
+    /**
+     * * Function for updating the category's name
+     * @param index 
+     * @param oldCatName 
+     */
+    const updateCatName = async ( index: number, oldCatName: string) => {
         let newCategoryName = tempEditName[index]
 
         try {
-            // Update the category name in the 'tasks' table
-            const { data: tasksToUpdate, error: tasksError } = await supabase.from('tasks').select('id').eq('category', oldCatName);
-
-            if (tasksError) {
-                console.error('Error fetching tasks to update:', tasksError)
-
-                return
-            }
-
-            // Update the category name in the 'categories' table
             const { error: updateCategoryError } = await supabase
                 .from('categories')
                 .update({ name: newCategoryName })
@@ -232,15 +247,42 @@
             tempEditName[index] = categories.value[index].name
             editingCat[index] = false
 
-            console.log('Category and tasks updated successfully.');
+            onFetch('tasks')
+            onFetch('categories')
         } catch (error) {
             console.error('An unexpected error occurred:', error);
         }
-
-        onFetch('tasks')
-        onFetch('categories')
     }
 
+    /**
+     * * Function for updating a tasks's name
+     * @param index 
+     * @param oldTaskName 
+     */
+     const updateTaskName = async ( index: number, oldTaskName: string) => {
+        let newTaskName = tempEditName[index]
+
+        try {
+            const { error: updateTaskError } = await supabase
+                .from('tasks')
+                .update({ name: newTaskName })
+                .eq('name', oldTaskName);
+
+            if (updateTaskError) {
+                console.error('Error updating task:', updateTaskError);
+
+                return;
+            }
+
+            tempEditName[index] = tasks.value[index].name
+            editingTask[index] = false
+
+            onFetch('tasks')
+            onFetch('categories')
+        } catch (error) {
+            console.error('An unexpected error occurred:', error);
+        }
+    }
 
     /**
      * * Helper function for fetching Tasks or Categories.
@@ -308,17 +350,9 @@
         })
     }
 
-
-    /**
-     * ! Edit a ToDo still missing
-     */
-    
-
-     onMounted(async () => {
+    onMounted(async () => {
         onFetch('tasks')
         onFetch('categories')
-
-        editingCat = reactive(Array(categories.value.length).fill(false));
     })
                 
     
