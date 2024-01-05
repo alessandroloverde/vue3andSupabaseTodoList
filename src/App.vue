@@ -182,6 +182,11 @@
             return (a.completed === b.completed) ? 0 : a.completed ? 1 : -1
         })
     }
+    const sortUrgent = () => {
+        tasks.value!.sort((a, b) => {
+            return (a.is_urgent === b.is_urgent) ? 0 : a.is_urgent ? -1 : 1
+        })
+    }
 
 
     /**
@@ -310,6 +315,7 @@
 
         tableType === "tasks" ? tasks.value = data : categories.value = data
 
+        sortUrgent()
         sortCompleted()
     }
 
@@ -359,6 +365,7 @@
 
         await supabase.from("tasks").update({ completed: todo.completed }).eq('id', S_id)
 
+        sortUrgent()
         sortCompleted()
     }
 
@@ -366,12 +373,15 @@
         todo.is_urgent = !todo.is_urgent;
 
         await supabase.from("tasks").update({ is_urgent: todo.is_urgent }).eq('id', S_id)
+
+        sortUrgent()
+        sortCompleted()
     }
 
 
     onMounted(async () => {
-        onFetch('tasks')
         onFetch('categories')
+        onFetch('tasks')
     }) 
 </script>
 
