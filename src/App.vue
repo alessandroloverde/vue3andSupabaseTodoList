@@ -168,7 +168,15 @@
     let editingTask = reactive([false]);
     let tempEditName = reactive(Array(categories.value.length).fill(''));
 
-    
+
+
+    const sortCompleted = () => {
+        tasks.value!.sort((a, b) => {
+            return (a.completed === b.completed) ? 0 : a.completed ? 1 : -1
+        })
+    }
+
+
     /**
      * * Helper function for allowing the edit of a category 
      * @param index
@@ -223,6 +231,9 @@
 
         return foundCategory?.color
     };
+
+
+    // Async functions
 
     /**
      * * Function for updating the category's name
@@ -292,6 +303,8 @@
         const data: CAT[] & TASK[]  = await fetchTable(tableType)
 
         tableType === "tasks" ? tasks.value = data : categories.value = data
+
+        sortCompleted()
     }
 
     /**
@@ -340,14 +353,7 @@
 
         await supabase.from("tasks").update({ completed: todo.completed }).eq('id', S_id)
 
-        tasks.value!.sort((a, b) => {
-            const x = a.completed
-            const y = b.completed
-
-            if(x && y && x > y) { return 1 }
-            if(x && y && x < y) { return -1 }
-            return 0
-        })
+        sortCompleted()
     }
 
     onMounted(async () => {
