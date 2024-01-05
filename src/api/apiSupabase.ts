@@ -16,6 +16,10 @@ export const fetchTable = async (tableType: string) => {
     try {
         const {data} = await supabase.from(tableType).select();
 
+/*         return data.sort((a, b) => {
+            return (a.id > b.id) ? 0 : a.id ? 1 : -1
+        }) */
+
         return data
     }
     catch(err) {

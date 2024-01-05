@@ -173,6 +173,39 @@
 }
 // ---------------------------------------------------------------------------------------------------------- //
 
+.urgentSwitch {
+  .form-control > input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+
+    font: inherit;
+    color: currentColor;
+    width: 2em;
+    height: 2em;
+    border: 0.15em solid currentColor;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &::before {
+      content: buttonIcon('icon-warning');
+      font-family: $icomoon-font-family;
+      color: grey;
+      width: 1em;
+      height: 1em;
+      line-height: 1;
+      font-size: 1.25em;
+
+     
+    }
+    &:checked::before { color: red; }
+
+  }
+}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;

@@ -29,6 +29,14 @@
                         @keypress.enter="updateTaskName(index, todo.name)">
                 </div>
                 <div v-else class="taskName" :class="{ completed: todo.completed }" @click="S_doneTodo(todo.id, todo)">{{ todo.name }}</div>
+                <div class="urgentSwitch">
+                    <label class="form-control">
+                       <input type="checkbox" 
+                           :class="{ isUrgent: !todo.is_urgent }"
+                           :checked="todo.is_urgent" 
+                           @click="setUrgency(todo.id, todo)"> 
+                    </label>
+                </div>
                 <button
                     role="button"
                     aria-label="Edit name" 
@@ -66,7 +74,7 @@
         <h2>Categories List</h2>
         <p>lunghezza: {{categories ? categories.length : 0}}</p>
         <ul class="categoryList">
-            <li v-for="(category, index) in categories" :key=category.id :class="categories ? categories[index].color : ''">
+            <li v-for="(category, index) in categories" :key=category.id :class="categories ? categories[index].color : null">
                 <div 
                     v-if="category.icon" 
                     :class="[category.icon, category.color]" 
@@ -169,7 +177,6 @@
     let tempEditName = reactive(Array(categories.value.length).fill(''));
 
 
-
     const sortCompleted = () => {
         tasks.value!.sort((a, b) => {
             return (a.completed === b.completed) ? 0 : a.completed ? 1 : -1
@@ -178,7 +185,7 @@
 
 
     /**
-     * * Helper function for allowing the edit of a category 
+     * * Helper function for allowing the edit of a category or a task
      * @param index
      */
     const editCatName = (index: number) => {
@@ -186,7 +193,6 @@
       
         tempEditName[index] = categories.value[index].name
     }
-
     const editTaskName = (index: number) => {
         editingTask[index] = !editingTask[index]
       
@@ -356,12 +362,17 @@
         sortCompleted()
     }
 
+    const setUrgency = async (S_id: number, todo: TASK) => {
+        todo.is_urgent = !todo.is_urgent;
+
+        await supabase.from("tasks").update({ is_urgent: todo.is_urgent }).eq('id', S_id)
+    }
+
+
     onMounted(async () => {
         onFetch('tasks')
         onFetch('categories')
-    })
-                
-    
+    }) 
 </script>
 
 <style lang="scss">

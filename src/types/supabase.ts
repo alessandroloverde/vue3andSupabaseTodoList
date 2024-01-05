@@ -39,6 +39,7 @@ export interface Database {
           completed: boolean | null
           user?: string | null
           created_at?: string | null
+          is_urgent?: boolean
         }
         Insert: {
           category?: string | null
