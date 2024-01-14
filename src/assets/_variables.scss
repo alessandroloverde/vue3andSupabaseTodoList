@@ -26,16 +26,20 @@ $colors: (
     GardenGreen: #50aa99,
 );
 $iconsSelected: (
-    icon-plus: "\f067",
-    icon-minus: "\f068",
-    icon-search: "\f002",
+    icon-times-circle: "\f057",
+    icon-check-circle: "\f058",
+    icon-question-circle: "\f059",
+    icon-info-circle: "\f05a",
     icon-envelope-o: "\f003",
     icon-heart: "\f004",
     icon-star: "\f005",
     icon-star-o: "\f006",
-    icon-user: "\f007",
-    icon-check: "\f00c",
-    icon-close: "\f00d",
+    icon-bubbles: "\e96c",
+    icon-binoculars: "\e985",
+    icon-bug: "\e999",
+    icon-tongue: "\e9e3",
+    icon-sad: "\e9e5",
+    icon-grin: "\e9e9",
 );
 
 :root {
@@ -131,7 +135,43 @@ $icon-pencil-square: "\f14b";
 $icon-sliders: "\f1de";
 $icon-eyedropper: "\f1fb";
 $icon-diamond: "\f219";
-
+$icon-user-circle-o: "\e900";
+$icon-user-circle: "\e901";
+$icon-headphones: "\e910";
+$icon-music: "\e911";
+$icon-video-camera: "\e914";
+$icon-dice: "\e915";
+$icon-pacman: "\e916";
+$icon-spades: "\e917";
+$icon-clubs: "\e918";
+$icon-diamonds: "\e919";
+$icon-library: "\e921";
+$icon-cart: "\e93a";
+$icon-bell: "\e951";
+$icon-bubbles: "\e96c";
+$icon-binoculars: "\e985";
+$icon-bug: "\e999";
+$icon-mug: "\e9a2";
+$icon-power: "\e9b5";
+$icon-smile: "\e9e1";
+$icon-tongue: "\e9e3";
+$icon-sad: "\e9e5";
+$icon-grin: "\e9e9";
+$icon-checkbox-checked: "\ea52";
+$icon-checkbox-unchecked: "\ea53";
+$icon-battery-4: "\f240";
+$icon-battery-full: "\f240";
+$icon-battery-3: "\f241";
+$icon-battery-three-quarters: "\f241";
+$icon-battery-2: "\f242";
+$icon-battery-half: "\f242";
+$icon-battery-1: "\f243";
+$icon-battery-quarter: "\f243";
+$icon-battery-0: "\f244";
+$icon-battery-empty: "\f244";
+$icon-diamond: "\f219";
+$icon-expeditedssl: "\f23e";
+$icon-battery: "\f240";
 
 $icons: (
     icon-plus: "\f067",
@@ -203,6 +243,42 @@ $icons: (
     icon-eyedropper: "\f1fb",
     icon-magic: "\f0d0",
     icon-diamond: "\f219",
+    icon-user-circle-o: "\e900",
+    icon-user-circle: "\e901",
+    icon-headphones: "\e910",
+    icon-music: "\e911",
+    icon-video-camera: "\e914",
+    icon-dice: "\e915",
+    icon-pacman: "\e916",
+    icon-spades: "\e917",
+    icon-clubs: "\e918",
+    icon-diamonds: "\e919",
+    icon-library: "\e921",
+    icon-cart: "\e93a",
+    icon-bell: "\e951",
+    icon-bubbles: "\e96c",
+    icon-binoculars: "\e985",
+    icon-bug: "\e999",
+    icon-mug: "\e9a2",
+    icon-power: "\e9b5",
+    icon-smile: "\e9e1",
+    icon-tongue: "\e9e3",
+    icon-sad: "\e9e5",
+    icon-grin: "\e9e9",
+    icon-checkbox-checked: "\ea52",
+    icon-checkbox-unchecked: "\ea53",
+    icon-battery-4: "\f240",
+    icon-battery-full: "\f240",
+    icon-battery-3: "\f241",
+    icon-battery-three-quarters: "\f241",
+    icon-battery-2: "\f242",
+    icon-battery-half: "\f242",
+    icon-battery-1: "\f243",
+    icon-battery-quarter: "\f243",
+    icon-battery-0: "\f244",
+    icon-battery-empty: "\f244",
+    icon-expeditedssl: "\f23e",
+    icon-battery: "\f240",
 );
 
 
