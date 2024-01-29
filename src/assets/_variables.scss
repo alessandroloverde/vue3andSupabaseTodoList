@@ -1,8 +1,3 @@
-
-/** 
-* * User can add any custom colors into the $colors variable. 
-* * The color must be in SCSS map format, with a key as left-assigment and a correspondent HTML color name as right-assigment.
-*/
 @use "sass:map";
 
 $colors: (
@@ -43,7 +38,7 @@ $iconsSelected: (
 );
 
 :root {
-    --topo: ghostwhite;
+    --topo: lime;
 
     @each $name, $color in $colors {
         --color--#{$name}: #{$color};
@@ -52,12 +47,11 @@ $iconsSelected: (
     @each $class, $value in $iconsSelected {
         --icons--#{$class}: #{$value};
     }
-
-    --radio-border-color: #8b8c89;
-    --radio-checked-color: #274c77;
-    --radio-hover-color: #a3cef1;
-    --radio-disabled-bg-color: #d9d9d9;
 }
+/** 
+* * User can add any custom colors into the $colors variable. 
+* * The color must be in SCSS map format, with a key as left-assigment and a correspondent HTML color name as right-assigment.
+*/
 
 $border-radius: 6px;
 $standardMargin: 12px;

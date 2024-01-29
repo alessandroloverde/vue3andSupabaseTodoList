@@ -95,7 +95,7 @@
                                 type="radio"
                                 :name="`colorPicker-${category.id}`"
                                 :checked="false"
-                                v-for="color, index in colors()" 
+                                v-for="color, index in detectCSSVariables('--color--')" 
                                 :value="color"
                                 v-model="category.color" 
                                 :key=index 
@@ -123,7 +123,7 @@
                                 type="radio"
                                 :name="`iconPicker-${category.id}`"
                                 :checked="false"
-                                v-for="icon, index in icons()" 
+                                v-for="icon, index in detectCSSVariables('--icons--')" 
                                 :value="icon"
                                 v-model="category.icon" 
                                 :key=index 
@@ -205,25 +205,38 @@
     }
 
     /**
-     * ! Chrome does not load :root
+     * * Function that checks all the CSS rules in :root filtered by a string (prefix)
+     * @param prefix *
      */
-     const colors = () => {
-        const r = document.querySelector(':root'),
-              rs = r ? getComputedStyle(r) : [],
-              prefix = "--color--";
+    function detectCSSVariables(prefix) {
+        const documentRoot:  StyleSheetList = document.styleSheets;
+        let combinedRootStyles = {};
 
-        const result = Object.values(rs).filter(el => el.startsWith(prefix))
+        for (let sheet of documentRoot) {
+            try {
+                for (let rule of sheet.cssRules) {
+                    if (rule instanceof CSSStyleRule && rule.selectorText === ':root') {
+                        for (let j = 0; j < rule.style.length; j++) {
+                            const cssProperty = rule.style[j];
+                            
+                            combinedRootStyles[cssProperty] = rule.style.getPropertyValue(cssProperty);
+                    }
+                    }
+                }
+            } catch (e) { console.warn("Could not access cssRules of a stylesheet:", e) }
+        }
 
-        return result.map(el => el.replace(prefix, ''))
+        return Object.keys(combinedRootStyles)
+                     .filter(el => el.startsWith(prefix))
+                     .map(el => el.replace(prefix, ''))
+    }
+
+    const colors = () => {
+        return detectCSSVariables("--color--")
     }
     const icons = () => {
-        const r = document.querySelector(':root'),
-              rs = r ? getComputedStyle(r) : [],
-              prefix = "--icons--";
+        return detectCSSVariables("--icons--")
 
-        const result = Object.values(rs).filter(el => el.startsWith(prefix))
-
-        return result.map(el => el.replace(prefix, ''))
     }
 
     /**
@@ -386,6 +399,16 @@
 </script>
 
 <style lang="scss">
+:root {
+    --topo--r: ghostwhite;
+
+
+
+    --radio-border-color: #8b8c89;
+    --radio-checked-color: #274c77;
+    --radio-hover-color: #a3cef1;
+    --radio-disabled-bg-color: #d9d9d9;
+}
     @import "./assets/_variables.scss";
 
     $border: 2px solid rgba($color: white, $alpha: 0.35);
