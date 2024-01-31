@@ -1,5 +1,11 @@
 @use "sass:map";
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap');
 
+
+/** 
+* * User can add any custom colors into the $colors variable. 
+* * The color must be in SCSS map format, with a key as left-assigment and a correspondent HTML color name as right-assigment.
+*/
 $colors: (
     Salmon: salmon,
     PaleVioletRed: palevioletred,
@@ -48,14 +54,22 @@ $iconsSelected: (
         --icons--#{$class}: #{$value};
     }
 }
-/** 
-* * User can add any custom colors into the $colors variable. 
-* * The color must be in SCSS map format, with a key as left-assigment and a correspondent HTML color name as right-assigment.
-*/
+
+$ctaColor: #ff6262;
+$textWhite: whitesmoke;
+$textBeige: #f2d6be;
+$lightBkg: #473d55;
+$medBkg: #342d3f;
+$darkBkg: #2c2638;
+$darkestBkg: #120d1c;
+$lightAltBkg: #674457;
+$darkAltBkg: #593542;
+
+$atkinson: 'Atkinson Hyperlegible', sans-serif;
+
 
 $border-radius: 6px;
 $standardMargin: 12px;
-
 
 $icomoon-font-family: "icomoon" !default;
 $icomoon-font-path: "fonts" !default;

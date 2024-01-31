@@ -1,14 +1,36 @@
 <template>
-    <div></div>
+    <header class="appHeader">
+        <h1 class="appHeader--title">Wondertask</h1>
+        <aside class="appHeader--avatar">
+
+            <Popper :placement="'left'" arrow >
+                    <template #content class="flyoutMenu">
+                        <div >
+                            <ul>
+                                <li>Welcome Supabase</li>
+                                <li>Login</li>
+                                <li>Logout</li>
+                            </ul>
+                        </div>
+                    </template>
+                    <button
+                        role="button"
+                        aria-label="Login options" 
+                        class="btn--avatar"  
+                        @click=""
+                    ></button>
+            </Popper>
+        </aside>
+    </header>
     <!-- Tasks Area-->
-    <div id="toDoArea">
+    <div id="toDoArea" style="display: none;">
         <h1><i class="icon-plus"></i>ToDo Area</h1>
         <form @submit.prevent="addElement('tasks')">
             <label>New ToDo </label>
             <input v-model="newTodo" name="newTodo" autocomplete="off">
             <button>Add ToDo</button>
         </form>
-        <h2 class="iconTopo">ToDo List</h2>
+        <h2>ToDo List</h2>
         <p>lunghezza: {{tasks ? tasks.length : 0}}</p>
         <p>to-do eseguiti reac: {{todo_eseguiti}}</p>
         <ul class="taskList">
@@ -28,7 +50,12 @@
                         @blur="updateTaskName(index, todo.name)"
                         @keypress.enter="updateTaskName(index, todo.name)">
                 </div>
-                <div v-else class="taskName" :class="{ completed: todo.completed }" @click="S_doneTodo(todo.id, todo)">{{ todo.name }}</div>
+                <div 
+                    v-else class="taskName" 
+                    :class="{ completed: todo.completed }" 
+                    @click="S_doneTodo(todo.id, todo)">
+                        {{ todo.name }}
+                </div>
                 <div class="urgentSwitch">
                     <label class="form-control">
                        <input type="checkbox" 
@@ -64,7 +91,7 @@
     </div>
 
     <!-- Categories Area -->
-    <div id="categoriesArea">
+    <div id="categoriesArea" style="display: none;">
         <h1>Categories Area</h1>
         <form @submit.prevent="addElement('categories')">
             <label>New category</label>
@@ -205,8 +232,8 @@
     }
 
     /**
-     * * Function that checks all the CSS rules in :root filtered by a string (prefix)
-     * @param prefix *
+     * * Function that checks all the CSS rules in :root filtered by a string (prefix) that must be either '--icons--' or '--color--'
+     * @param prefix
      */
     function detectCSSVariables(prefix) {
         const documentRoot:  StyleSheetList = document.styleSheets;
@@ -220,29 +247,19 @@
                             const cssProperty = rule.style[j];
                             
                             combinedRootStyles[cssProperty] = rule.style.getPropertyValue(cssProperty);
-                    }
+                        }
                     }
                 }
             } catch (e) { console.warn("Could not access cssRules of a stylesheet:", e) }
         }
 
-        return Object.keys(combinedRootStyles)
-                     .filter(el => el.startsWith(prefix))
-                     .map(el => el.replace(prefix, ''))
-    }
-
-    const colors = () => {
-        return detectCSSVariables("--color--")
-    }
-    const icons = () => {
-        return detectCSSVariables("--icons--")
-
+        return Object.keys(combinedRootStyles).filter(el => el.startsWith(prefix)).map(el => el.replace(prefix, ''))
     }
 
     /**
      * * Computed property that counts done todos.
      */
-     let todo_eseguiti = computed(() => {
+    let todo_eseguiti = computed(() => {
         return tasks.value!.filter(item => item.completed).length
     })
 
@@ -399,37 +416,21 @@
 </script>
 
 <style lang="scss">
-:root {
-    --topo--r: ghostwhite;
-
-
-
-    --radio-border-color: #8b8c89;
-    --radio-checked-color: #274c77;
-    --radio-hover-color: #a3cef1;
-    --radio-disabled-bg-color: #d9d9d9;
-}
     @import "./assets/_variables.scss";
 
-    $border: 2px solid rgba($color: white, $alpha: 0.35);
+    $border: 2px solid rgba($color: $textWhite, $alpha: 0.35);
     $size1: 6px;
     $size2: 12px;
     $size3: 18px;
     $size4: 24px;
     $size5: 48px;
-    $backgroundColor: #27292d;
-    $textColor: white;
+    
+    $backgroundColor: linear-gradient(133deg, #4c4e5b,#444659,#3f3e51,#362f42);
+    $textColor: $textWhite;
     $primaryColor: lightgrey;
     $secondTextColor: #1f2023;
     
 
-    #app {
-        width: 1200px;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 20px;
-        display: flex;
-    }
     #toDoArea {
         width: 60%;
         padding: 10px;
@@ -444,7 +445,7 @@
         margin: 0;
         padding: 0;
         font-family: Avenir, Helvetica, Arial, sans-serif;
-        background-color: $backgroundColor;
+        background: $backgroundColor;
         color: $textColor;
     }
     h1 {
@@ -494,30 +495,7 @@
         border-bottom: $border;
         padding-bottom: $size1;
     }
-    ul {
-        padding: 10px;
 
-        li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: $border;
-            padding: $standardMargin ($standardMargin * 2);
-            border-radius: $size1;
-            margin-bottom: $standardMargin;
-            
-            span { cursor: pointer }
-            &.completed {
-                text-decoration-line: line-through;
-                text-decoration-color: gray;
-                opacity: 0.5;
-            }
-            button {
-                font-size: $standardMargin;
-                padding: $size1;
-            }
-        }
-    }
     h4 {
         text-align: center;
         opacity: 0.5;
@@ -530,8 +508,6 @@
     }
     .taskList > li {
         background-color: lightgoldenrodyellow;
-
-
 
         @each $key, $name in $colors {
             &.#{$key} { 
@@ -572,5 +548,6 @@
             }
         }
     } 
+
+
 </style>
- 
