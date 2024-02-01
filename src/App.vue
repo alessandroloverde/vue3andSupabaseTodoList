@@ -2,7 +2,6 @@
     <header class="appHeader">
         <h1 class="appHeader--title">Wondertask</h1>
         <aside class="appHeader--avatar">
-
             <Popper :placement="'left'" arrow >
                     <template #content class="flyoutMenu">
                         <div >
@@ -22,6 +21,12 @@
             </Popper>
         </aside>
     </header>
+    <main>
+        <div class="appContainer">
+            <section class="categoriesArea"></section>
+            <section class="tasksArea"></section>
+        </div>
+    </main>
     <!-- Tasks Area-->
     <div id="toDoArea" style="display: none;">
         <h1><i class="icon-plus"></i>ToDo Area</h1>
@@ -548,6 +553,5 @@
             }
         }
     } 
-
 
 </style>
