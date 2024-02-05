@@ -12,6 +12,7 @@
     --color-text: var(--vt-c-text-dark-2);
   }
 }
+
 html { height: 100% }
 body {
   transition: color 0.5s, background-color 0.5s;
@@ -23,6 +24,15 @@ body {
    -webkit-font-smoothing: antialiased;
 }
 
+h1 {
+  font-family: $atkinson;
+}
+h2 {}
+h3 {}
+h4 {}
+h5 {}
+h6 {}
+
 
 // --- Standard elements ------------------------------------------------------------------------------------ //
 *,
@@ -33,6 +43,65 @@ ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+}
+
+input[type="text"] {
+  height: 2rem;
+  background-color: $textBeige;
+  background-image: linear-gradient(to bottom, rgba(0,0,0, 0) 0%, rgba(0,0,0, 0.25) 100%);
+  border-radius: $standardMargin * 3;
+  padding: 0 $standardMargin * 2;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+          appearance: none;
+}
+
+.toggle {
+  cursor: pointer;
+  display: flex;
+
+  &--switch {
+    display: inline-block;
+    background: $textBeige;
+    border-radius: 16px;
+    border: 2px solid $textBeige;
+    width: 58px;
+    height: 32px;
+    position: relative;
+    vertical-align: middle;
+    transition: background 0.25s;
+
+    &::before,
+    &::after { content: "" }
+    &::before {
+      display: block;
+      background: $lightBkg;
+      border-radius: 50%;
+      width: 26px;
+      height: 26px;
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      transition: left 0.25s;
+    }
+    &:hover &::before {
+      background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+    }
+    
+  }
+  &--checkbox {
+    position: absolute;
+    visibility: hidden;
+
+    &:checked + .toggle--switch { background: $ctaColor }
+    &:checked + .toggle--switch::before { left: 26px }
+
+  }
+  &--label {
+    margin: auto $standardMargin;
+  }
 }
 // ---------------------------------------------------------------------------------------------------------- //
 

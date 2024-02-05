@@ -24,7 +24,28 @@
     <main>
         <div class="appContainer">
             <section class="categoriesArea"></section>
-            <section class="tasksArea"></section>
+            <section class="tasksArea">
+                <header>
+                    <form @submit.prevent="addElement('tasks')">
+                        <label class="tasksArea--title"><span>New </span>Task</label>
+                        <input v-model="newTodo" type="text" name="newTodo" autocomplete="off">
+                        <button
+                            role="button"
+                            aria-label="Add new task"
+                            class="btn--add"
+                        ></button>
+                    </form>
+                    <div>
+                        <label class="toggle">
+                            <span class="toggle--label" v-show="completedAreVisible">Hide completed</span>
+                            <span class="toggle--label" v-show="!completedAreVisible">Show completed</span>
+                            <input class="toggle--checkbox" id="topo" type="checkbox" v-model="completedAreVisible">
+                            <div class="toggle--switch"></div>
+                        </label>
+                    </div>
+                </header>
+                <main>Main</main>
+            </section>
         </div>
     </main>
     <!-- Tasks Area-->
@@ -207,6 +228,7 @@
     let editingCat = reactive([false]);
     let editingTask = reactive([false]);
     let tempEditName = reactive(Array(categories.value.length).fill(''));
+    let completedAreVisible = ref(false);
 
 
     const sortCompleted = () => {
@@ -422,20 +444,12 @@
 
 <style lang="scss">
     @import "./assets/_variables.scss";
-
-    $border: 2px solid rgba($color: $textWhite, $alpha: 0.35);
-    $size1: 6px;
-    $size2: 12px;
-    $size3: 18px;
-    $size4: 24px;
-    $size5: 48px;
     
     $backgroundColor: linear-gradient(133deg, #4c4e5b,#444659,#3f3e51,#362f42);
     $textColor: $textWhite;
     $primaryColor: lightgrey;
     $secondTextColor: #1f2023;
     
-
     #toDoArea {
         width: 60%;
         padding: 10px;
@@ -444,7 +458,6 @@
         width: 40%;
         padding: 10px;
     }
-
     
     body {
         margin: 0;
@@ -453,53 +466,7 @@
         background: $backgroundColor;
         color: $textColor;
     }
-    h1 {
-        font-weight: bold;
-        font-size: 28px;
-        text-align: center;
-        color: var(--topo);
-    }
-    form {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        
-        label {
-            font-size: 14px;
-            font-weight: bold;
-        }
-        input,
-        button {
-            height: $size5;
-            box-shadow: none;
-            outline: none;
-            padding-left: $standardMargin;
-            padding-right: $standardMargin;
-            border-radius: $size1;
-            font-size: 18px;
-            margin-top: $size1;
-            margin-bottom: $standardMargin;
-        }
-        input {
-            background-color: transparent;
-            border: $border;
-            color: inherit;
-        }
-    }
-    button {
-        cursor: pointer;
-        background-color: $primaryColor;
-        border: 1px solid $primaryColor;
-        color: $secondTextColor;
-        font-weight: bold;
-        outline: none;
-        border-radius: $size1;
-    }
-    h2 {
-        font-size: 22px;
-        border-bottom: $border;
-        padding-bottom: $size1;
-    }
+
 
     h4 {
         text-align: center;
