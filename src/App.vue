@@ -35,16 +35,19 @@
                             class="btn--add"
                         ></button>
                     </form>
-                    <div>
+                    <div class="tasksArea--completedSwitch">
                         <label class="toggle">
-                            <span class="toggle--label" v-show="completedAreVisible">Hide completed</span>
-                            <span class="toggle--label" v-show="!completedAreVisible">Show completed</span>
+                            <span class="toggle--label" v-show="completedAreVisible">Hide <br>completed</span>
+                            <span class="toggle--label" v-show="!completedAreVisible">Show <br>completed</span>
                             <input class="toggle--checkbox" id="topo" type="checkbox" v-model="completedAreVisible">
                             <div class="toggle--switch"></div>
                         </label>
                     </div>
                 </header>
-                <main>Main</main>
+                <section class="tasksArea--info">
+                    <h4>Tasks <span>{{ tasks.length }}</span></h4>
+                    <h4>Completed <span>{{ tasks.filter(el => el.completed).length }}</span></h4>
+                </section>
             </section>
         </div>
     </main>
@@ -468,11 +471,6 @@
     }
 
 
-    h4 {
-        text-align: center;
-        opacity: 0.5;
-        margin: 0;
-    }
     .taskName,
     .categoryName {
         display: flex;

@@ -301,7 +301,6 @@ main {
     border-top-left-radius: $standardMargin * 3;
   }
   .tasksArea {
-    display: flex;
     flex-wrap: wrap;
     flex-basis: 65%;
     background-color: $darkestBkg;
@@ -360,6 +359,28 @@ main {
       white-space: nowrap;
 
       & > span { color: $ctaColor }
+    }
+    &--completedSwitch {
+      margin-left: $standardMargin * 2;
+      color: $textBeige;
+      font-family: $titillium;
+      font-weight: 600;
+    }
+    &--info {
+      display: flex;
+      justify-content: space-between;
+      padding: $standardMargin * 2;
+
+      & > h4 {
+        font-family: $titillium;
+        color: $fff;
+        font-size: 18px;
+
+        & > span { 
+          color: $ctaColor;
+          margin-left: 0.125em; 
+        }
+      }
     }
   }
 }

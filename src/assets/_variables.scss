@@ -1,6 +1,8 @@
 @use "sass:map";
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap');
+
 
 /** 
 * * User can add any custom colors into the $colors variable. 
@@ -65,8 +67,11 @@ $darkestBkg: #120d1c;
 $lightAltBkg: #674457;
 $darkAltBkg: #593542;
 
+$fff: #8b6d7e;
+
 $atkinson: 'Atkinson Hyperlegible', sans-serif;
 $robotoSlab: 'Roboto Slab', serif;
+$titillium: 'Titillium Web', sans-serif;
 
 $border-radius: 6px;
 $standardMargin: 12px;
