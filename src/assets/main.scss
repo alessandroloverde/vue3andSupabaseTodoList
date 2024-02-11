@@ -25,6 +25,15 @@
   justify-content: center;
   align-items: center;
 
+  &.iconOnly {
+    text-transform: none;
+    background-color: transparent;
+    border-width: 0;
+    font: inherit;
+    padding: 0;
+    cursor: pointer;
+  }
+
   @each $key, $value in $icons {
     &--icn--#{$key} {
       @extend .btn;
@@ -42,11 +51,7 @@
     text-transform: none;
     background-color: transparent;
     border-width: 0;
-    font-family: inherit;
-    font-size: inherit;
-    font-style: inherit;
-    font-weight: inherit;
-    line-height: inherit;
+    font: inherit;
     padding: 0;
     cursor: pointer;
   }
@@ -260,7 +265,7 @@
 
 #app {
   max-width: 1280px;
-  height: 100vh;
+  //height: 100vh;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -335,7 +340,7 @@ main {
       border-top-right-radius: $standardMargin * 3;
       padding: $standardMargin * 2;
       line-height: 1;
-      //background: linear-gradient(to bottom, #593442 0%, #674455 100%);
+      background: linear-gradient(to top, #502f3b 0%, #674455 100%);
 
       form {
         display: flex;
@@ -369,7 +374,7 @@ main {
     &--info {
       display: flex;
       justify-content: space-between;
-      padding: $standardMargin * 2;
+      padding: $standardMargin $standardMargin * 2;
 
       & > h4 {
         font-family: $titillium;
@@ -381,6 +386,9 @@ main {
           margin-left: 0.125em; 
         }
       }
+    }
+    &--main {
+      padding: $standardMargin $standardMargin * 2;
     }
   }
 }

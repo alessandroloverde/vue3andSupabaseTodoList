@@ -9,24 +9,11 @@
 * * The color must be in SCSS map format, with a key as left-assigment and a correspondent HTML color name as right-assigment.
 */
 $colors: (
-    Salmon: salmon,
-    PaleVioletRed: palevioletred,
-    DarkKhaki: darkkhaki,
-    Plum: plum,
-    MediumAquamarine: mediumaquamarine,
-    LightSteelBlue: lightsteelblue,
-    SteelBlue: steelblue,
-    Magenta: magenta,
-    Lightpink: lightpink,
-    Wheat: wheat,
-    Crimson: crimson,
-    PurpleWine: #664157,
-    CustomTurquise: #1ac0c6,
-    CustomLobster: #fb7756,
-    CustomDarkYellow: #facd60,
-    CustomRed: #e74645,
-    Golden: #ecc35c,
-    GardenGreen: #50aa99,
+    DesignRed: rgb(197, 84, 104),
+    DesignGreen: rgb(132, 152, 149),
+    DesignViolet: rgb(137, 117, 170),
+    DesignBlue: rgb(98, 134, 168),
+
 );
 $iconsSelected: (
     icon-times-circle: "\f057",

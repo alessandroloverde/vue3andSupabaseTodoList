@@ -48,6 +48,69 @@
                     <h4>Tasks <span>{{ tasks.length }}</span></h4>
                     <h4>Completed <span>{{ tasks.filter(el => el.completed).length }}</span></h4>
                 </section>
+                <section class="tasksArea--main">
+
+                    <ul class="taskList">
+                        <li v-for="(todo, index) in tasks" 
+                            :key="todo.id" 
+                            :class="['category-' + todo.category, computedColor(todo), { completed: todo.completed }]"
+                        >   <div class="taskList--completeTask">
+                                <button role="button" aria-label="Complete task" class="btn--icn--icon-check-circle iconOnly"></button>
+                            </div>
+                            <div v-if="editingTask[index]">
+                                <input 
+                                    type="text" 
+                                    v-model="tempEditName[index]" 
+                                    @blur="updateTaskName(index, todo.name)"
+                                    @keypress.enter="updateTaskName(index, todo.name)">
+                            </div>
+                            <div 
+                                v-else 
+                                class="taskList--title" 
+                                :class="{ completed: todo.completed }"
+                                @click="S_doneTodo(todo.id, todo)">
+                                    <h3>{{ todo.name }}</h3>
+                            </div>
+                            <div class="urgentSwitch">
+                                <label class="form-control">
+                                <input type="checkbox" 
+                                    :class="{ isUrgent: !todo.is_urgent }"
+                                    :checked="todo.is_urgent" 
+                                    @click="setUrgency(todo.id, todo)"> 
+                                </label>
+                            </div>
+                            <button
+                                role="button"
+                                aria-label="Edit name" 
+                                class="btn--icn--icon-pencil"
+                                @click="editTaskName(index)"
+                            ></button>
+<!--                             <select 
+                                :id="`castoro-${index}`" 
+                                @change="updateCategory('tasks', todo.id, todo.category)" 
+                                v-model="todo.category"
+                            >
+                                <option>Assign a category</option>
+                                <option>Remove category</option>
+                                <option v-for="category in categories" :key=category.id>{{category.name}}</option>
+                            </select> -->
+                            <button
+                                role="button"
+                                aria-label="Remove task" 
+                                class="btn--icn--icon-trash-o"  
+                                @click="removeItem('tasks', todo.id, tasks, categories)"
+                            ></button>
+                            <div class="selectedIcon" :class="
+                                categories.some(category => category.name === todo.category) ? 
+                                categories.find(category => category.name === todo.category).icon : 
+                                'to be replaced'">
+                            </div>
+                        </li>
+                    </ul>
+
+                    <h4 v-if="tasks!.length === 0 ">Empty list.</h4>
+
+                </section>
             </section>
         </div>
     </main>
@@ -476,12 +539,34 @@
         display: flex;
         flex: 1 1 auto;
     }
+    .taskList {
+        & &--completeTask {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            background-color: rgba(0,0,0, 0.2);
+            border-right: 1px solid rgba(0,0,0, 0.15);
+
+            & > button[class*=icon-] {color: $textBeige }
+        }
+        &--title { 
+            color: $textBeige;
+            margin-left: $standardMargin; 
+        }
+    }
     .taskList > li {
-        background-color: lightgoldenrodyellow;
+        height: 60px;
+
+        background: lightgoldenrodyellow, linear-gradient(to right, rgba(0,0,0, 0) 25%, rgba(0,0,0, 0.5) 100%);
+        display: flex;
+        align-items: center;
+        border-radius: $border-radius;
+        margin: $standardMargin * 2 auto;
 
         @each $key, $name in $colors {
             &.#{$key} { 
-                background-color: #{$name};
+                //background: #{$name};
+                background: linear-gradient(to left, rgba($name, 0.6) 25%, rgba(scale-color($name, $lightness: -40%), 0.6) 100%) $lightBkg;
                 border-color: darken($name, 20%);
 
                 button { 

@@ -28,7 +28,11 @@ h1 {
   font-family: $atkinson;
 }
 h2 {}
-h3 {}
+h3 {
+  font-family: $robotoSlab;
+  font-size: 24px;
+  font-weight: 500;
+}
 h4 {}
 h5 {}
 h6 {}
