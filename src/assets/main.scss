@@ -41,7 +41,7 @@
       &::before {
         content: buttonIcon($key);
         font-family: $icomoon-font-family;
-        font-size: 1.5em;
+        font-size: inherit;
         color: inherit;
       }
     }

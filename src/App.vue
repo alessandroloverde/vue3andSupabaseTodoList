@@ -54,8 +54,9 @@
                         <li v-for="(todo, index) in tasks" 
                             :key="todo.id" 
                             :class="['category-' + todo.category, computedColor(todo), { completed: todo.completed }]"
-                        >   <div class="taskList--completeTask">
-                                <button role="button" aria-label="Complete task" class="btn--icn--icon-check-circle iconOnly"></button>
+                        >   
+                            <div class="taskList--completeTask">
+                                <button role="button" aria-label="Complete task" class="topo btn--icn--icon-check_circle iconOnly"></button>
                             </div>
                             <div v-if="editingTask[index]">
                                 <input 
@@ -547,7 +548,13 @@
             background-color: rgba(0,0,0, 0.2);
             border-right: 1px solid rgba(0,0,0, 0.15);
 
-            & > button[class*=icon-] {color: $textBeige }
+            & > button[class*=icon-] {
+                width: auto;
+                height: auto;
+                color: $textBeige;
+                font-size: 2.5rem;
+                margin: auto $standardMargin;
+            }
         }
         &--title { 
             color: $textBeige;
@@ -561,7 +568,7 @@
         display: flex;
         align-items: center;
         border-radius: $border-radius;
-        margin: $standardMargin * 2 auto;
+        margin: $standardMargin * 1.5 auto;
 
         @each $key, $name in $colors {
             &.#{$key} { 

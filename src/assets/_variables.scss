@@ -172,6 +172,11 @@ $icon-battery-empty: "\f244";
 $icon-diamond: "\f219";
 $icon-expeditedssl: "\f23e";
 $icon-battery: "\f240";
+$icon-add_circle: unquote('"\\e902"');
+$icon-cancel_circle: unquote('"\\e903"');
+$icon-check_circle: unquote('"\\e904"');
+$icon-minus_circle: unquote('"\\e905"');
+$icon-radio_checked: unquote('"\\e906"');
 
 $icons: (
     icon-plus: "\f067",
@@ -279,6 +284,11 @@ $icons: (
     icon-battery-empty: "\f244",
     icon-expeditedssl: "\f23e",
     icon-battery: "\f240",
+    icon-add_circle: unquote('"\\e902"'),
+    icon-cancel_circle: unquote('"\\e903"'),
+    icon-check_circle: unquote('"\\e904"'),
+    icon-minus_circle: unquote('"\\e905"'),
+    icon-radio_checked: unquote('"\\e906"'),
 );
 
 
