@@ -50,9 +50,10 @@
                 </section>
                 <section class="tasksArea--main">
 
-                    <ul class="taskList">
+                    <ul>
                         <li v-for="(todo, index) in tasks" 
-                            :key="todo.id" 
+                            :key="todo.id"
+                            class="taskList"
                             :class="['category-' + todo.category, computedColor(todo), { completed: todo.completed }]"
                         >   
                             <div class="taskList--completeTask">
@@ -72,26 +73,28 @@
                                 @click="S_doneTodo(todo.id, todo)">
                                     <h3>{{ todo.name }}</h3>
                             </div>
-                            <div class="urgentSwitch">
-                                <label class="form-control">
-                                <input type="checkbox" 
-                                    :class="{ isUrgent: !todo.is_urgent }"
-                                    :checked="todo.is_urgent" 
-                                    @click="setUrgency(todo.id, todo)"> 
-                                </label>
+                            <div class="taskList--actions">
+                                <div class="urgentSwitch">
+                                    <label class="form-control">
+                                    <input type="checkbox" 
+                                        :class="{ isUrgent: !todo.is_urgent }"
+                                        :checked="todo.is_urgent" 
+                                        @click="setUrgency(todo.id, todo)"> 
+                                    </label>
+                                </div>
+                                <button
+                                    role="button"
+                                    aria-label="Edit name" 
+                                    class="btn--icn--icon-pencil iconOnly editTask"
+                                    @click="editTaskName(index)"
+                                ></button>
+                                <button
+                                    role="button"
+                                    aria-label="Remove task" 
+                                    class="btn--icn--icon-trash-o iconOnly removeItem"  
+                                    @click="removeItem('tasks', todo.id, tasks, categories)"
+                                ></button>
                             </div>
-                            <button
-                                role="button"
-                                aria-label="Edit name" 
-                                class="btn--icn--icon-pencil"
-                                @click="editTaskName(index)"
-                            ></button>
-                            <button
-                                role="button"
-                                aria-label="Remove task" 
-                                class="btn--icn--icon-trash-o"  
-                                @click="removeItem('tasks', todo.id, tasks, categories)"
-                            ></button>
                             <div class="taskList--category">
                                 <div :class="
                                 categories.some(category => category.name === todo.category) ? 
@@ -514,87 +517,7 @@
         flex: 1 1 auto;
     }
 
-    .taskList {
-        & > li {
-            height: 66px; // Beware!
-            background: lightgoldenrodyellow, linear-gradient(to right, rgba(0,0,0, 0) 25%, rgba(0,0,0, 0.5) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-radius: $border-radius * 2;
-            margin: $standardMargin * 1.5 auto;
-        }
 
-
-
-
-        & &--completeTask {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            background-color: rgba(0,0,0, 0.2);
-            border-right: 1px solid rgba(0,0,0, 0.15);
-
-            & > button[class*=icon-] {
-                width: auto;
-                height: auto;
-                color: $textBeige;
-                font-size: 2.5rem;
-                margin: auto $standardMargin;
-
-                &:hover::before { transition: all 0.3s ease-in-out }
-            }
-        }
-        &--category {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            background-color: rgba(0,0,0, 0.2);
-            border-left: 1px solid rgba(0,0,0, 0.15);
-
-            & > div[class*=icon-] {
-                width: 2rem;
-                height: 2rem;
-                font-size: 1.5rem;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: auto $standardMargin;
-                color: $textBeige;
-            }
-        }
-        &--title { 
-            color: $textBeige;
-            margin-left: $standardMargin; 
-        }
-    }
-    .taskList > li {
-        height: 66px; // Beware!
-        background: lightgoldenrodyellow, linear-gradient(to right, rgba(0,0,0, 0) 25%, rgba(0,0,0, 0.5) 100%);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-radius: $border-radius * 2;
-        margin: $standardMargin * 1.5 auto;
-
-        @each $key, $name in $colors {
-            &.#{$key} { 
-                background: linear-gradient(to left, rgba($name, 0.6) 25%, rgba(scale-color($name, $lightness: -40%), 0.6) 100%) $lightBkg;
-                border-color: darken($name, 20%);
-
-                .taskList--completeTask > button[class*=icon-]:hover::before { color: #{$name} }         
-                button { 
-                    border-color: darken($name, 20%);
-                    color: darken($name, 40%);
-                    margin: $standardMargin/4;
-
-                    &:not(:only-child):last-child { margin-right: 0 }
-                }
-                span { color: darken($name, 40%) }
-            }
-        }
-    }
     .categoryList > li {
         display: flex;
         justify-content: flex-end;

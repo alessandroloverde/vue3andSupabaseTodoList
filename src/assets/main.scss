@@ -208,33 +208,36 @@
 
 // --- Ugency checkbox -------------------------------------------------------------------------------------- //
 .urgentSwitch {
-  .form-control > input[type="checkbox"] {
-    -webkit-appearance: none;
-            appearance: none;
-    background-color: #fff;
-    margin: 0;
+	display: flex;
+	align-items: center;
 
-    font: inherit;
-    color: currentColor;
-    width: 2em;
-    height: 2em;
-    border: 0.15em solid currentColor;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	.form-control > input[type="checkbox"] {
+		-webkit-appearance: none;
+		appearance: none;
+		margin: 0;
+		font: inherit;
+		color: currentColor;
+		width: 2.25em;
+		height: 2.25em;
+		border: 0.15em solid transparent;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
 
-    &::before {
-      content: buttonIcon('icon-warning');
-      font-family: $icomoon-font-family;
-      color: grey;
-      width: 1em;
-      height: 1em;
-      line-height: 1;
-      font-size: 1.25em;
-    }
-    &:checked::before { color: red; }
-  }
+		&::before {
+			content: buttonIcon('icon-warning');
+			font-family: $icomoon-font-family;
+			color: $textBeige;
+			width: 1em;
+			height: 1em;
+			line-height: 1;
+			font-size: 1.25em;
+			transition: color 0.3s ease-in-out
+		}
+		//&:checked::before { color: red; }
+	}
 }
 // ---------------------------------------------------------------------------------------------------------- //
 
@@ -266,7 +269,7 @@
 
 #app {
   max-width: 1280px;
-  //height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -393,6 +396,94 @@ main {
     }
   }
 }
+
+
+// --- Style for each task ---------------------------------------------------------------------------------- //
+.taskList {
+  height: 66px; // Beware!
+  background: lightgoldenrodyellow, linear-gradient(to right, rgba(0,0,0, 0) 25%, rgba(0,0,0, 0.5) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: $border-radius * 2;
+  margin: $standardMargin * 1.5 auto;
+
+  @each $key, $name in $colors {
+      &.#{$key} { 
+			background: linear-gradient(to left, rgba($name, 0.6) 25%, rgba(scale-color($name, $lightness: -40%), 0.6) 100%) $lightBkg;
+			border-color: darken($name, 20%);
+
+			.taskList--completeTask > button[class*=icon-]:hover::before { color: #{$name} }
+			.taskList--category > div[class*=icon-] { background-color: #{$name} }
+			.taskList--actions > button.iconOnly:hover { color: lighten($name, 20%) }
+			.taskList--actions > .urgentSwitch input[type=checkbox]:hover:before { color: lighten($name, 20%) }  
+			.taskList--actions > .urgentSwitch input[type=checkbox].isUrgent { border-color: lighten($name, 20%) }  
+      }
+  }
+  &--completeTask,
+  &--category {
+		height: 100%;
+		display: flex;
+		flex: 0 0 auto;
+		align-items: center;
+		background-color: rgba(0,0,0, 0.15);
+		border-right: 1px solid rgba(0,0,0, 0.15);
+  }
+  &--completeTask > button[class*=icon-] {
+      width: auto;
+      height: auto;
+      color: $textBeige;
+      font-size: 2.5rem;
+      margin: auto $standardMargin;
+
+      &:hover::before { transition: color 0.3s ease-in-out }
+  }
+  &--category > div[class*=icon-] {
+		width: 3rem;
+		height: 3rem;
+		font-size: 1.25rem;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: auto $standardMargin;
+		color: $textBeige;
+
+    &::before {
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 2px solid $textBeige;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+  }
+  &--title { 
+		flex: 1 1 auto;
+		color: $textBeige;
+		margin-left: $standardMargin;
+  }
+	&--actions {
+		flex: 1 1 auto;
+		display: flex;
+		justify-content: flex-end;
+		margin-right: $standardMargin;
+
+		button.iconOnly {
+			color: $textBeige;
+			font-size: 24px; // Uniform to H3
+			width: auto;
+			margin: auto $standardMargin/2;
+
+			&:hover { transition: color 0.3s ease-in-out }
+		}
+		.urgentSwitch { margin: auto $standardMargin/2 }
+	}
+}
+// ---------------------------------------------------------------------------------------------------------- //
+
+
 
 @media (hover: hover) {
   a:hover {
