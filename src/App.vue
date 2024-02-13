@@ -86,25 +86,17 @@
                                 class="btn--icn--icon-pencil"
                                 @click="editTaskName(index)"
                             ></button>
-<!--                             <select 
-                                :id="`castoro-${index}`" 
-                                @change="updateCategory('tasks', todo.id, todo.category)" 
-                                v-model="todo.category"
-                            >
-                                <option>Assign a category</option>
-                                <option>Remove category</option>
-                                <option v-for="category in categories" :key=category.id>{{category.name}}</option>
-                            </select> -->
                             <button
                                 role="button"
                                 aria-label="Remove task" 
                                 class="btn--icn--icon-trash-o"  
                                 @click="removeItem('tasks', todo.id, tasks, categories)"
                             ></button>
-                            <div class="selectedIcon" :class="
+                            <div class="taskList--category">
+                                <div :class="
                                 categories.some(category => category.name === todo.category) ? 
                                 categories.find(category => category.name === todo.category).icon : 
-                                'to be replaced'">
+                                'to be replaced'"></div>
                             </div>
                         </li>
                     </ul>
@@ -512,35 +504,30 @@
 <style lang="scss">
     @import "./assets/_variables.scss";
     
-    $backgroundColor: linear-gradient(133deg, #4c4e5b,#444659,#3f3e51,#362f42);
     $textColor: $textWhite;
     $primaryColor: lightgrey;
     $secondTextColor: #1f2023;
     
-    #toDoArea {
-        width: 60%;
-        padding: 10px;
-    }
-    #categoriesArea {
-        width: 40%;
-        padding: 10px;
-    }
-    
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Avenir, Helvetica, Arial, sans-serif;
-        background: $backgroundColor;
-        color: $textColor;
-    }
-
-
     .taskName,
     .categoryName {
         display: flex;
         flex: 1 1 auto;
     }
+
     .taskList {
+        & > li {
+            height: 66px; // Beware!
+            background: lightgoldenrodyellow, linear-gradient(to right, rgba(0,0,0, 0) 25%, rgba(0,0,0, 0.5) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: $border-radius * 2;
+            margin: $standardMargin * 1.5 auto;
+        }
+
+
+
+
         & &--completeTask {
             height: 100%;
             display: flex;
@@ -554,6 +541,27 @@
                 color: $textBeige;
                 font-size: 2.5rem;
                 margin: auto $standardMargin;
+
+                &:hover::before { transition: all 0.3s ease-in-out }
+            }
+        }
+        &--category {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            background-color: rgba(0,0,0, 0.2);
+            border-left: 1px solid rgba(0,0,0, 0.15);
+
+            & > div[class*=icon-] {
+                width: 2rem;
+                height: 2rem;
+                font-size: 1.5rem;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: auto $standardMargin;
+                color: $textBeige;
             }
         }
         &--title { 
@@ -562,20 +570,20 @@
         }
     }
     .taskList > li {
-        height: 60px;
-
+        height: 66px; // Beware!
         background: lightgoldenrodyellow, linear-gradient(to right, rgba(0,0,0, 0) 25%, rgba(0,0,0, 0.5) 100%);
         display: flex;
         align-items: center;
-        border-radius: $border-radius;
+        justify-content: space-between;
+        border-radius: $border-radius * 2;
         margin: $standardMargin * 1.5 auto;
 
         @each $key, $name in $colors {
             &.#{$key} { 
-                //background: #{$name};
                 background: linear-gradient(to left, rgba($name, 0.6) 25%, rgba(scale-color($name, $lightness: -40%), 0.6) 100%) $lightBkg;
                 border-color: darken($name, 20%);
 
+                .taskList--completeTask > button[class*=icon-]:hover::before { color: #{$name} }         
                 button { 
                     border-color: darken($name, 20%);
                     color: darken($name, 40%);
