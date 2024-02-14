@@ -401,12 +401,17 @@ main {
 // --- Style for each task ---------------------------------------------------------------------------------- //
 .taskList {
   height: 66px; // Beware!
-  background: lightgoldenrodyellow, linear-gradient(to right, rgba(0,0,0, 0) 25%, rgba(0,0,0, 0.5) 100%);
+  background: linear-gradient(to left, rgba(grey, 0.6) 25%, rgba(scale-color(grey, $lightness: -40%), 0.6) 100%) $lightBkg;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-radius: $border-radius * 2;
   margin: $standardMargin * 1.5 auto;
+
+  &.completed { 
+    opacity: 0.5;
+    filter: saturate(70%); 
+  }
 
   @each $key, $name in $colors {
       &.#{$key} { 
@@ -463,6 +468,8 @@ main {
 		flex: 1 1 auto;
 		color: $textBeige;
 		margin-left: $standardMargin;
+
+    .completed & { text-decoration: line-through }
   }
 	&--actions {
 		flex: 1 1 auto;
