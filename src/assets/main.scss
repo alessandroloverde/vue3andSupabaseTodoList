@@ -241,9 +241,9 @@
 }
 // ---------------------------------------------------------------------------------------------------------- //
 
-
 .appHeader {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
 
@@ -279,15 +279,14 @@
   .popper {
     $popperBkgColor: $textWhite;
 
-    background-color: $popperBkgColor;
+    //background-color: $popperBkgColor;
     padding: $standardMargin * 2;
     border-radius: 20px;
     color: $darkBkg;
 
-
     & #arrow::before { background: $popperBkgColor }
-    &:hover,
-    &:hover > #arrow::before { background: $popperBkgColor }
+    /* &:hover,
+    &:hover > #arrow::before { background: $popperBkgColor } */
   }
 }
 
@@ -313,7 +312,6 @@ main {
     flex-wrap: wrap;
     flex-basis: 65%;
     background-color: $darkestBkg;
-    //background: linear-gradient(-135deg,  rgba(45,39,59,1) 0%,rgba(32,25,47,1) 31%,rgba(23,16,40,1) 58%,rgba(23,16,40,1) 100%);
     background: linear-gradient(
       to bottom left,
           hsl(261.29, 26.5%, 22.94%) 0%,
@@ -407,6 +405,8 @@ main {
   justify-content: space-between;
   border-radius: $border-radius * 2;
   margin: $standardMargin * 1.5 auto;
+  border: 1px solid grey;
+  overflow: hidden;
 
   &.completed { 
     opacity: 0.5;
@@ -416,10 +416,24 @@ main {
   @each $key, $name in $colors {
       &.#{$key} { 
 			background: linear-gradient(to left, rgba($name, 0.6) 25%, rgba(scale-color($name, $lightness: -40%), 0.6) 100%) $lightBkg;
-			border-color: darken($name, 20%);
+			//border-color: darken($name, 20%);
+      border-color: $name;
 
 			.taskList--completeTask > button[class*=icon-]:hover::before { color: #{$name} }
-			.taskList--category > div[class*=icon-] { background-color: #{$name} }
+			.taskList--category div[class*=icon-] { 
+        background-color: #{$name};
+        
+        &:hover {
+          color: lighten($name, 20%);
+          cursor: pointer;
+          transition: color 0.3s ease-in-out;
+
+          &::before { 
+            border-color: lighten($name, 20%);
+            transition: border-color 0.3s ease-in-out
+          }
+        }
+      }
 			.taskList--actions > button.iconOnly:hover { color: lighten($name, 20%) }
 			.taskList--actions > .urgentSwitch input[type=checkbox]:hover:before { color: lighten($name, 20%) }  
 			.taskList--actions > .urgentSwitch input[type=checkbox].isUrgent { border-color: lighten($name, 20%) }  
@@ -431,10 +445,12 @@ main {
 		display: flex;
 		flex: 0 0 auto;
 		align-items: center;
-		background-color: rgba(0,0,0, 0.15);
 		border-right: 1px solid rgba(0,0,0, 0.15);
   }
-  &--completeTask > button[class*=icon-] {
+  &--completeTask {
+    background-color: rgba(0,0,0, 0.15);
+
+    & > button[class*=icon-] {
       width: auto;
       height: auto;
       color: $textBeige;
@@ -442,8 +458,10 @@ main {
       margin: auto $standardMargin;
 
       &:hover::before { transition: color 0.3s ease-in-out }
+    }
   }
-  &--category > div[class*=icon-] {
+
+  &--category div[class*=icon-] {
 		width: 3rem;
 		height: 3rem;
 		font-size: 1.25rem;
@@ -490,7 +508,12 @@ main {
 }
 // ---------------------------------------------------------------------------------------------------------- //
 
-
+.tempLogin {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 12px;
+}
 
 @media (hover: hover) {
   a:hover {

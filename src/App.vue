@@ -20,6 +20,23 @@
                     ></button>
             </Popper>
         </aside>
+        <section class="tempLogin">
+            <div>
+                <h3>SignUp</h3>
+                <input v-model="myAuth.register.email.value" type="email" placeholder="Email">
+                <input v-model="myAuth.register.password.value" type="password" placeholder="Password">
+                <button @click="register">Sign Up</button>
+            </div>
+            <div>
+                <span>User is:{{ myAuth.user }}</span>
+            </div>
+            <div>
+                <h3>Login</h3>
+                <input v-model="myAuth.login.email.value" type="email" placeholder="Email">
+                <input v-model="myAuth.login.password.value" type="password" placeholder="Password">
+                <button @click="login">Login</button>
+            </div>
+        </section>
     </header>
     <main>
         <div class="appContainer">
@@ -49,7 +66,6 @@
                     <h4>Completed <span>{{ tasks.filter(el => el.completed).length }}</span></h4>
                 </section>
                 <section class="tasksArea--main">
-
                     <ul>
                         <li v-for="(todo, index) in tasks" 
                             :key="todo.id"
@@ -57,7 +73,12 @@
                             :class="['category-' + todo.category, computedColor(todo), { completed: todo.completed }]"
                         >   
                             <div class="taskList--completeTask">
-                                <button role="button" aria-label="Complete task" class="topo btn--icn--icon-check_circle iconOnly"></button>
+                                <button 
+                                    :class="{ completed: todo.completed }"
+                                    class="topo btn--icn--icon-check_circle iconOnly" 
+                                    role="button" aria-label="Complete task"
+                                    @click="S_doneTodo(todo.id, todo)"
+                                ></button>
                             </div>
                             <div v-if="editingTask[index]">
                                 <input 
@@ -96,20 +117,36 @@
                                 ></button>
                             </div>
                             <div class="taskList--category">
-                                <div :class="
-                                categories.some(category => category.name === todo.category) ? 
-                                categories.find(category => category.name === todo.category).icon : 
-                                'to be replaced'"></div>
+                                <Popper :placement="'left'" arrow>
+                                    <template #content>
+                                        <div>
+                                            <select 
+                                                :id="`castoro-${index}`" 
+                                                @change="updateCategory('tasks', todo.id, todo.category)" 
+                                                v-model="todo.category"
+                                            >
+                                                <option>Assign a category</option>
+                                                <option>Remove category</option>
+                                                <option v-for="category in categories" :key=category.id>{{category.name}}</option>
+                                            </select>
+                                        </div>
+                                    </template>
+                                    <div :class="
+                                        categories.some(category => category.name === todo.category) ? 
+                                        categories.find(category => category.name === todo.category).icon : 
+                                        'icon-star'"
+                                    ></div>
+                                </Popper>
+
                             </div>
                         </li>
                     </ul>
-
                     <h4 v-if="tasks!.length === 0 ">Empty list.</h4>
-
                 </section>
             </section>
         </div>
     </main>
+
     <!-- Tasks Area-->
     <div id="toDoArea" style="display: none;">
         <h1><i class="icon-plus"></i>ToDo Area</h1>
@@ -179,7 +216,7 @@
     </div>
 
     <!-- Categories Area -->
-    <div id="categoriesArea" style="display: none;">
+    <div id="categoriesArea" >
         <h1>Categories Area</h1>
         <form @submit.prevent="addElement('categories')">
             <label>New category</label>
@@ -291,6 +328,46 @@
     let editingTask = reactive([false]);
     let tempEditName = reactive(Array(categories.value.length).fill(''));
     let completedAreVisible = ref(false);
+
+    /**
+     * Auth - login
+     */ 
+    const myAuth = {
+        login: {
+            email: ref(''),
+            password: ref(''),
+            displayName: ref('')
+        },
+        register: {
+            email: ref(''),
+            password: ref(''),
+            displayName: ref('')            
+        },
+        user: ref('')
+    }
+
+
+    const login = async () => {  
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: myAuth.login.email.value,
+            password: myAuth.login.password.value
+        });
+
+        
+
+        if (error) console.error('Login fallito. Error logging in:', error.message);
+        else console.log('Successo. User logged in:', data.user); myAuth.user.value = data.user.role;
+    };
+    const register = async () => {   
+        const {data, error } = await supabase.auth.signUp({
+            email: myAuth.register.email.value,
+            password: myAuth.register.password.value
+        })
+
+        if (error) console.error('Registrazione fallita. Error logging in:', error.message);
+        else console.log('Successo. User registed:', data.user);
+
+    }
 
 
     const sortCompleted = () => {
@@ -480,6 +557,7 @@
      * ! Done sorting is not reactive on start
      */
     async function S_doneTodo (S_id: number, todo: TASK) {
+        alert('done')
         todo.completed = !todo.completed;
 
         await supabase.from("tasks").update({ completed: todo.completed }).eq('id', S_id)
