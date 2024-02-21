@@ -28,7 +28,7 @@
                 <button @click="register">Sign Up</button>
             </div>
             <div>
-                <span>User is:{{ myAuth.user }}</span>
+                <span>User is:{{ authStatus }}</span>
             </div>
             <div>
                 <h3>Login</h3>
@@ -329,6 +329,9 @@
     let tempEditName = reactive(Array(categories.value.length).fill(''));
     let completedAreVisible = ref(false);
 
+    let authStatus = ref('');
+
+
     /**
      * Auth - login
      */ 
@@ -343,7 +346,8 @@
             password: ref(''),
             displayName: ref('')            
         },
-        user: ref('')
+        user: ref(''),
+        userID: ref(null)
     }
 
 
@@ -353,11 +357,15 @@
             password: myAuth.login.password.value
         });
 
-        
-
-        if (error) console.error('Login fallito. Error logging in:', error.message);
-        else console.log('Successo. User logged in:', data.user); myAuth.user.value = data.user.role;
-    };
+        if (error) {
+            console.error('Login fallito. Error logging in:', error.message, data);
+            authStatus.value = "not logged";
+        } else {
+            console.log('Successo. User logged in:', data.user); 
+            authStatus.value = data.user.role;
+            myAuth.userID = data.user.id
+        };
+    }
     const register = async () => {   
         const {data, error } = await supabase.auth.signUp({
             email: myAuth.register.email.value,
@@ -368,6 +376,8 @@
         else console.log('Successo. User registed:', data.user);
 
     }
+
+    /* ----------------------------------------------------------------------------------------------------------- */
 
 
     const sortCompleted = () => {
@@ -519,7 +529,8 @@
      * * Function for saving a Task or a Category.
      */
      async function S_saveData(S_table: string, S_content: TASK | CAT) {
-        const { error } = await supabase.from(S_table).insert([{ name: S_content.name }]).select()
+        console.log(S_content)
+        const { error } = await supabase.from(S_table).insert([{ name: S_content.name, user: S_content.id }]).select()
 
        S_table && S_table === "tasks" ?  await onFetch('tasks') : await onFetch('categories')
     }
@@ -531,7 +542,8 @@
     const addElement = async (S_table: string) => {
         const newTodoData: TASK = {
             completed: false,
-            name: newTodo.value
+            name: newTodo.value,
+            id: myAuth.userID
         }
         const newCategoryData: CAT = {
             name: categoryName.value
