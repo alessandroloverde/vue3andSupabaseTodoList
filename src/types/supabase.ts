@@ -12,7 +12,7 @@ export interface Database {
       categories: {
         Row: {
           name: string
-          id?: number
+          id: number | null
           color?: string | null
           icon?: string | null
           created_at?: string
@@ -20,41 +20,41 @@ export interface Database {
         Insert: {
           color?: string | null
           created_at?: string
-          id?: number
+          id: number
           name?: string
         }
         Update: {
           color?: string | null
           created_at?: string
-          id?: number
+          id: number
           name?: string
         }
         Relationships: []
       }
       tasks: {
         Row: {
-          name: string | null
-          id?: number
+          name: string
+          id: number | null
           category?: string | null
           completed: boolean | null
           user?: string | null
-          created_at?: string | null
+          created_at?: string
           is_urgent?: boolean
         }
         Insert: {
           category?: string | null
           completed?: boolean | null
           content?: string | null
-          created_at?: string | null
-          id?: number
+          created_at?: string
+          id: number
           user?: string | null
         }
         Update: {
           category?: string | null
           completed?: boolean | null
           content?: string | null
-          created_at?: string | null
-          id?: number
+          created_at?: string
+          id: number
           user?: string | null
         }
         Relationships: [

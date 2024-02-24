@@ -34,7 +34,7 @@ export const fetchTable = async (tableType: string) => {
  * @param tasks         => Data Object
  * @param categories    => Data Object
  */
-export const removeItem = async (S_table: string , S_id: number, tasks: TASK[]|null, categories: CAT[]|null) => {
+export const removeItem = async (S_table: string , S_id: number | null, tasks: TASK[]|null, categories: CAT[]|null) => {
     const reference = S_table === "tasks" ? tasks : categories
 
     await supabase.from(S_table).delete().eq('id', S_id)
@@ -49,7 +49,7 @@ export const removeItem = async (S_table: string , S_id: number, tasks: TASK[]|n
  * @param S_id          => Table ID 
  * @param $event        => Event target is the color's name
  */
-export const updateColor = async (colorClass: string, S_id: number, $event: Event) => {
+export const updateColor = async (colorClass: string, S_id: number | null, $event: Event) => {
     try {
         await supabase.from("categories").update({ color: colorClass }).eq('id', S_id)
     }
@@ -63,9 +63,9 @@ export const updateColor = async (colorClass: string, S_id: number, $event: Even
  * @param iconClass    => The class that defines an icon 
  * @param S_id          => Table ID 
  */
-export const updateIcon = async (iconClass: string, S_id: number, $event: Event) => {
+export const updateIcon = async (iconClass: string, S_id: number | null, $event: Event) => {
 
-    let topo: EventTarget = $event.target
+    let topo: EventTarget = $event.target as EventTarget
 
     console.log(iconClass)
     console.log('event', topo)
@@ -83,6 +83,6 @@ export const updateIcon = async (iconClass: string, S_id: number, $event: Event)
  * @param S_id          => Table ID 
  * @param S_content     => Category name 
  */
-export const updateCategory = async ( S_table: string, S_id: number, S_content: string|null) => { 
+export const updateCategory = async ( S_table: string, S_id: number | null, S_content: string | undefined | null) => { 
     await supabase.from(S_table).update({ category: S_content }).eq('id', S_id)
 }

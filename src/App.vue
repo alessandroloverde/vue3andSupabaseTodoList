@@ -62,13 +62,13 @@
                     </div>
                 </header>
                 <section class="tasksArea--info">
-                    <h4>Tasks <span>{{ tasks.length }}</span></h4>
-                    <h4>Completed <span>{{ tasks.filter(el => el.completed).length }}</span></h4>
+                    <h4>Tasks <span>{{ tasks?.length }}</span></h4>
+                    <h4>Completed <span>{{ tasks?.filter(el => el.completed).length }}</span></h4>
                 </section>
                 <section class="tasksArea--main">
                     <ul>
                         <li v-for="(todo, index) in tasks" 
-                            :key="todo.id"
+                            :key="todo.id!"
                             class="taskList"
                             :class="['category-' + todo.category, computedColor(todo), { completed: todo.completed }]"
                         >   
@@ -85,7 +85,7 @@
                                     type="text" 
                                     v-model="tempEditName[index]" 
                                     @blur="updateTaskName(index, todo.name)"
-                                    @keypress.enter="updateTaskName(index, todo.name)">
+                                    @keypress.enter="updateTaskName(index, todo.name!)">
                             </div>
                             <div 
                                 v-else 
@@ -127,13 +127,13 @@
                                             >
                                                 <option>Assign a category</option>
                                                 <option>Remove category</option>
-                                                <option v-for="category in categories" :key=category.id>{{category.name}}</option>
+                                                <option v-for="category in categories" :key=category.id!>{{category.name}}</option>
                                             </select>
                                         </div>
                                     </template>
                                     <div :class="
-                                        categories.some(category => category.name === todo.category) ? 
-                                        categories.find(category => category.name === todo.category).icon : 
+                                        categories?.some(category => category.name === todo.category) ? 
+                                        categories.find(category => category.name === todo.category)?.icon : 
                                         'icon-star'"
                                     ></div>
                                 </Popper>
@@ -164,8 +164,8 @@
                 :class="['category-' + todo.category, computedColor(todo), { completed: todo.completed }]"
             >
                 <div class="selectedIcon" :class="
-                    categories.some(category => category.name === todo.category) ? 
-                    categories.find(category => category.name === todo.category).icon : 
+                    categories?.some(category => category.name === todo.category) ? 
+                    categories.find(category => category.name === todo.category)?.icon : 
                     'to be replaced'">
                 </div>
                 <div v-if="editingTask[index]">
@@ -202,7 +202,7 @@
                 >
                     <option>Assign a category</option>
                     <option>Remove category</option>
-                    <option v-for="category in categories" :key=category.id>{{category.name}}</option>
+                    <option v-for="category in categories" :key=category.id!>{{category.name}}</option>
                 </select>
                 <button
                     role="button"
@@ -226,7 +226,7 @@
         <h2>Categories List</h2>
         <p>lunghezza: {{categories ? categories.length : 0}}</p>
         <ul class="categoryList">
-            <li v-for="(category, index) in categories" :key=category.id :class="categories ? categories[index].color : null">
+            <li v-for="(category, index) in categories" :key=category.id! :class="categories ? categories[index].color : null">
                 <div 
                     v-if="category.icon" 
                     :class="[category.icon, category.color]" 
@@ -321,15 +321,16 @@
     const tasks: Ref<TASK[] | null> = ref([]);
     const categories: Ref<CAT[] | null> = ref([]);
     
-    const categoryName: Ref<CAT["name"] | null> = ref(null);
+    const categoryName: Ref<CAT["name"]> = ref('');
     const newTodo = ref(null);
     
     let editingCat = reactive([false]);
     let editingTask = reactive([false]);
-    let tempEditName = reactive(Array(categories.value.length).fill(''));
+    let tempEditName = reactive(Array(categories.value?.length).fill(''));
     let completedAreVisible = ref(false);
 
-    let authStatus = ref('');
+    let authStatus: Ref<string> = ref('');
+
 
 
     /**
@@ -347,7 +348,7 @@
             displayName: ref('')            
         },
         user: ref(''),
-        userID: ref(null)
+        userID: ref<string>('')
     }
 
 
@@ -359,12 +360,14 @@
 
         if (error) {
             console.error('Login fallito. Error logging in:', error.message, data);
+            
             authStatus.value = "not logged";
         } else {
             console.log('Successo. User logged in:', data.user); 
-            authStatus.value = data.user.role;
-            myAuth.userID = data.user.id
-        };
+
+            authStatus.value = data.user.role ?? 'not logged'
+            myAuth.userID.value = data.user.id
+        }
     }
     const register = async () => {   
         const {data, error } = await supabase.auth.signUp({
@@ -381,14 +384,14 @@
 
 
     const sortCompleted = () => {
-        tasks.value!.sort((a, b) => {
+        tasks.value !== null ? tasks.value.sort((a, b) => {
             return (a.completed === b.completed) ? 0 : a.completed ? 1 : -1
-        })
+        }) : tasks.value
     }
     const sortUrgent = () => {
-        tasks.value!.sort((a, b) => {
+        tasks.value ?? (tasks.value as unknown as TASK[]).sort((a, b) => {
             return (a.is_urgent === b.is_urgent) ? 0 : a.is_urgent ? -1 : 1
-        })
+        }) 
     }
 
 
@@ -399,12 +402,12 @@
     const editCatName = (index: number) => {
         editingCat[index] = !editingCat[index]
       
-        tempEditName[index] = categories.value[index].name
+        tempEditName[index] = categories.value !== null ? categories.value[index].name : ""
     }
     const editTaskName = (index: number) => {
         editingTask[index] = !editingTask[index]
       
-        tempEditName[index] = tasks.value[index].name
+        tempEditName[index] = tasks.value !==null ? tasks.value[index].name : ""
     }
 
     /**
@@ -444,7 +447,7 @@
      * @param todo 
      */
      const computedColor = (todo: TASK) => {
-        const foundCategory = categories.value!.find(category => category.name === todo.category)
+        const foundCategory = categories.value !== null ? categories.value.find(category => category.name === todo.category) : categories.value
 
         return foundCategory?.color
     };
@@ -472,7 +475,7 @@
                 return;
             }
 
-            tempEditName[index] = categories.value[index].name
+            tempEditName[index] = categories[index].value.name
             editingCat[index] = false
 
             onFetch('tasks')
@@ -502,7 +505,7 @@
                 return;
             }
 
-            tempEditName[index] = tasks.value[index].name
+            tempEditName[index] = tasks[index].value.name
             editingTask[index] = false
 
             onFetch('tasks')
@@ -517,9 +520,9 @@
      * @param tableType 
      */
     const onFetch = async (tableType: string) => {
-        const data: CAT[] & TASK[]  = await fetchTable(tableType)
+        const data: (TASK[] | CAT[]) = await fetchTable(tableType) as (TASK[] | CAT[]);
 
-        tableType === "tasks" ? tasks.value = data : categories.value = data
+        tableType === "tasks" ? tasks.value = data as TASK[] : categories.value = data as CAT[]
 
         sortUrgent()
         sortCompleted()
@@ -542,17 +545,19 @@
     const addElement = async (S_table: string) => {
         const newTodoData: TASK = {
             completed: false,
-            name: newTodo.value,
-            id: myAuth.userID
+            name: newTodo.value !== null ? newTodo.value : '',
+            user: myAuth.userID.value,
+            id: null
         }
         const newCategoryData: CAT = {
-            name: categoryName.value
+            name: categoryName.value,
+            id: null
         }
 
         if (S_table === 'tasks' && newTodo.value) {
             tasks.value?.push(newTodoData);
 
-            newTodo.value = '';
+            newTodo.value = null;
 
             S_saveData(S_table, newTodoData);
         } else if (S_table === 'categories' && categoryName.value) {
@@ -568,7 +573,7 @@
      * * Supabase: set a to todo to done
      * ! Done sorting is not reactive on start
      */
-    async function S_doneTodo (S_id: number, todo: TASK) {
+    async function S_doneTodo (S_id: number | null, todo: TASK) {
         alert('done')
         todo.completed = !todo.completed;
 
@@ -578,7 +583,7 @@
         sortCompleted()
     }
 
-    const setUrgency = async (S_id: number, todo: TASK) => {
+    const setUrgency = async (S_id: number | null , todo: TASK) => {
         todo.is_urgent = !todo.is_urgent;
 
         await supabase.from("tasks").update({ is_urgent: todo.is_urgent }).eq('id', S_id)
