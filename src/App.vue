@@ -324,8 +324,8 @@
     const categoryName: Ref<CAT["name"]> = ref('');
     const newTodo = ref(null);
     
-    let editingCat = reactive([false]);
-    let editingTask = reactive([false]);
+    let editingCat: boolean[] = reactive([]);
+    let editingTask: boolean[] = reactive([]);
     let tempEditName = reactive(Array(categories.value?.length).fill(''));
     let completedAreVisible = ref(false);
 
@@ -475,7 +475,7 @@
                 return;
             }
 
-            tempEditName[index] = categories[index].value.name
+            tempEditName[index] = categories.value![index].name
             editingCat[index] = false
 
             onFetch('tasks')
@@ -505,7 +505,7 @@
                 return;
             }
 
-            tempEditName[index] = tasks[index].value.name
+            tempEditName[index] = tasks.value![index].name
             editingTask[index] = false
 
             onFetch('tasks')
