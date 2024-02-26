@@ -382,16 +382,21 @@
 
     /* ----------------------------------------------------------------------------------------------------------- */
 
-
-    const sortCompleted = () => {
-        tasks.value !== null ? tasks.value.sort((a, b) => {
-            return (a.completed === b.completed) ? 0 : a.completed ? 1 : -1
-        }) : tasks.value
-    }
-    const sortUrgent = () => {
-        tasks.value ?? (tasks.value as unknown as TASK[]).sort((a, b) => {
-            return (a.is_urgent === b.is_urgent) ? 0 : a.is_urgent ? -1 : 1
-        }) 
+    /**
+     * * Function for sorting according to completion and urgency
+     * @param tasks 
+     */
+    const sortByUrgencyAndCompletion = (tasks) => {
+        return tasks.value.sort((a, b) => {
+            // Check for done tasks first
+            if (a.completed === b.completed) {
+            // If completion is the same, sort by urgency (false comes before true)
+            return a.is_urgent - b.is_urgent;
+            } else {
+            // Completed tasks come first, regardless of urgency
+            return a.completed ? 1 : -1;
+            }
+        })
     }
 
 
@@ -409,6 +414,7 @@
       
         tempEditName[index] = tasks.value !==null ? tasks.value[index].name : ""
     }
+
 
     /**
      * * Function that checks all the CSS rules in :root filtered by a string (prefix) that must be either '--icons--' or '--color--'
@@ -435,12 +441,14 @@
         return Object.keys(combinedRootStyles).filter(el => el.startsWith(prefix)).map(el => el.replace(prefix, ''))
     }
 
+
     /**
      * * Computed property that counts done todos.
      */
     let todo_eseguiti = computed(() => {
         return tasks.value!.filter(item => item.completed).length
     })
+
 
     /**
      * * Function that assign the category's color to a class for a todo.
@@ -485,6 +493,7 @@
         }
     }
 
+
     /**
      * * Function for updating a tasks's name
      * @param index 
@@ -515,6 +524,7 @@
         }
     }
 
+
     /**
      * * Helper function for fetching Tasks or Categories.
      * @param tableType 
@@ -523,10 +533,8 @@
         const data: (TASK[] | CAT[]) = await fetchTable(tableType) as (TASK[] | CAT[]);
 
         tableType === "tasks" ? tasks.value = data as TASK[] : categories.value = data as CAT[]
-
-        sortUrgent()
-        sortCompleted()
     }
+
 
     /**
      * * Function for saving a Task or a Category.
@@ -537,6 +545,7 @@
 
        S_table && S_table === "tasks" ?  await onFetch('tasks') : await onFetch('categories')
     }
+
 
     /**
      * * Function for adding a Task or a Category.
@@ -569,6 +578,7 @@
         } 
     }
 
+
     /**
      * * Supabase: set a to todo to done
      * ! Done sorting is not reactive on start
@@ -579,23 +589,31 @@
 
         await supabase.from("tasks").update({ completed: todo.completed }).eq('id', S_id)
 
-        sortUrgent()
-        sortCompleted()
+        sortByUrgencyAndCompletion(tasks)
     }
 
+
+    /**
+     * * Function to set a task as urgent
+     * @param S_id 
+     * @param todo 
+     */
     const setUrgency = async (S_id: number | null , todo: TASK) => {
         todo.is_urgent = !todo.is_urgent;
 
         await supabase.from("tasks").update({ is_urgent: todo.is_urgent }).eq('id', S_id)
 
-        sortUrgent()
-        sortCompleted()
+        sortByUrgencyAndCompletion(tasks)
     }
 
 
+    /**
+     * * These async funtions are triggered on component load
+     */
     onMounted(async () => {
-        onFetch('categories')
-        onFetch('tasks')
+        await onFetch('categories')
+        await onFetch('tasks')
+        await sortByUrgencyAndCompletion(tasks)
     }) 
 </script>
 
