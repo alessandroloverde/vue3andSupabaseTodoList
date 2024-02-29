@@ -87,8 +87,7 @@
                                     @blur="updateTaskName(index, todo.name)"
                                     @keypress.enter="updateTaskName(index, todo.name!)">
                             </div>
-                            <div 
-                                v-else 
+                            <div v-else 
                                 class="taskList--title" 
                                 :class="{ completed: todo.completed }"
                                 @click="S_doneTodo(todo.id, todo)">
@@ -323,18 +322,17 @@
     
     const categoryName: Ref<CAT["name"]> = ref('');
     const newTodo = ref(null);
+
     
-    let editingCat: boolean[] = reactive([]);
-    let editingTask: boolean[] = reactive([]);
-    let tempEditName = reactive(Array(categories.value?.length).fill(''));
-    let completedAreVisible = ref(false);
-
-    let authStatus: Ref<string> = ref('');
-
+    let editingCat: boolean[] = reactive([])
+    let editingTask: boolean[] = reactive([])
+    let tempEditName = reactive(Array(categories.value?.length).fill(''))
+    let completedAreVisible = ref(false)
+    let authStatus: Ref<string> = ref('')
 
 
     /**
-     * Auth - login
+     * * Auth - login
      */ 
     const myAuth = {
         login: {
@@ -350,7 +348,7 @@
         user: ref(''),
         userID: ref<string>('')
     }
-
+    
 
     const login = async () => {  
         const { data, error } = await supabase.auth.signInWithPassword({
@@ -367,6 +365,8 @@
 
             authStatus.value = data.user.role ?? 'not logged'
             myAuth.userID.value = data.user.id
+
+            fetchTable('tasks')
         }
     }
     const register = async () => {   
@@ -377,10 +377,9 @@
 
         if (error) console.error('Registrazione fallita. Error logging in:', error.message);
         else console.log('Successo. User registed:', data.user);
-
     }
-
     /* ----------------------------------------------------------------------------------------------------------- */
+
 
     /**
      * * Function for sorting according to completion and urgency
@@ -540,8 +539,8 @@
      * * Function for saving a Task or a Category.
      */
      async function S_saveData(S_table: string, S_content: TASK | CAT) {
-        console.log(S_content)
-        const { error } = await supabase.from(S_table).insert([{ name: S_content.name, user: S_content.id }]).select()
+        console.log("save", S_content)
+        const { error } = await supabase.from(S_table).insert([{ name: S_content.name, user: S_content.user }]).select()
 
        S_table && S_table === "tasks" ?  await onFetch('tasks') : await onFetch('categories')
     }
@@ -554,14 +553,16 @@
     const addElement = async (S_table: string) => {
         const newTodoData: TASK = {
             completed: false,
-            name: newTodo.value !== null ? newTodo.value : '',
-            user: myAuth.userID.value,
+            name: newTodo.value ?? '',
+            user: myAuth?.userID?.value ? myAuth.userID.value : null,
             id: null
         }
         const newCategoryData: CAT = {
-            name: categoryName.value,
-            id: null
+            name: categoryName.value ?? '',
+            id: null,
+            user: myAuth?.userID?.value ? myAuth.userID.value : null,
         }
+
 
         if (S_table === 'tasks' && newTodo.value) {
             tasks.value?.push(newTodoData);

@@ -16,18 +16,21 @@ export interface Database {
           color?: string | null
           icon?: string | null
           created_at?: string
+          user?: string | null
         }
         Insert: {
           color?: string | null
           created_at?: string
           id: number
           name?: string
+          user?: string | null
         }
         Update: {
           color?: string | null
           created_at?: string
           id: number
           name?: string
+          user?: string | null
         }
         Relationships: []
       }
@@ -37,9 +40,9 @@ export interface Database {
           id: number | null
           category?: string | null
           completed: boolean | null
-          user?: string | null
           created_at?: string
           is_urgent?: boolean
+          user?: string | null
         }
         Insert: {
           category?: string | null
