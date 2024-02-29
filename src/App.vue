@@ -71,6 +71,7 @@
                             :key="todo.id!"
                             class="taskList"
                             :class="['category-' + todo.category, computedColor(todo), { completed: todo.completed }]"
+                            v-show="!todo.completed ? true : (completedAreVisible && todo.completed) || (!completedAreVisible && !todo.completed)"
                         >   
                             <div class="taskList--completeTask">
                                 <button 
@@ -446,6 +447,18 @@
      */
     let todo_eseguiti = computed(() => {
         return tasks.value!.filter(item => item.completed).length
+    })
+
+
+    let hideShowCompleted = computed((todo) => {
+    
+        if (completedAreVisible && todo.completed) {
+            return true;
+        }
+        if (!completedAreVisible && !todo.completed) {
+            return true;
+        }
+        return false; 
     })
 
 
