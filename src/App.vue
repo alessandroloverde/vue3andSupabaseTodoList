@@ -1,26 +1,10 @@
 <template>
-    <header class="appHeader">
-        <h1 class="appHeader--title">Wondertask</h1>
-        <aside class="appHeader--avatar">
-            <Popper :placement="'left'" arrow >
-                    <template #content class="flyoutMenu">
-                        <div >
-                            <ul>
-                                <li>Welcome Supabase</li>
-                                <li>Login</li>
-                                <li>Logout</li>
-                            </ul>
-                        </div>
-                    </template>
-                    <button
-                        role="button"
-                        aria-label="Login options" 
-                        class="btn--avatar"  
-                        @click=""
-                    ></button>
-            </Popper>
-        </aside>
+    <Header></Header>
+    <!-- 
         <section class="tempLogin">
+            <button><router-link :to="{ name: 'Register' }">Register</router-link></button>
+            <router-view></router-view>
+
             <div>
                 <h3>SignUp</h3>
                 <input v-model="myAuth.register.email.value" type="email" placeholder="Email">
@@ -37,7 +21,7 @@
                 <button @click="login">Login</button>
             </div>
         </section>
-    </header>
+     -->
     <main>
         <div class="appContainer">
             <section class="categoriesArea"></section>
@@ -309,6 +293,7 @@
 </template>
 
 <script setup lang="ts">
+    import Header from '@/components/Header.vue'
     import { ref, reactive, onMounted, computed } from 'vue';
     import Popper from "vue3-popper";
     import { createClient } from '@supabase/supabase-js';

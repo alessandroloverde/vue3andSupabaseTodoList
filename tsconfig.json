@@ -16,8 +16,8 @@
     "checkJs": true,
     "sourceMap": true,
     "alwaysStrict": true,
-    "strictNullChecks": true 
-    
+    "strictNullChecks": true,
+    "outDir": "./dist"
   },
   "lib": ["esnext", "dom"],
   "paths": {
@@ -27,9 +27,9 @@
     // "src/*/.js",
     "src/**/*.ts",
     "src/**/*.d.ts",
-    "src/**/*.vue"
+    "src/**/*.vue",
   ],
   "exclude": [
-    "node_modules"
+    "node_modules", "./dist/**/*"
   ],
 }

@@ -13,7 +13,6 @@ export type CAT = Database["public"]["Tables"]["categories"]["Row"]
  * @returns 
  */
 export const fetchTable = async (tableType: string) => {
-    alert('fetch')
     try {
         const {data} = await supabase.from(tableType).select();
 
