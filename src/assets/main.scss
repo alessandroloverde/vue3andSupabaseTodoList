@@ -301,15 +301,58 @@ main {
   border-radius: 36px;
   //background-color: rgba(198, 152, 107, 0.25);
 
+  .categoriesArea,
+  .tasksArea {
+    flex-wrap: wrap;
+
+    & > header {
+      width: 100%;
+      display: flex;
+      line-height: 1;
+
+      form {
+        display: flex;
+        flex: 1 1 auto;
+        align-items: center;
+
+        input {
+          width: 100%;
+          margin-left: $standardMargin * 2; 
+          margin-right: $standardMargin;
+          &:focus {box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);}
+        }
+      }
+    }
+    &--info {
+      display: flex;
+      justify-content: space-between;
+      padding: $standardMargin $standardMargin * 2;
+
+      & > h4 {
+        font-family: $titillium;
+        color: $fff;
+        font-size: 18px;
+
+        & > span { 
+          color: $ctaColor;
+          margin-left: 0.125em; 
+        }
+      }
+    }
+    &--main {
+      width: 100%;
+      padding: $standardMargin $standardMargin * 2;
+    }
+  }
+
   .categoriesArea {
     display: flex;
-    flex-wrap: wrap;
     flex-basis: 35%;
+    flex-direction: column;
     background-color: $medBkg;
     border-top-left-radius: $standardMargin * 3;
   }
   .tasksArea {
-    flex-wrap: wrap;
     flex-basis: 65%;
     background-color: $darkestBkg;
     background: linear-gradient(
@@ -336,26 +379,10 @@ main {
                 inset -5px 5px 20px 0px rgba(0, 0, 0, 0.55);
 
     & > header {
-      width: 100%;
-      display: flex;
       background: rgba(255, 98, 98, 0.2);
       border-top-right-radius: $standardMargin * 3;
       padding: $standardMargin * 2;
-      line-height: 1;
       background: linear-gradient(to top, #502f3b 0%, #674455 100%);
-
-      form {
-        display: flex;
-        flex: 1 1 auto;
-        align-items: center;
-
-        input {
-          width: 100%;
-          margin-left: $standardMargin * 2; 
-          margin-right: $standardMargin;
-          &:focus {box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);}
-        }
-      }
     }
     &--title {
       font-family: $robotoSlab;
@@ -372,25 +399,6 @@ main {
       color: $textBeige;
       font-family: $titillium;
       font-weight: 600;
-    }
-    &--info {
-      display: flex;
-      justify-content: space-between;
-      padding: $standardMargin $standardMargin * 2;
-
-      & > h4 {
-        font-family: $titillium;
-        color: $fff;
-        font-size: 18px;
-
-        & > span { 
-          color: $ctaColor;
-          margin-left: 0.125em; 
-        }
-      }
-    }
-    &--main {
-      padding: $standardMargin $standardMargin * 2;
     }
   }
 }

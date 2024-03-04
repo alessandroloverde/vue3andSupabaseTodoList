@@ -7,7 +7,7 @@ export type TASK = Database["public"]["Tables"]["tasks"]["Row"]
 export type CAT = Database["public"]["Tables"]["categories"]["Row"]
 
 
-/**
+/**   
  * * Fetching either tasks or category table.
  * @param tableType => The type of table to fetch data from
  * @returns 
@@ -27,6 +27,7 @@ export const fetchTable = async (tableType: string) => {
     }
 }
 
+
 /**
  * * Remove task or category.
  * @param S_table       => The type of table to fetch data from
@@ -41,6 +42,7 @@ export const removeItem = async (S_table: string , S_id: number | null, tasks: T
 
     reference ? reference.splice(reference.findIndex(el => el.id === S_id), 1) : []
 }
+
 
 /**
  * * Changes the color of a category.
@@ -57,6 +59,18 @@ export const updateColor = async (colorClass: string, S_id: number | null, $even
         console.error(err)
     }
 }
+
+
+/**
+ * * Changes the category of a task.
+ * @param S_table       => The type of table to fetch data from
+ * @param S_id          => Table ID 
+ * @param S_content     => Category name 
+ */
+export const updateCategory = async ( S_table: string, S_id: number | null, S_content: string | undefined | null) => { 
+    await supabase.from(S_table).update({ category: S_content }).eq('id', S_id)
+}
+
 
 /**
  * * Changes the icon of a category.
@@ -77,12 +91,35 @@ export const updateIcon = async (iconClass: string, S_id: number | null, $event:
     }
 }
 
-/**
- * * Changes the category of a task.
- * @param S_table       => The type of table to fetch data from
- * @param S_id          => Table ID 
- * @param S_content     => Category name 
+
+ /**
+ * * Function for updating the category's name
+ * @param index 
+ * @param oldCatName 
  */
-export const updateCategory = async ( S_table: string, S_id: number | null, S_content: string | undefined | null) => { 
-    await supabase.from(S_table).update({ category: S_content }).eq('id', S_id)
+ export const updateCatName = async ( index: number, oldCatName: string, tempEditName, categories, editingCat, onFetch) => {
+    let newCategoryName = tempEditName[index]
+
+    console.log(categories)
+
+    try {
+        const { error: updateCategoryError } = await supabase
+            .from('categories')
+            .update({ name: newCategoryName })
+            .eq('name', oldCatName);
+
+        if (updateCategoryError) {
+            console.error('Error updating category:', updateCategoryError);
+
+            return;
+        }
+
+        tempEditName[index] = categories[index].name
+        editingCat[index] = false
+
+        onFetch('tasks')
+        onFetch('categories')
+    } catch (error) {
+        console.error('An unexpected error occurred:', error);
+    }
 }

@@ -1,30 +1,102 @@
 <template>
-    <Header></Header>
-    <!-- 
-        <section class="tempLogin">
-            <button><router-link :to="{ name: 'Register' }">Register</router-link></button>
-            <router-view></router-view>
-
-            <div>
-                <h3>SignUp</h3>
-                <input v-model="myAuth.register.email.value" type="email" placeholder="Email">
-                <input v-model="myAuth.register.password.value" type="password" placeholder="Password">
-                <button @click="register">Sign Up</button>
-            </div>
-            <div>
-                <span>User is:{{ authStatus }}</span>
-            </div>
-            <div>
-                <h3>Login</h3>
-                <input v-model="myAuth.login.email.value" type="email" placeholder="Email">
-                <input v-model="myAuth.login.password.value" type="password" placeholder="Password">
-                <button @click="login">Login</button>
-            </div>
-        </section>
-     -->
+    <AppHeader></AppHeader>
     <main>
         <div class="appContainer">
-            <section class="categoriesArea"></section>
+            <section class="categoriesArea">
+                <header>
+                    <form @submit.prevent="addElement('categories')">
+                        <label>New category</label>
+                        <input v-model="categoryName" name="categoryName" autocomplete="off">
+                        <button>Add category</button>
+                    </form>
+                </header>
+                <section class="categoriesArea--info">
+                    <h4>Categories: <span>{{categories ? categories.length : 0}}</span></h4>
+                </section>
+                <section class="categoriesArea--main">
+                    <ul class="categoryList">
+                        <li v-for="(category, index) in categories" :key=category.id! :class="categories ? categories[index].color : null">
+                            <div 
+                                v-if="category.icon" 
+                                :class="[category.icon, category.color]" 
+                                class="selectedIcon"
+                            ></div>
+                            <div v-if="editingCat[index]">
+                                <input 
+                                    type="text" 
+                                    v-model="tempEditName[index]" 
+                                    @blur="updateCatName(index, category.name, tempEditName, categories, editingCat, onFetch)"
+                                    @keypress.enter="updateCatName(index, category.name, tempEditName, categories, editingCat, onFetch)">
+                            </div>
+                            <div v-else class="categoryName">{{category.name}}</div>
+                            <Popper :placement="'top'" arrow>
+                                <template #content>
+                                    <div class="colorPicker">
+                                        <input 
+                                            type="radio"
+                                            :name="`colorPicker-${category.id}`"
+                                            :checked="false"
+                                            v-for="color, index in detectCSSVariables('--color--')" 
+                                            :value="color"
+                                            v-model="category.color" 
+                                            :key=index 
+                                            :class="color" 
+                                            @change="updateColor(color, category.id, $event)"
+                                        >
+                                    </div>
+                                </template>
+                                <button
+                                    role="button"
+                                    aria-label="Open Color Picker" 
+                                    class="btn--icn--icon-eyedropper" 
+                                ></button>
+                            </Popper>
+
+                            <!-- <select :id="`volpe-${index}`" @change="updateColor(category.color, category.id, $event)" v-model="category.color">
+                                <option>Assign a color</option>
+                                <option>Remove color</option>
+                                <option v-for="color, index in colors()" :key=index>{{color}}</option>
+                            </select> -->
+                            <Popper :placement="'top'" arrow>
+                                <template #content>
+                                    <div class="iconPicker">
+                                        <input 
+                                            type="radio"
+                                            :name="`iconPicker-${category.id}`"
+                                            :checked="false"
+                                            v-for="icon, index in detectCSSVariables('--icons--')" 
+                                            :value="icon"
+                                            v-model="category.icon" 
+                                            :key=index 
+                                            :class="icon" 
+                                            @click="updateIcon(icon, category.id, $event)"
+                                        >
+                                    </div>
+                                </template>
+                                <button
+                                    role="button"
+                                    aria-label="Choose custom icon"
+                                    class="btn--icn--icon-diamond"
+                                ></button>
+                            </Popper>
+                            <div class="spacer"></div>
+                            <button
+                                role="button"
+                                aria-label="Edit name" 
+                                class="btn--icn--icon-pencil" 
+                                @click="editCatName(index)"
+                            ></button>
+                            <button
+                                role="button"
+                                aria-label="Remove category" 
+                                class="btn--icn--icon-trash-o" 
+                                @click="removeItem('categories', category.id, tasks, categories)"
+                            ></button>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
             <section class="tasksArea">
                 <header>
                     <form @submit.prevent="addElement('tasks')">
@@ -130,176 +202,16 @@
             </section>
         </div>
     </main>
-
-    <!-- Tasks Area-->
-    <div id="toDoArea" style="display: none;">
-        <h1><i class="icon-plus"></i>ToDo Area</h1>
-        <form @submit.prevent="addElement('tasks')">
-            <label>New ToDo </label>
-            <input v-model="newTodo" name="newTodo" autocomplete="off">
-            <button>Add ToDo</button>
-        </form>
-        <h2>ToDo List</h2>
-        <p>lunghezza: {{tasks ? tasks.length : 0}}</p>
-        <p>to-do eseguiti reac: {{todo_eseguiti}}</p>
-        <ul class="taskList">
-            <li v-for="(todo, index) in tasks" 
-                :key="index" 
-                :class="['category-' + todo.category, computedColor(todo), { completed: todo.completed }]"
-            >
-                <div class="selectedIcon" :class="
-                    categories?.some(category => category.name === todo.category) ? 
-                    categories.find(category => category.name === todo.category)?.icon : 
-                    'to be replaced'">
-                </div>
-                <div v-if="editingTask[index]">
-                    <input 
-                        type="text" 
-                        v-model="tempEditName[index]" 
-                        @blur="updateTaskName(index, todo.name)"
-                        @keypress.enter="updateTaskName(index, todo.name)">
-                </div>
-                <div 
-                    v-else class="taskName" 
-                    :class="{ completed: todo.completed }" 
-                    @click="S_doneTodo(todo.id, todo)">
-                        {{ todo.name }}
-                </div>
-                <div class="urgentSwitch">
-                    <label class="form-control">
-                       <input type="checkbox" 
-                           :class="{ isUrgent: !todo.is_urgent }"
-                           :checked="todo.is_urgent" 
-                           @click="setUrgency(todo.id, todo)"> 
-                    </label>
-                </div>
-                <button
-                    role="button"
-                    aria-label="Edit name" 
-                    class="btn--icn--icon-pencil"
-                    @click="editTaskName(index)"
-                ></button>
-                <select 
-                    :id="`castoro-${index}`" 
-                    @change="updateCategory('tasks', todo.id, todo.category)" 
-                    v-model="todo.category"
-                >
-                    <option>Assign a category</option>
-                    <option>Remove category</option>
-                    <option v-for="category in categories" :key=category.id!>{{category.name}}</option>
-                </select>
-                <button
-                    role="button"
-                    aria-label="Remove task" 
-                    class="btn--icn--icon-trash-o"  
-                    @click="removeItem('tasks', todo.id, tasks, categories)"
-                ></button>
-            </li>
-        </ul>
-        <h4 v-if="tasks!.length === 0 ">Empty list.</h4>
-    </div>
-
-    <!-- Categories Area -->
-    <div id="categoriesArea" >
-        <h1>Categories Area</h1>
-        <form @submit.prevent="addElement('categories')">
-            <label>New category</label>
-            <input v-model="categoryName" name="categoryName" autocomplete="off">
-            <button>Add category</button>
-        </form>
-        <h2>Categories List</h2>
-        <p>lunghezza: {{categories ? categories.length : 0}}</p>
-        <ul class="categoryList">
-            <li v-for="(category, index) in categories" :key=category.id! :class="categories ? categories[index].color : null">
-                <div 
-                    v-if="category.icon" 
-                    :class="[category.icon, category.color]" 
-                    class="selectedIcon"
-                ></div>
-                <div v-if="editingCat[index]">
-                    <input 
-                        type="text" 
-                        v-model="tempEditName[index]" 
-                        @blur="updateCatName(index, category.name)"
-                        @keypress.enter="updateCatName(index, category.name)">
-                </div>
-                <div v-else class="categoryName">{{category.name}}</div>
-                <Popper :placement="'top'" arrow>
-                    <template #content>
-                        <div class="colorPicker">
-                            <input 
-                                type="radio"
-                                :name="`colorPicker-${category.id}`"
-                                :checked="false"
-                                v-for="color, index in detectCSSVariables('--color--')" 
-                                :value="color"
-                                v-model="category.color" 
-                                :key=index 
-                                :class="color" 
-                                @change="updateColor(color, category.id, $event)"
-                            >
-                        </div>
-                    </template>
-                    <button
-                        role="button"
-                        aria-label="Open Color Picker" 
-                        class="btn--icn--icon-eyedropper" 
-                    ></button>
-                </Popper>
-
-                <!-- <select :id="`volpe-${index}`" @change="updateColor(category.color, category.id, $event)" v-model="category.color">
-                    <option>Assign a color</option>
-                    <option>Remove color</option>
-                    <option v-for="color, index in colors()" :key=index>{{color}}</option>
-                </select> -->
-                <Popper :placement="'top'" arrow>
-                    <template #content>
-                        <div class="iconPicker">
-                            <input 
-                                type="radio"
-                                :name="`iconPicker-${category.id}`"
-                                :checked="false"
-                                v-for="icon, index in detectCSSVariables('--icons--')" 
-                                :value="icon"
-                                v-model="category.icon" 
-                                :key=index 
-                                :class="icon" 
-                                @click="updateIcon(icon, category.id, $event)"
-                            >
-                        </div>
-                    </template>
-                    <button
-                        role="button"
-                        aria-label="Choose custom icon"
-                        class="btn--icn--icon-diamond"
-                    ></button>
-                </Popper>
-                <div class="spacer"></div>
-                <button
-                    role="button"
-                    aria-label="Edit name" 
-                    class="btn--icn--icon-pencil" 
-                    @click="editCatName(index)"
-                ></button>
-                <button
-                    role="button"
-                    aria-label="Remove category" 
-                    class="btn--icn--icon-trash-o" 
-                    @click="removeItem('categories', category.id, tasks, categories)"
-                ></button>
-            </li>
-        </ul>
-    </div>
 </template>
 
 <script setup lang="ts">
-    import Header from '@/components/Header.vue'
     import { ref, reactive, onMounted, computed } from 'vue';
     import Popper from "vue3-popper";
     import { createClient } from '@supabase/supabase-js';
-    import { removeItem, fetchTable, updateColor, updateCategory, updateIcon } from './api/apiSupabase';
+    import { removeItem, fetchTable, updateColor, updateCategory, updateIcon, updateCatName } from './api/apiSupabase';
     import type { Ref } from 'vue';
     import type { TASK, CAT } from './api/apiSupabase';
+    import AppHeader from './components/AppHeader.vue';
    
     const supabase = createClient(import.meta.env.VITE_SUPABASE_API_URL, import.meta.env.VITE_SUPABASE_API_KEY);
 
@@ -309,7 +221,6 @@
     const categoryName: Ref<CAT["name"]> = ref('');
     const newTodo = ref(null);
 
-    
     let editingCat: boolean[] = reactive([])
     let editingTask: boolean[] = reactive([])
     let tempEditName = reactive(Array(categories.value?.length).fill(''))
@@ -435,18 +346,6 @@
     })
 
 
-    let hideShowCompleted = computed((todo) => {
-    
-        if (completedAreVisible && todo.completed) {
-            return true;
-        }
-        if (!completedAreVisible && !todo.completed) {
-            return true;
-        }
-        return false; 
-    })
-
-
     /**
      * * Function that assign the category's color to a class for a todo.
      * @param todo 
@@ -458,37 +357,8 @@
     };
 
 
-    // Async functions
+    // === Async functions ================================================================================================
 
-    /**
-     * * Function for updating the category's name
-     * @param index 
-     * @param oldCatName 
-     */
-    const updateCatName = async ( index: number, oldCatName: string) => {
-        let newCategoryName = tempEditName[index]
-
-        try {
-            const { error: updateCategoryError } = await supabase
-                .from('categories')
-                .update({ name: newCategoryName })
-                .eq('name', oldCatName);
-
-            if (updateCategoryError) {
-                console.error('Error updating category:', updateCategoryError);
-
-                return;
-            }
-
-            tempEditName[index] = categories.value![index].name
-            editingCat[index] = false
-
-            onFetch('tasks')
-            onFetch('categories')
-        } catch (error) {
-            console.error('An unexpected error occurred:', error);
-        }
-    }
 
 
     /**
@@ -583,7 +453,6 @@
      * ! Done sorting is not reactive on start
      */
     async function S_doneTodo (S_id: number | null, todo: TASK) {
-        alert('done')
         todo.completed = !todo.completed;
 
         await supabase.from("tasks").update({ completed: todo.completed }).eq('id', S_id)
