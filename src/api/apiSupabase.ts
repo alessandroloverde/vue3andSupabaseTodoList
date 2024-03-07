@@ -123,3 +123,39 @@ export const updateIcon = async (iconClass: string, S_id: number | null, $event:
         console.error('An unexpected error occurred:', error);
     }
 }
+
+    /**
+     * * Function that checks all the CSS rules in :root filtered by a string (prefix) that must be either '--icons--' or '--color--'
+     * @param prefix
+     */
+    export function detectCSSVariables(prefix) {
+        const documentRoot:  StyleSheetList = document.styleSheets;
+        let combinedRootStyles = {};
+
+        for (let sheet of documentRoot) {
+            try {
+                for (let rule of sheet.cssRules) {
+                    if (rule instanceof CSSStyleRule && rule.selectorText === ':root') {
+                        for (let j = 0; j < rule.style.length; j++) {
+                            const cssProperty = rule.style[j];
+                            
+                            combinedRootStyles[cssProperty] = rule.style.getPropertyValue(cssProperty);
+                        }
+                    }
+                }
+            } catch (e) { console.warn("Could not access cssRules of a stylesheet:", e) }
+        }
+
+        return Object.keys(combinedRootStyles).filter(el => el.startsWith(prefix)).map(el => el.replace(prefix, ''))
+    }
+
+
+        /**
+     * * Function for saving a Task or a Category.
+     */
+        export async function S_saveData(S_table: string, S_content: TASK | CAT) {
+            console.log("save", S_content)
+            const { error } = await supabase.from(S_table).insert([{ name: S_content.name, user: S_content.user }]).select()
+    
+           S_table && S_table === "tasks" ?  await fetchTable('tasks') : await fetchTable('categories')
+        }

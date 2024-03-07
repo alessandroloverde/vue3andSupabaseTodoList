@@ -2,100 +2,13 @@
     <AppHeader></AppHeader>
     <main>
         <div class="appContainer">
-            <section class="categoriesArea">
-                <header>
-                    <form @submit.prevent="addElement('categories')">
-                        <label>New category</label>
-                        <input v-model="categoryName" name="categoryName" autocomplete="off">
-                        <button>Add category</button>
-                    </form>
-                </header>
-                <section class="categoriesArea--info">
-                    <h4>Categories: <span>{{categories ? categories.length : 0}}</span></h4>
-                </section>
-                <section class="categoriesArea--main">
-                    <ul class="categoryList">
-                        <li v-for="(category, index) in categories" :key=category.id! :class="categories ? categories[index].color : null">
-                            <div 
-                                v-if="category.icon" 
-                                :class="[category.icon, category.color]" 
-                                class="selectedIcon"
-                            ></div>
-                            <div v-if="editingCat[index]">
-                                <input 
-                                    type="text" 
-                                    v-model="tempEditName[index]" 
-                                    @blur="updateCatName(index, category.name, tempEditName, categories, editingCat, onFetch)"
-                                    @keypress.enter="updateCatName(index, category.name, tempEditName, categories, editingCat, onFetch)">
-                            </div>
-                            <div v-else class="categoryName">{{category.name}}</div>
-                            <Popper :placement="'top'" arrow>
-                                <template #content>
-                                    <div class="colorPicker">
-                                        <input 
-                                            type="radio"
-                                            :name="`colorPicker-${category.id}`"
-                                            :checked="false"
-                                            v-for="color, index in detectCSSVariables('--color--')" 
-                                            :value="color"
-                                            v-model="category.color" 
-                                            :key=index 
-                                            :class="color" 
-                                            @change="updateColor(color, category.id, $event)"
-                                        >
-                                    </div>
-                                </template>
-                                <button
-                                    role="button"
-                                    aria-label="Open Color Picker" 
-                                    class="btn--icn--icon-eyedropper" 
-                                ></button>
-                            </Popper>
 
-                            <!-- <select :id="`volpe-${index}`" @change="updateColor(category.color, category.id, $event)" v-model="category.color">
-                                <option>Assign a color</option>
-                                <option>Remove color</option>
-                                <option v-for="color, index in colors()" :key=index>{{color}}</option>
-                            </select> -->
-                            <Popper :placement="'top'" arrow>
-                                <template #content>
-                                    <div class="iconPicker">
-                                        <input 
-                                            type="radio"
-                                            :name="`iconPicker-${category.id}`"
-                                            :checked="false"
-                                            v-for="icon, index in detectCSSVariables('--icons--')" 
-                                            :value="icon"
-                                            v-model="category.icon" 
-                                            :key=index 
-                                            :class="icon" 
-                                            @click="updateIcon(icon, category.id, $event)"
-                                        >
-                                    </div>
-                                </template>
-                                <button
-                                    role="button"
-                                    aria-label="Choose custom icon"
-                                    class="btn--icn--icon-diamond"
-                                ></button>
-                            </Popper>
-                            <div class="spacer"></div>
-                            <button
-                                role="button"
-                                aria-label="Edit name" 
-                                class="btn--icn--icon-pencil" 
-                                @click="editCatName(index)"
-                            ></button>
-                            <button
-                                role="button"
-                                aria-label="Remove category" 
-                                class="btn--icn--icon-trash-o" 
-                                @click="removeItem('categories', category.id, tasks, categories)"
-                            ></button>
-                        </li>
-                    </ul>
-                </section>
-            </section>
+            <CategoriesArea
+                :categories="categories"
+                :tasks="tasks"
+                :supabase="supabase"
+                @categoryUpdated="onFetch('categories')"
+            ></CategoriesArea>
 
             <section class="tasksArea">
                 <header>
@@ -203,25 +116,27 @@
         </div>
     </main>
 </template>
-
+<script lang="ts">
+    export const tasks: Ref<TASK[] | null> = ref([]);
+    export const categories: Ref<CAT[] | null> = ref([]);
+</script>
 <script setup lang="ts">
     import { ref, reactive, onMounted, computed } from 'vue';
     import Popper from "vue3-popper";
     import { createClient } from '@supabase/supabase-js';
-    import { removeItem, fetchTable, updateColor, updateCategory, updateIcon, updateCatName } from './api/apiSupabase';
+    import { removeItem, fetchTable, updateColor, updateCategory, S_saveData } from './api/apiSupabase';
     import type { Ref } from 'vue';
     import type { TASK, CAT } from './api/apiSupabase';
     import AppHeader from './components/AppHeader.vue';
+    import CategoriesArea from './components/CategoriesArea.vue';
    
     const supabase = createClient(import.meta.env.VITE_SUPABASE_API_URL, import.meta.env.VITE_SUPABASE_API_KEY);
 
-    const tasks: Ref<TASK[] | null> = ref([]);
-    const categories: Ref<CAT[] | null> = ref([]);
+
     
     const categoryName: Ref<CAT["name"]> = ref('');
     const newTodo = ref(null);
 
-    let editingCat: boolean[] = reactive([])
     let editingTask: boolean[] = reactive([])
     let tempEditName = reactive(Array(categories.value?.length).fill(''))
     let completedAreVisible = ref(false)
@@ -297,14 +212,9 @@
 
 
     /**
-     * * Helper function for allowing the edit of a category or a task
+     * * Helper function for allowing the edit of a task
      * @param index
      */
-    const editCatName = (index: number) => {
-        editingCat[index] = !editingCat[index]
-      
-        tempEditName[index] = categories.value !== null ? categories.value[index].name : ""
-    }
     const editTaskName = (index: number) => {
         editingTask[index] = !editingTask[index]
       
@@ -316,7 +226,7 @@
      * * Function that checks all the CSS rules in :root filtered by a string (prefix) that must be either '--icons--' or '--color--'
      * @param prefix
      */
-    function detectCSSVariables(prefix) {
+/*     function detectCSSVariables(prefix) {
         const documentRoot:  StyleSheetList = document.styleSheets;
         let combinedRootStyles = {};
 
@@ -335,7 +245,7 @@
         }
 
         return Object.keys(combinedRootStyles).filter(el => el.startsWith(prefix)).map(el => el.replace(prefix, ''))
-    }
+    } */
 
 
     /**
@@ -406,12 +316,12 @@
     /**
      * * Function for saving a Task or a Category.
      */
-     async function S_saveData(S_table: string, S_content: TASK | CAT) {
+/*      async function S_saveData(S_table: string, S_content: TASK | CAT) {
         console.log("save", S_content)
         const { error } = await supabase.from(S_table).insert([{ name: S_content.name, user: S_content.user }]).select()
 
        S_table && S_table === "tasks" ?  await onFetch('tasks') : await onFetch('categories')
-    }
+    } */
 
 
     /**
