@@ -1,9 +1,9 @@
 <template>
     <section class="categoriesArea">
         <header>
-            <form @submit.prevent="addElement('categories')">
+            <form @submit.prevent="saveNewCategory()">
                 <label>New category</label>
-                <input v-model="categoryName" name="categoryName" autocomplete="off">
+                <input v-model="newCategoryName" name="categoryName" autocomplete="off">
                 <button>Add category</button>
             </form>
         </header>
@@ -92,29 +92,22 @@
 
 <script setup lang="ts">
     import type { Ref } from 'vue';
-    import type { TASK, CAT } from '../api/apiSupabase';
+    import type { CAT } from '../api/apiSupabase';
+
     import Popper from "vue3-popper";
-    import { reactive, ref, computed, watch, onMounted } from 'vue';
-    import { removeItem, updateColor, updateIcon, detectCSSVariables, S_saveData, fetchTable } from '../api/apiSupabase';
-    import {tasks, categories} from '../App.vue';
+    import { reactive, ref } from 'vue';
+    import { removeItem, updateColor, updateIcon, detectCSSVariables, S_saveData } from '../api/apiSupabase';
 
     const props = defineProps(['categories', 'tasks', 'supabase'])
     const emit = defineEmits(['categoryUpdated'])
 
-
-    /**
-     * ! v-model for new category
-     */
-
     let editableIndex = ref(-1)
-    let items = ref(categories)
-    const inputCount = computed(() => items.value.length);
-
-
-    let tempEditName = reactive(Array(props.categories.value?.length).fill(''))
-    let categoryName: Ref<string>[] = reactive([]);
+    let categoryName: Ref<string>[] = reactive([])
+    let newCategoryName: Ref<string> = ref('')
  
-      
+    /**
+     * * Fxs for editing a single existing cat, one input at time. The second saves (update) the result and emits the event.
+     */
     const editCategoryName = (index: number) => {
         editableIndex.value = editableIndex.value === index ? -1 : index;
         
@@ -133,78 +126,30 @@
             if (updateCategoryError) {
                 console.error('Error updating category:', updateCategoryError);
 
-                return;
+                return
             }
 
             editableIndex.value = -1
 
-            fetchTable('tasks')
-            fetchTable('categories')
-
-            emit('categoryUpdated');
+            await emit('categoryUpdated');
         } catch (error) {
             console.error('An unexpected error occurred:', error);
         }
     }
 
-
-
     /**
-     * * Helper function for allowing the edit of a category or a task
-     * @param index
+     * * Fx for saving a new category in the DB. It emits an event.
      */
-/*      const editCatName = (index: number) => {
-        editingCat[index] = !editingCat[index]
-      
-        tempEditName[index] = props.categories !== null ? props.categories[index].name : ""
-    } */
-
-
-
-    /**
-     * * Function for adding a Task or a Category.
-     * @param S_table 
-     */
-     const addElement = async (S_table: string) => {
-        const newCategoryData: CAT = {
-            name: categoryName ?? '',
+    const saveNewCategory = async () => {
+        let content: CAT = {
+            name: newCategoryName.value,
             id: null,
-            //user: myAuth?.userID?.value ? myAuth.userID.value : null,
+            //user: to be done yet
         }
 
-        if (categoryName) {
-            props.categories.value?.push(newCategoryData);
-
-            categoryName = '';
-
-            S_saveData(S_table, newCategoryData);
-        } 
+        await S_saveData('categories', content)
+        await emit('categoryUpdated');
     }
 
-
-    const updateCatName = async ( index: number, oldCatName: string, ) => {
-        let newCategoryName = tempEditName[index]
-
-        try {
-            const { error: updateCategoryError } = await props.supabase
-                .from('categories')
-                .update({ name: newCategoryName })
-                .eq('name', oldCatName);
-
-            if (updateCategoryError) {
-                console.error('Error updating category:', updateCategoryError);
-
-                return;
-            }
-
-            tempEditName[index] = categories[index].name
-            editingCat[index] = false
-
-            fetchTable('tasks')
-            fetchTable('categories')
-        } catch (error) {
-            console.error('An unexpected error occurred:', error);
-        }
-    }
 </script>
 

@@ -97,7 +97,7 @@ export const updateIcon = async (iconClass: string, S_id: number | null, $event:
  * @param index 
  * @param oldCatName 
  */
- export const updateCatName = async ( index: number, oldCatName: string, tempEditName, categories, editingCat, onFetch) => {
+/*  export const updateCatName = async ( index: number, oldCatName: string, tempEditName, categories, editingCat, onFetch) => {
     let newCategoryName = tempEditName[index]
 
     console.log(categories)
@@ -122,7 +122,7 @@ export const updateIcon = async (iconClass: string, S_id: number | null, $event:
     } catch (error) {
         console.error('An unexpected error occurred:', error);
     }
-}
+} */
 
     /**
      * * Function that checks all the CSS rules in :root filtered by a string (prefix) that must be either '--icons--' or '--color--'

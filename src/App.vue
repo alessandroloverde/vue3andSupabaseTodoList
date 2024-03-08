@@ -116,10 +116,10 @@
         </div>
     </main>
 </template>
-<script lang="ts">
+<!-- <script lang="ts">
     export const tasks: Ref<TASK[] | null> = ref([]);
     export const categories: Ref<CAT[] | null> = ref([]);
-</script>
+</script> -->
 <script setup lang="ts">
     import { ref, reactive, onMounted, computed } from 'vue';
     import Popper from "vue3-popper";
@@ -132,10 +132,11 @@
    
     const supabase = createClient(import.meta.env.VITE_SUPABASE_API_URL, import.meta.env.VITE_SUPABASE_API_KEY);
 
-
-    
     const categoryName: Ref<CAT["name"]> = ref('');
     const newTodo = ref(null);
+
+    const tasks: Ref<TASK[] | null> = ref([]);
+    const categories: Ref<CAT[] | null> = ref([]);
 
     let editingTask: boolean[] = reactive([])
     let tempEditName = reactive(Array(categories.value?.length).fill(''))
@@ -223,32 +224,6 @@
 
 
     /**
-     * * Function that checks all the CSS rules in :root filtered by a string (prefix) that must be either '--icons--' or '--color--'
-     * @param prefix
-     */
-/*     function detectCSSVariables(prefix) {
-        const documentRoot:  StyleSheetList = document.styleSheets;
-        let combinedRootStyles = {};
-
-        for (let sheet of documentRoot) {
-            try {
-                for (let rule of sheet.cssRules) {
-                    if (rule instanceof CSSStyleRule && rule.selectorText === ':root') {
-                        for (let j = 0; j < rule.style.length; j++) {
-                            const cssProperty = rule.style[j];
-                            
-                            combinedRootStyles[cssProperty] = rule.style.getPropertyValue(cssProperty);
-                        }
-                    }
-                }
-            } catch (e) { console.warn("Could not access cssRules of a stylesheet:", e) }
-        }
-
-        return Object.keys(combinedRootStyles).filter(el => el.startsWith(prefix)).map(el => el.replace(prefix, ''))
-    } */
-
-
-    /**
      * * Computed property that counts done todos.
      */
     let todo_eseguiti = computed(() => {
@@ -268,9 +243,6 @@
 
 
     // === Async functions ================================================================================================
-
-
-
     /**
      * * Function for updating a tasks's name
      * @param index 
@@ -311,17 +283,6 @@
 
         tableType === "tasks" ? tasks.value = data as TASK[] : categories.value = data as CAT[]
     }
-
-
-    /**
-     * * Function for saving a Task or a Category.
-     */
-/*      async function S_saveData(S_table: string, S_content: TASK | CAT) {
-        console.log("save", S_content)
-        const { error } = await supabase.from(S_table).insert([{ name: S_content.name, user: S_content.user }]).select()
-
-       S_table && S_table === "tasks" ?  await onFetch('tasks') : await onFetch('categories')
-    } */
 
 
     /**
