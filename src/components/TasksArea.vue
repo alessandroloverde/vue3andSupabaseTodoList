@@ -39,10 +39,10 @@
                             @click="S_doneTodo(todo.id, todo)"
                         ></button>
                     </div>
-                    <div v-if="editTaskName[index]">
+                    <div v-if="editableIndex2 === index">
                         <input 
                             type="text" 
-                            v-model="newTaskName[index]" 
+                            v-model="taskName[index]" 
                             @blur="updateTaskName(index)"
                             @keypress.enter="updateTaskName(index)">
                     </div>
@@ -123,7 +123,13 @@
     let newTaskName: Ref<string> = ref('')
     let completedAreVisible: Ref<boolean> = ref(false)
 
+    /**
+     * ! update fires multiple times
+     */
 
+     /**
+      * ! Urgency icon swapped
+      */
 
     /**
      * * Fx for saving a new task in the DB. It emits an event.
@@ -187,24 +193,23 @@
     /**
      * * Fxs for editing a single existing cat, one input at time. The second saves (update) the result and emits the event.
      */
-     const editTaskName = (index: number) => {
-        alert(index)
+    const editTaskName = (index: number) => {
         editableIndex2.value = editableIndex2.value === index ? -1 : index;
         
         taskName[index] = props.tasks[index].name
     }
     const updateTaskName = async (index: number) => {
-        let oldCategory = props.categories !== null ? props.categories[index].name : ""
-        let newCategory = taskName[index]
+        let oldTask = props.tasks !== null ? props.tasks[index].name : ""
+        let newTask = taskName[index]
 
         try {
-            const { error: updateCategoryError } = await props.supabase
-                .from('categories')
-                .update({ name: newCategory })
-                .eq('name', oldCategory);
+            const { error: updateTaskError } = await props.supabase
+                .from('tasks')
+                .update({ name: newTask })
+                .eq('name', oldTask);
 
-            if (updateCategoryError) {
-                console.error('Error updating category:', updateCategoryError);
+            if (updateTaskError) {
+                console.error('Error updating task:', updateTaskError);
 
                 return
             }

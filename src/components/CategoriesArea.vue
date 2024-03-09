@@ -101,7 +101,7 @@
     const props = defineProps(['categories', 'tasks', 'supabase'])
     const emit = defineEmits(['categoryUpdated'])
 
-    let editableIndex = ref(-1)
+    let editableIndex: Ref<number> = ref(-1)
     let categoryName: Ref<string>[] = reactive([])
     let newCategoryName: Ref<string> = ref('')
  
