@@ -144,6 +144,7 @@
         let content: CAT = {
             name: newCategoryName.value,
             id: null,
+            icon: 'icon-star'
             //user: to be done yet
         }
 

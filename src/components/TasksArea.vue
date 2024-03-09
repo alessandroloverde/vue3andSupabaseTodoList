@@ -39,12 +39,12 @@
                             @click="S_doneTodo(todo.id, todo)"
                         ></button>
                     </div>
-                    <div v-if="editingTask[index]">
+                    <div v-if="editTaskName[index]">
                         <input 
                             type="text" 
-                            v-model="tempEditName[index]" 
-                            @blur="updateTaskName(index, todo.name)"
-                            @keypress.enter="updateTaskName(index, todo.name!)">
+                            v-model="newTaskName[index]" 
+                            @blur="updateTaskName(index)"
+                            @keypress.enter="updateTaskName(index)">
                     </div>
                     <div v-else 
                         class="taskList--title" 
@@ -110,14 +110,19 @@
 
     import Popper from "vue3-popper";
     import { reactive, ref } from 'vue';
-    import { removeItem, updateColor, updateIcon, detectCSSVariables, S_saveData } from '../api/apiSupabase';
+    import { removeItem, S_saveData, updateCategory } from '../api/apiSupabase';
+    import { createClient } from '@supabase/supabase-js';
+
+    const supabase = createClient(import.meta.env.VITE_SUPABASE_API_URL, import.meta.env.VITE_SUPABASE_API_KEY);
 
     const props = defineProps(['categories', 'tasks', 'supabase'])
     const emit = defineEmits(['taskUpdated'])
 
-    let editableIndex = ref(-1)
+    let editableIndex2: Ref<number> = ref(-1)
     let taskName: Ref<string>[] = reactive([])
     let newTaskName: Ref<string> = ref('')
+    let completedAreVisible: Ref<boolean> = ref(false)
+
 
 
     /**
@@ -131,8 +136,98 @@
             //user: to be done yet
         }
 
-        await S_saveData('categories', content)
+        await S_saveData('tasks', content)
         await emit('taskUpdated');
+    }
+
+
+    /**
+     * * Function that assign the category's color to a class for a todo.
+     * @param todo 
+     */
+     const computedColor = (todo: TASK) => {
+        const foundCategory = props.categories !== null ? props.categories.find(category => category.name === todo.category) : props.categories
+
+        return foundCategory?.color
+    };
+
+
+    /**
+     * * Function for sorting according to completion and urgency
+     * @param tasks 
+     */
+     const sortByUrgencyAndCompletion = (tasks) => {
+        return props.tasks.sort((a, b) => {
+            // Check for done tasks first
+            if (a.completed === b.completed) {
+            // If completion is the same, sort by urgency (false comes before true)
+            return a.is_urgent - b.is_urgent;
+            } else {
+            // Completed tasks come first, regardless of urgency
+            return a.completed ? 1 : -1;
+            }
+        })
+    }
+
+
+    /**
+     * * Function to set a task as urgent
+     * @param S_id 
+     * @param todo 
+     */
+     const setUrgency = async (S_id: number | null , todo: TASK) => {
+        todo.is_urgent = !todo.is_urgent;
+
+        await supabase.from("tasks").update({ is_urgent: todo.is_urgent }).eq('id', S_id)
+
+        sortByUrgencyAndCompletion(props.tasks)
+    }
+
+
+    /**
+     * * Fxs for editing a single existing cat, one input at time. The second saves (update) the result and emits the event.
+     */
+     const editTaskName = (index: number) => {
+        alert(index)
+        editableIndex2.value = editableIndex2.value === index ? -1 : index;
+        
+        taskName[index] = props.tasks[index].name
+    }
+    const updateTaskName = async (index: number) => {
+        let oldCategory = props.categories !== null ? props.categories[index].name : ""
+        let newCategory = taskName[index]
+
+        try {
+            const { error: updateCategoryError } = await props.supabase
+                .from('categories')
+                .update({ name: newCategory })
+                .eq('name', oldCategory);
+
+            if (updateCategoryError) {
+                console.error('Error updating category:', updateCategoryError);
+
+                return
+            }
+
+            editableIndex2.value = -1
+
+            await emit('taskUpdated');
+        } catch (error) {
+            console.error('An unexpected error occurred:', error);
+        }
+    }
+
+
+    /**
+     * * Supabase: set a to todo to done
+     * ! Done sorting is not reactive on start
+     */
+     async function S_doneTodo (S_id: number | null, todo: TASK) {
+        todo.completed = !todo.completed;
+
+        await supabase.from("tasks").update({ completed: todo.completed }).eq('id', S_id)
+
+        sortByUrgencyAndCompletion(props.tasks)
     }
 
 </script>

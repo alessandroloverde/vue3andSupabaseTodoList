@@ -21,6 +21,7 @@ export interface Database {
         Insert: {
           color?: string | null
           created_at?: string
+          icon: string
           id: number
           name?: string
           user?: string | null
@@ -28,6 +29,7 @@ export interface Database {
         Update: {
           color?: string | null
           created_at?: string
+          icon?: string | null
           id: number
           name?: string
           user?: string | null

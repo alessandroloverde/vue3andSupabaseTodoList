@@ -9,8 +9,14 @@
                 :supabase="supabase"
                 @categoryUpdated="onFetch('categories')"
             ></CategoriesArea>
+            <TasksArea
+                :categories="categories"
+                :tasks="tasks"
+                :supabase="supabase"
+                @taskUpdated="onFetch('tasks')"
+            ></TasksArea>
 
-            <section class="tasksArea">
+<!--             <section class="tasksArea">
                 <header>
                     <form @submit.prevent="addElement('tasks')">
                         <label class="tasksArea--title"><span>New </span>Task</label>
@@ -112,7 +118,7 @@
                     </ul>
                     <h4 v-if="tasks!.length === 0 ">Empty list.</h4>
                 </section>
-            </section>
+            </section> -->
         </div>
     </main>
 </template>
@@ -129,6 +135,7 @@
     import type { TASK, CAT } from './api/apiSupabase';
     import AppHeader from './components/AppHeader.vue';
     import CategoriesArea from './components/CategoriesArea.vue';
+    import TasksArea from './components/TasksArea.vue';
    
     const supabase = createClient(import.meta.env.VITE_SUPABASE_API_URL, import.meta.env.VITE_SUPABASE_API_KEY);
 
@@ -140,7 +147,6 @@
 
     let editingTask: boolean[] = reactive([])
     let tempEditName = reactive(Array(categories.value?.length).fill(''))
-    let completedAreVisible = ref(false)
     let authStatus: Ref<string> = ref('')
 
 
@@ -232,16 +238,6 @@
     })
 
 
-    /**
-     * * Function that assign the category's color to a class for a todo.
-     * @param todo 
-     */
-     const computedColor = (todo: TASK) => {
-        const foundCategory = categories.value !== null ? categories.value.find(category => category.name === todo.category) : categories.value
-
-        return foundCategory?.color
-    };
-
 
     // === Async functions ================================================================================================
     /**
@@ -317,33 +313,6 @@
 
             S_saveData(S_table, newCategoryData);
         } 
-    }
-
-
-    /**
-     * * Supabase: set a to todo to done
-     * ! Done sorting is not reactive on start
-     */
-    async function S_doneTodo (S_id: number | null, todo: TASK) {
-        todo.completed = !todo.completed;
-
-        await supabase.from("tasks").update({ completed: todo.completed }).eq('id', S_id)
-
-        sortByUrgencyAndCompletion(tasks)
-    }
-
-
-    /**
-     * * Function to set a task as urgent
-     * @param S_id 
-     * @param todo 
-     */
-    const setUrgency = async (S_id: number | null , todo: TASK) => {
-        todo.is_urgent = !todo.is_urgent;
-
-        await supabase.from("tasks").update({ is_urgent: todo.is_urgent }).eq('id', S_id)
-
-        sortByUrgencyAndCompletion(tasks)
     }
 
 
