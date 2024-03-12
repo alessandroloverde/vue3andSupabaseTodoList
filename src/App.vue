@@ -2,7 +2,21 @@
     <AppHeader></AppHeader>
     <main>
         <div class="appContainer">
-
+            <section class="authentication">
+                <div>
+                    <p>User Status: {{ authStatus ? "user logged in" : "user not logged" }}</p>
+                    <p>User Email: {{ session?.user.email }}</p>
+                </div>
+                <form @submit.prevent="login()">
+                    <div style="display: flex; margin: 20px; ">
+                        <label for="LoginEmail">Email: </label>
+                        <input type="email" v-model="myAuth.login.email.value" id="LoginEmail">
+                        <label for="LoginPassword">Password: </label>
+                        <input type="text" v-model="myAuth.login.password.value" id="LoginPassword">
+                        <input type="submit">
+                    </div>
+                </form>
+            </section>
             <CategoriesArea
                 :categories="categories"
                 :tasks="tasks"
@@ -15,6 +29,7 @@
                 :supabase="supabase"
                 @taskUpdated="onFetch('tasks')"
             ></TasksArea>
+            
         </div>
     </main>
 </template>
@@ -23,6 +38,22 @@
     export const categories: Ref<CAT[] | null> = ref([]);
 </script> -->
 <script setup lang="ts">
+
+/*     type AuthField = {
+        email: Ref<string> | Ref<null> | undefined;
+        password?: Ref<string>  | Ref<null> | undefined;
+        displayName?: Ref<string>  | Ref<null> | undefined;
+        id?: Ref<string>  | Ref<null> | undefined;
+        role?: Ref<string>  | Ref<null> | undefined;
+    };
+
+    type MyAuth = {
+        login: AuthField;
+        register: AuthField;
+        user: AuthField;
+    }; */
+
+
     import type { Ref } from 'vue';
     import type { TASK, CAT } from './api/apiSupabase';
 
@@ -44,9 +75,7 @@
 
     let editingTask: boolean[] = reactive([])
     let tempEditName = reactive(Array(categories.value?.length).fill(''))
-    let authStatus: Ref<string> = ref('')
-
-
+    let authStatus: Ref<boolean> = ref(false)
 
     /**
      * * Auth - login
@@ -62,8 +91,11 @@
             password: ref(''),
             displayName: ref('')            
         },
-        user: ref(''),
-        userID: ref<string>('')
+        user: {
+            id: ref(null),
+            email: ref(''),
+            role: ref(''),
+        },
     }
     
 
@@ -74,14 +106,18 @@
         });
 
         if (error) {
-            console.error('Login fallito. Error logging in:', error.message, data);
-            
-            authStatus.value = "not logged";
+            console.error('Login fallito. Error logging in:', error.message, data);       
         } else {
-            console.log('Successo. User logged in:', data.user); 
+/*             console.log('Successo. User logged in:', data.user);
+            console.log('myAuth', data.user) */
 
-            authStatus.value = data.user.role ?? 'not logged'
-            myAuth.userID.value = data.user.id
+            console.log(data.user.email)
+
+            !authStatus.value
+
+            myAuth.user.id.value = data.user.id
+            myAuth.user.email.value = data.user.email !== undefined ? data.user.email : ''
+            myAuth.user.role.value = data.user.role !== undefined ? data.user.role : ''
 
             fetchTable('tasks')
         }
@@ -135,6 +171,25 @@
         await onFetch('categories')
         await onFetch('tasks')
         await sortByUrgencyAndCompletion(tasks)
+
+        console.log('Load auth status', authStatus.value)
+
+
+        const authListener = supabase.auth.onAuthStateChange((_event, session) => {
+            //console.log('Change auth status', authStatus.value)
+
+            console.log('event: ', _event, 'Session User: ', session?.user)
+
+            myAuth.user.email.value = session?.user.email !== undefined ? session?.user.email : ''
+
+            authStatus.value = session !== null;
+        });
+
+        // Unsubscribe on component unmount (optional)
+/*         return () => {
+            authListener.unsubscribe();
+        }; */
+
     }) 
 </script>
 

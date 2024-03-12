@@ -2,8 +2,8 @@
     <section class="categoriesArea">
         <header>
             <form @submit.prevent="saveNewCategory()">
-                <label>New category</label>
-                <input v-model="newCategoryName" name="categoryName" autocomplete="off">
+                <label for="createNewCat">New category</label>
+                <input v-model="newCategoryName" name="categoryName" autocomplete="off" id="createNewCat">
                 <button>Add category</button>
             </form>
         </header>

@@ -298,12 +298,14 @@ main {
 .appContainer {
   display: flex;
   flex: 1 1 auto;
+  flex-wrap: wrap;
   border-radius: 36px;
   //background-color: rgba(198, 152, 107, 0.25);
 
   .categoriesArea,
   .tasksArea {
     flex-wrap: wrap;
+    height: 100%;
 
     & > header {
       width: 100%;
@@ -527,4 +529,12 @@ main {
   a:hover {
     background-color: hsla(160, 100%, 37%, 0.2);
   }
+}
+
+.authentication {
+  height: 80px;;
+  background-color: antiquewhite;
+  display: flex;
+  flex: 1 1 100%;
+  color: #333333;
 }

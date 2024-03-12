@@ -2,8 +2,8 @@
     <section class="tasksArea">
         <header>
             <form @submit.prevent="saveNewTask()">
-                <label class="tasksArea--title"><span>New </span>Task</label>
-                <input v-model="newTaskName" type="text" name="newTodo" autocomplete="off">
+                <label class="tasksArea--title" for="createNewTask"><span>New </span>Task</label>
+                <input v-model="newTaskName" type="text" name="newTodo" autocomplete="off" id="createNewTask">
                 <button
                     role="button"
                     aria-label="Add new task"
