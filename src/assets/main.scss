@@ -532,9 +532,17 @@ main {
 }
 
 .authentication {
-  height: 80px;;
+  height: 120px;
   background-color: antiquewhite;
   display: flex;
   flex: 1 1 100%;
   color: #333333;
+
+  & > div:first-child {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    background-color: burlywood;
+  }
+  p { margin: 0; }
 }

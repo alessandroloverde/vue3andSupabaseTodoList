@@ -4,8 +4,9 @@
         <div class="appContainer">
             <section class="authentication">
                 <div>
-                    <p>User Status: {{ authStatus ? "user logged in" : "user not logged" }}</p>
-                    <p>User Email: {{ session?.user.email }}</p>
+                    <p>User Status: <strong>{{ authStatus ? "user logged in" : "user not logged" }}</strong></p>
+                    <p>User Email: <strong>{{ myAuth?.user.email }}</strong></p>
+                    <button v-if="authStatus" @click="logout()">Logout</button>
                 </div>
                 <form @submit.prevent="login()">
                     <div style="display: flex; margin: 20px; ">
@@ -92,7 +93,7 @@
             displayName: ref('')            
         },
         user: {
-            id: ref(null),
+            id: ref(''),
             email: ref(''),
             role: ref(''),
         },
@@ -115,7 +116,7 @@
 
             !authStatus.value
 
-            myAuth.user.id.value = data.user.id
+            myAuth.user.id.value = data.user.id !== undefined  ? data.user.id : ''
             myAuth.user.email.value = data.user.email !== undefined ? data.user.email : ''
             myAuth.user.role.value = data.user.role !== undefined ? data.user.role : ''
 
@@ -130,6 +131,10 @@
 
         if (error) console.error('Registrazione fallita. Error logging in:', error.message);
         else console.log('Successo. User registed:', data.user);
+    }
+    const logout = async () => {
+        const { error } = await supabase.auth.signOut();
+        if (error) throw error;
     }
     /* ----------------------------------------------------------------------------------------------------------- */
 
