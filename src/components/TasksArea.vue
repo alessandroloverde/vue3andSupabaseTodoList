@@ -113,6 +113,8 @@
     import { removeItem, S_saveData, updateCategory } from '../api/apiSupabase';
     import { createClient } from '@supabase/supabase-js';
 
+    import { myAuth } from '../App.vue';
+
     const supabase = createClient(import.meta.env.VITE_SUPABASE_API_URL, import.meta.env.VITE_SUPABASE_API_KEY);
 
     const props = defineProps(['categories', 'tasks', 'supabase'])
@@ -138,12 +140,14 @@
         let content: TASK = {
             name: newTaskName.value,
             id: null,
-            completed: false
-            //user: to be done yet
+            completed: false,
+            user: myAuth.user.id.value
         }
 
         await S_saveData('tasks', content)
-        await emit('taskUpdated');
+        await emit('taskUpdated')
+        
+        newTaskName.value = ''
     }
 
 

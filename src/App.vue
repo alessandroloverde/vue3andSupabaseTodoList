@@ -8,7 +8,7 @@
                     <p>User Email: <strong>{{ myAuth?.user.email }}</strong></p>
                     <button v-if="authStatus" @click="logout()">Logout</button>
                 </div>
-                <form @submit.prevent="login()">
+                <form @submit.prevent="login()" v-if="!authStatus">
                     <div style="display: flex; margin: 20px; ">
                         <label for="LoginEmail">Email: </label>
                         <input type="email" v-model="myAuth.login.email.value" id="LoginEmail">
@@ -38,6 +38,25 @@
     export const tasks: Ref<TASK[] | null> = ref([]);
     export const categories: Ref<CAT[] | null> = ref([]);
 </script> -->
+<script lang="ts">
+    export let myAuth = {
+        login: {
+            email: ref(''),
+            password: ref(''),
+            displayName: ref('')
+        },
+        register: {
+            email: ref(''),
+            password: ref(''),
+            displayName: ref('')            
+        },
+        user: {
+            id: ref(''),
+            email: ref(''),
+            role: ref(''),
+        },
+    }
+</script>
 <script setup lang="ts">
 
 /*     type AuthField = {
@@ -68,36 +87,15 @@
    
     const supabase = createClient(import.meta.env.VITE_SUPABASE_API_URL, import.meta.env.VITE_SUPABASE_API_KEY);
 
-    const categoryName: Ref<CAT["name"]> = ref('');
-    const newTodo = ref(null);
-
     const tasks: Ref<TASK[] | null> = ref([]);
     const categories: Ref<CAT[] | null> = ref([]);
 
-    let editingTask: boolean[] = reactive([])
-    let tempEditName = reactive(Array(categories.value?.length).fill(''))
     let authStatus: Ref<boolean> = ref(false)
 
     /**
      * * Auth - login
      */ 
-    const myAuth = {
-        login: {
-            email: ref(''),
-            password: ref(''),
-            displayName: ref('')
-        },
-        register: {
-            email: ref(''),
-            password: ref(''),
-            displayName: ref('')            
-        },
-        user: {
-            id: ref(''),
-            email: ref(''),
-            role: ref(''),
-        },
-    }
+
     
 
     const login = async () => {  
@@ -107,20 +105,17 @@
         });
 
         if (error) {
+            alert('login fallito')
             console.error('Login fallito. Error logging in:', error.message, data);       
         } else {
-/*             console.log('Successo. User logged in:', data.user);
-            console.log('myAuth', data.user) */
-
-            console.log(data.user.email)
-
             !authStatus.value
 
-            myAuth.user.id.value = data.user.id !== undefined  ? data.user.id : ''
+/*             myAuth.user.id.value = data.user.id !== undefined  ? data.user.id : ''
             myAuth.user.email.value = data.user.email !== undefined ? data.user.email : ''
-            myAuth.user.role.value = data.user.role !== undefined ? data.user.role : ''
+            myAuth.user.role.value = data.user.role !== undefined ? data.user.role : '' */
 
-            fetchTable('tasks')
+            onFetch('tasks')
+            onFetch('categories')
         }
     }
     const register = async () => {   
@@ -134,6 +129,13 @@
     }
     const logout = async () => {
         const { error } = await supabase.auth.signOut();
+
+        myAuth.login.email.value = ''
+        myAuth.login.password.value = ''
+
+        onFetch('tasks')
+        onFetch('categories')
+
         if (error) throw error;
     }
     /* ----------------------------------------------------------------------------------------------------------- */
@@ -179,13 +181,14 @@
 
         console.log('Load auth status', authStatus.value)
 
-
         const authListener = supabase.auth.onAuthStateChange((_event, session) => {
-            //console.log('Change auth status', authStatus.value)
-
+            alert('authChange')
+            console.log(supabase.auth)
             console.log('event: ', _event, 'Session User: ', session?.user)
 
+            myAuth.user.id.value = session?.user.id !== undefined ? session?.user.id : ''
             myAuth.user.email.value = session?.user.email !== undefined ? session?.user.email : ''
+            myAuth.user.role.value = session?.user.role !== undefined ? session?.user.role : ''
 
             authStatus.value = session !== null;
         });
