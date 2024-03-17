@@ -385,6 +385,7 @@ main {
       border-top-right-radius: $standardMargin * 3;
       padding: $standardMargin * 2;
       background: linear-gradient(to top, #502f3b 0%, #674455 100%);
+      box-shadow: inset -5px 5px 20px 0px rgba(0, 0, 0, 0.55);
     }
     &--title {
       font-family: $robotoSlab;

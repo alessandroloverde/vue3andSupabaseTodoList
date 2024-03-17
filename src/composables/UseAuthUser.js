@@ -1,39 +1,54 @@
-import { ref } from "vue";
+import {onFetch} from "../App.vue"
+import supabase from "../App.vue"
+import { myAuth } from "../App.vue";
+import { authStatus } from "../App.vue";
 
-// user is set outside of the useAuthUser function so that it will act as global state and always refer to a single user
-const user = ref(null);
 
 export default function useAuthUser() {
-  // Login with email and password
-  const login = async ({ email, password }) => {};
+  const login = async () => {  
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email: myAuth.login.email.value,
+        password: myAuth.login.password.value
+    });
+  
+    if (error) {
+        alert('login fallito')
+        console.error('Login fallito. Error logging in:', error.message, data);       
+    } else {
+        !authStatus.value
+        alert('login')
+  
+        onFetch('tasks')
+        onFetch('categories')
+    }
+  }
 
-  // Login with google, github, etc
-  const loginWithSocialProvider = (provider) => {};
+  const register = async () => {   
+    const {data, error } = await supabase.auth.signUp({
+        email: myAuth.register.email.value,
+        password: myAuth.register.password.value
+    })
+  
+    if (error) console.error('Registrazione fallita. Error logging in:', error.message);
+    else console.log('Successo. User registed:', data.user);
+  }
 
-  //Logout
-  const logout = async () => {};
-
-  // Check if the user is logged in or not
-  const isLoggedIn = () => {};
-
-  // Register
-  const register = async ({ email, password, ...meta }) => {};
-
-  // Update user email, password, or meta data
-  const update = async (data) => {};
-
-  // Send user an email to reset their password (ie. support "Forgot Password?")
-  const sendPasswordRestEmail = async (email) => {};
+  const logout = async () => {
+    const { error } = await supabase.auth.signOut();
+  
+    myAuth.login.email.value = ''
+    myAuth.login.password.value = ''
+  
+    onFetch('tasks')
+    onFetch('categories')
+  
+    if (error) throw error;
+  }
 
   return {
-    user,
     login,
-    loginWithSocialProvider,
-    isLoggedIn,
-    logout,
     register,
-    update,
-    sendPasswordRestEmail,
-    //maybeHandleEmailConfirmation,
-  };
+    logout
+  }
 }
+

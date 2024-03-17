@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import useAuthUser from "../composables/UseAuthUser"
+import useAuthUser from "../composables/UseAuthUser";
+
 
 const routes = [
   {
@@ -51,7 +52,7 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to) => {
+/* router.beforeEach((to) => {
   const { isLoggedIn } = useAuthUser();
   if (
     !isLoggedIn() &&
@@ -60,6 +61,6 @@ router.beforeEach((to) => {
   ) {
     return { name: "Login" };
   }
-});
+}); */
 
 export default router;

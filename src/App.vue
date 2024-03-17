@@ -39,6 +39,11 @@
     export const categories: Ref<CAT[] | null> = ref([]);
 </script> -->
 <script lang="ts">
+    export const tasks: Ref<TASK[] | null> = ref([]);
+    export const categories: Ref<CAT[] | null> = ref([]);
+
+    export let authStatus: Ref<boolean> = ref(false)
+
     export let myAuth = {
         login: {
             email: ref(''),
@@ -56,24 +61,18 @@
             role: ref(''),
         },
     }
+
+        /**
+     * * Helper function for fetching Tasks or Categories.
+     * @param tableType 
+     */
+     export const onFetch = async (tableType: string) => {
+        const data: (TASK[] | CAT[]) = await fetchTable(tableType) as (TASK[] | CAT[]);
+
+        tableType === "tasks" ? tasks.value = data as TASK[] : categories.value = data as CAT[]
+    }
 </script>
 <script setup lang="ts">
-
-/*     type AuthField = {
-        email: Ref<string> | Ref<null> | undefined;
-        password?: Ref<string>  | Ref<null> | undefined;
-        displayName?: Ref<string>  | Ref<null> | undefined;
-        id?: Ref<string>  | Ref<null> | undefined;
-        role?: Ref<string>  | Ref<null> | undefined;
-    };
-
-    type MyAuth = {
-        login: AuthField;
-        register: AuthField;
-        user: AuthField;
-    }; */
-
-
     import type { Ref } from 'vue';
     import type { TASK, CAT } from './api/apiSupabase';
 
@@ -87,57 +86,51 @@
    
     const supabase = createClient(import.meta.env.VITE_SUPABASE_API_URL, import.meta.env.VITE_SUPABASE_API_KEY);
 
-    const tasks: Ref<TASK[] | null> = ref([]);
-    const categories: Ref<CAT[] | null> = ref([]);
 
-    let authStatus: Ref<boolean> = ref(false)
 
     /**
      * * Auth - login
      */ 
-
-    
-
     const login = async () => {  
         const { data, error } = await supabase.auth.signInWithPassword({
             email: myAuth.login.email.value,
             password: myAuth.login.password.value
         });
-
+    
         if (error) {
             alert('login fallito')
             console.error('Login fallito. Error logging in:', error.message, data);       
         } else {
             !authStatus.value
-
-/*             myAuth.user.id.value = data.user.id !== undefined  ? data.user.id : ''
-            myAuth.user.email.value = data.user.email !== undefined ? data.user.email : ''
-            myAuth.user.role.value = data.user.role !== undefined ? data.user.role : '' */
-
+            alert('login')
+    
             onFetch('tasks')
             onFetch('categories')
         }
     }
+
     const register = async () => {   
         const {data, error } = await supabase.auth.signUp({
             email: myAuth.register.email.value,
             password: myAuth.register.password.value
         })
-
+    
         if (error) console.error('Registrazione fallita. Error logging in:', error.message);
         else console.log('Successo. User registed:', data.user);
     }
+
     const logout = async () => {
         const { error } = await supabase.auth.signOut();
-
+    
         myAuth.login.email.value = ''
         myAuth.login.password.value = ''
-
+    
         onFetch('tasks')
         onFetch('categories')
-
+    
         if (error) throw error;
     }
+    
     /* ----------------------------------------------------------------------------------------------------------- */
 
 
@@ -160,15 +153,7 @@
 
 
     // === Async functions ================================================================================================
-    /**
-     * * Helper function for fetching Tasks or Categories.
-     * @param tableType 
-     */
-    const onFetch = async (tableType: string) => {
-        const data: (TASK[] | CAT[]) = await fetchTable(tableType) as (TASK[] | CAT[]);
 
-        tableType === "tasks" ? tasks.value = data as TASK[] : categories.value = data as CAT[]
-    }
 
 
     /**
@@ -179,13 +164,7 @@
         await onFetch('tasks')
         await sortByUrgencyAndCompletion(tasks)
 
-        console.log('Load auth status', authStatus.value)
-
         const authListener = supabase.auth.onAuthStateChange((_event, session) => {
-            alert('authChange')
-            console.log(supabase.auth)
-            console.log('event: ', _event, 'Session User: ', session?.user)
-
             myAuth.user.id.value = session?.user.id !== undefined ? session?.user.id : ''
             myAuth.user.email.value = session?.user.email !== undefined ? session?.user.email : ''
             myAuth.user.role.value = session?.user.role !== undefined ? session?.user.role : ''
