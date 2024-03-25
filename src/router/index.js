@@ -52,7 +52,7 @@ const router = createRouter({
   routes,
 });
 
-/* router.beforeEach((to) => {
+router.beforeEach((to) => {
   const { isLoggedIn } = useAuthUser();
   if (
     !isLoggedIn() &&
@@ -61,6 +61,6 @@ const router = createRouter({
   ) {
     return { name: "Login" };
   }
-}); */
+});
 
 export default router;
