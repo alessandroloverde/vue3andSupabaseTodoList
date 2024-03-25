@@ -113,7 +113,6 @@
     import { removeItem, S_saveData, updateCategory } from '../api/apiSupabase';
     import { createClient } from '@supabase/supabase-js';
 
-    import { myAuth } from '../App.vue';
 
     const supabase = createClient(import.meta.env.VITE_SUPABASE_API_URL, import.meta.env.VITE_SUPABASE_API_KEY);
 
@@ -141,7 +140,7 @@
             name: newTaskName.value,
             id: null,
             completed: false,
-            user: myAuth.user.id.value
+            user: ''
         }
 
         await S_saveData('tasks', content)

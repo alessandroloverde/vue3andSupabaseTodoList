@@ -19,7 +19,7 @@ const handleLogin = async (provider) => {
   try {
     provider
       ? await loginWithSocialProvider(provider)
-      : await login(form.value);
+      : await login();
     router.push({ name: "Me" });
   } catch (error) {
     alert(error.message);

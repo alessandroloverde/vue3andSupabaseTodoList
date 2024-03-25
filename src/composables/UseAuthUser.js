@@ -1,54 +1,38 @@
-import {onFetch} from "../App.vue"
+import { onFetch } from "../App.vue"
 import supabase from "../App.vue"
-import { myAuth } from "../App.vue";
-import { authStatus } from "../App.vue";
+import { ref } from "vue"
 
+const user = ref(null)
 
 export default function useAuthUser() {
-  const login = async () => {  
-    const { data, error } = await supabase.auth.signInWithPassword({
-        email: myAuth.login.email.value,
-        password: myAuth.login.password.value
-    });
-  
-    if (error) {
-        alert('login fallito')
-        console.error('Login fallito. Error logging in:', error.message, data);       
-    } else {
-        !authStatus.value
-        alert('login')
-  
-        onFetch('tasks')
-        onFetch('categories')
-    }
-  }
+  const login = async ({email, password}) => {
 
-  const register = async () => {   
-    const {data, error } = await supabase.auth.signUp({
-        email: myAuth.register.email.value,
-        password: myAuth.register.password.value
-    })
-  
-    if (error) console.error('Registrazione fallita. Error logging in:', error.message);
-    else console.log('Successo. User registed:', data.user);
-  }
-
+  };
   const logout = async () => {
-    const { error } = await supabase.auth.signOut();
-  
-    myAuth.login.email.value = ''
-    myAuth.login.password.value = ''
-  
-    onFetch('tasks')
-    onFetch('categories')
-  
-    if (error) throw error;
-  }
+
+  };
+  const register = async ({email, password}) => {
+
+  };
+  const isLoggedIn = () => {};
+  const update = async (data) => {
+    
+  };
+  const sendPasswordResetEmail = async (email) => {
+
+  };
 
   return {
     login,
+    logout,
     register,
-    logout
+    isLoggedIn,
+    update,
+    sendPasswordResetEmail
   }
+
 }
+
+
+
 
