@@ -1,23 +1,8 @@
 <template>
     <AppHeader></AppHeader>
     <main>
-        <div>
-            <router-view />
-        </div> 
         <div class="appContainer">
-            <CategoriesArea
-                :categories="categories"
-                :tasks="tasks"
-                :supabase="supabase"
-                @categoryUpdated="onFetch('categories')"
-            ></CategoriesArea>
-            <TasksArea
-                :categories="categories"
-                :tasks="tasks"
-                :supabase="supabase"
-                @taskUpdated="onFetch('tasks')"
-            ></TasksArea>
-
+            <router-view />
         </div>
     </main>
 </template>
@@ -40,15 +25,9 @@
     import type { TASK, CAT } from './api/apiSupabase';
 
     import { ref, onMounted } from 'vue';
-    import { createClient } from '@supabase/supabase-js';
     import { fetchTable } from './api/apiSupabase';
 
     import AppHeader from './components/AppHeader.vue';
-    import CategoriesArea from './components/CategoriesArea.vue';
-    import TasksArea from './components/TasksArea.vue';
-   
-    const supabase = createClient(import.meta.env.VITE_SUPABASE_API_URL, import.meta.env.VITE_SUPABASE_API_KEY);
-
 
     /**
      * * Function for sorting according to completion and urgency

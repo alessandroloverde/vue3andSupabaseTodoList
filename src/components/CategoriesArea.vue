@@ -89,7 +89,9 @@
         </section>
     </section>
 </template>
-
+<script lang="ts">
+    export const categories: Ref<CAT[] | null> = ref([]);
+</script>
 <script setup lang="ts">
     import type { Ref } from 'vue';
     import type { CAT } from '../api/apiSupabase';

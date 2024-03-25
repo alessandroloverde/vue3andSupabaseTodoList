@@ -103,6 +103,9 @@
         </section>
     </section>
 </template>
+<script lang="ts">
+    export const tasks: Ref<TASK[] | null> = ref([]);
+</script>
 
 <script setup lang="ts">
     import type { Ref } from 'vue';
@@ -111,10 +114,9 @@
     import Popper from "vue3-popper";
     import { reactive, ref } from 'vue';
     import { removeItem, S_saveData, updateCategory } from '../api/apiSupabase';
-    import { createClient } from '@supabase/supabase-js';
+    import useAuthUser from "../composables/UseAuthUser"
 
-
-    const supabase = createClient(import.meta.env.VITE_SUPABASE_API_URL, import.meta.env.VITE_SUPABASE_API_KEY);
+    const { supabase } = useAuthUser();
 
     const props = defineProps(['categories', 'tasks', 'supabase'])
     const emit = defineEmits(['taskUpdated'])
