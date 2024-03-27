@@ -6,7 +6,7 @@
                 <template #content class="flyoutMenu">
                     <div >
                         <ul>
-                            <li>Welcome Supabase</li>
+                            <li>Welcome Supabase: {{ user?.email }}</li>
                             <li>Login</li>
                             <li>Logout</li>
                         </ul>
@@ -23,8 +23,11 @@
     </header>
 </template>
 
-<script setup>
+<script setup lang="ts">
     import Popper from "vue3-popper";
+    import useAuthUser from "../composables/UseAuthUser";
+
+    const {user} = useAuthUser()
 </script>
 
 <style lang="scss">
