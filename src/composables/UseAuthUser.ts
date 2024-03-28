@@ -60,6 +60,7 @@ export default function useAuthUser() {
 
   return {
     user,
+    supabase,
     login,
     logout,
     register,

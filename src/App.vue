@@ -15,6 +15,7 @@
      * @param tableType 
      */
      export const onFetch = async (tableType: string) => {
+        alert(tableType)
         const data: (TASK[] | CAT[]) = await fetchTable(tableType) as (TASK[] | CAT[]);
 
         tableType === "tasks" ? tasks.value = data as TASK[] : categories.value = data as CAT[]
@@ -29,33 +30,7 @@
 
     import AppHeader from './components/AppHeader.vue';
 
-    /**
-     * * Function for sorting according to completion and urgency
-     * @param tasks 
-     */
-    const sortByUrgencyAndCompletion = (tasks) => {
-        return tasks.value.sort((a, b) => {
-            // Check for done tasks first
-            if (a.completed === b.completed) {
-            // If completion is the same, sort by urgency (false comes before true)
-            return a.is_urgent - b.is_urgent;
-            } else {
-            // Completed tasks come first, regardless of urgency
-            return a.completed ? 1 : -1;
-            }
-        })
-    }
 
-
-    // === Async functions ================================================================================================
-    /**
-     * * These async funtions are triggered on component load
-     */
-    onMounted(async () => {
-        await onFetch('categories')
-        await onFetch('tasks')
-        await sortByUrgencyAndCompletion(tasks)
-    }) 
 </script>
 
 <style lang="scss">

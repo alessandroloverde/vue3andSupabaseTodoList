@@ -92,6 +92,7 @@
 <script lang="ts">
     export const categories: Ref<CAT[] | null> = ref([]);
 </script>
+
 <script setup lang="ts">
     import type { Ref } from 'vue';
     import type { CAT } from '../api/apiSupabase';
@@ -99,13 +100,20 @@
     import Popper from "vue3-popper";
     import { reactive, ref } from 'vue';
     import { removeItem, updateColor, updateIcon, detectCSSVariables, S_saveData } from '../api/apiSupabase';
+    import { onFetch } from '../App.vue';
+    import useAuthUser from "../composables/UseAuthUser"
 
-    const props = defineProps(['categories', 'tasks', 'supabase'])
+    const { supabase } = useAuthUser();
+
+    const props = defineProps(['categories', 'tasks'])
     const emit = defineEmits(['categoryUpdated'])
 
     let editableIndex: Ref<number> = ref(-1)
     let categoryName: Ref<string>[] = reactive([])
     let newCategoryName: Ref<string> = ref('')
+
+    let tasks = props.tasks
+    let categories = props.categories
  
     /**
      * * Fxs for editing a single existing cat, one input at time. The second saves (update) the result and emits the event.
@@ -113,14 +121,14 @@
     const editCategoryName = (index: number) => {
         editableIndex.value = editableIndex.value === index ? -1 : index;
         
-        categoryName[index] = props.categories[index].name
+        categoryName[index] = categories[index].name
     }
     const updateCategoryName = async (index: number) => {
-        let oldCategory = props.categories !== null ? props.categories[index].name : ""
+        let oldCategory = categories !== null ? categories[index].name : ""
         let newCategory = categoryName[index]
 
         try {
-            const { error: updateCategoryError } = await props.supabase
+            const { error: updateCategoryError } = await supabase
                 .from('categories')
                 .update({ name: newCategory })
                 .eq('name', oldCategory);

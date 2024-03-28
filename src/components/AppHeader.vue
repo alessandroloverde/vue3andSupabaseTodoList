@@ -1,14 +1,15 @@
 <template>
     <header class="appHeader">
         <h1 class="appHeader--title">Wondertask</h1>
+        <h2>{{ user?.role }}</h2>
         <aside class="appHeader--avatar">
             <Popper :placement="'left'" arrow >
                 <template #content class="flyoutMenu">
                     <div >
                         <ul>
                             <li>Welcome Supabase: {{ user?.email }}</li>
-                            <li>Login</li>
-                            <li>Logout</li>
+                            <li v-if="user"><RouterLink to="/me">Profile</RouterLink></li>
+                            <li><a href="#" @click="handleLogin">Logout</a></li>
                         </ul>
                     </div>
                 </template>
@@ -26,8 +27,21 @@
 <script setup lang="ts">
     import Popper from "vue3-popper";
     import useAuthUser from "../composables/UseAuthUser";
+    import { useRouter } from "vue-router";
 
-    const {user} = useAuthUser()
+    const router = useRouter();
+
+    const { user } = useAuthUser()
+    const { logout } = useAuthUser()
+    const handleLogin = async () => {
+        try {
+            await logout()
+
+            router.push({ name: "Login" })
+        } catch (error) {
+            alert(error.message)
+        }
+    };
 </script>
 
 <style lang="scss">
