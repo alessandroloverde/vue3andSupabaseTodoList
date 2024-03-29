@@ -17,18 +17,20 @@
    * * Function for sorting according to completion and urgency
    * @param tasks 
    */
-  export const sortByUrgencyAndCompletion = (tasks) => {
-    return tasks.sort((a, b) => {
-      // Check for done tasks first
-      if (a.completed === b.completed) {
-        // If completion is the same, sort by urgency (false comes before true)
-        return a.is_urgent - b.is_urgent;
-      } else {
-        // Completed tasks come first, regardless of urgency
-        return a.completed ? 1 : -1;
-      }
-    })
-  }
+
+  export const sortByUrgencyAndCompletion = (tasks: TASK[]) => {
+  return tasks.sort((a, b) => {
+    // Assuming `completed` is a boolean, invert its comparison to sort completed tasks last
+    if (a.completed === b.completed) {
+      // If completion is the same, sort by urgency (true comes before false)
+      return (b.is_urgent === a.is_urgent) ? 0 : b.is_urgent ? -1 : 1;
+    } else {
+      // If one is completed and the other isn't, the uncompleted one should come first
+      return a.completed ? 1 : -1;
+    }
+  })
+}
+
 </script>
 
 <script setup lang="ts">
@@ -36,20 +38,21 @@
   import type { TASK, CAT } from '../api/apiSupabase';
 
   import { ref, onMounted } from 'vue';
-  import useAuthUser from "../composables/UseAuthUser"
+  import useAuthUser from "../composables/UseAuthUser";
   import { useRouter } from "vue-router";
+  import { fetchTable } from '../api/apiSupabase';
 
   import CategoriesArea from '../components/CategoriesArea.vue';
   import TasksArea from '../components/TasksArea.vue';
-  import { fetchTable } from '../api/apiSupabase';
-
 
   const router = useRouter();
 
   onMounted(async () => {
     await onFetch('categories')
     await onFetch('tasks')
-    await sortByUrgencyAndCompletion(tasks)
+    if(tasks.value) {
+      await sortByUrgencyAndCompletion(tasks.value)
+    }
   }) 
 </script>
 

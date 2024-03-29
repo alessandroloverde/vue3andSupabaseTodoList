@@ -11,12 +11,7 @@
     import type { Ref } from 'vue';
     import type { TASK, CAT } from './api/apiSupabase';
 
-    import { ref, onMounted } from 'vue';
-    import { fetchTable } from './api/apiSupabase';
-
     import AppHeader from './components/AppHeader.vue';
-
-
 </script>
 
 <style lang="scss">
