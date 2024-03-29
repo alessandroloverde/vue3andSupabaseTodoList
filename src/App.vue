@@ -6,21 +6,7 @@
         </div>
     </main>
 </template>
-<script lang="ts">
-    export const tasks: Ref<TASK[] | null> = ref([]);
-    export const categories: Ref<CAT[] | null> = ref([]);
 
-    /**
-     * * Helper function for fetching Tasks or Categories.
-     * @param tableType 
-     */
-     export const onFetch = async (tableType: string) => {
-        alert(tableType)
-        const data: (TASK[] | CAT[]) = await fetchTable(tableType) as (TASK[] | CAT[]);
-
-        tableType === "tasks" ? tasks.value = data as TASK[] : categories.value = data as CAT[]
-    }
-</script>
 <script setup lang="ts">
     import type { Ref } from 'vue';
     import type { TASK, CAT } from './api/apiSupabase';

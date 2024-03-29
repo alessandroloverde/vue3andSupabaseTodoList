@@ -103,18 +103,15 @@
         </section>
     </section>
 </template>
-<script lang="ts">
-    export const tasks: Ref<TASK[] | null> = ref([]);
-</script>
 
 <script setup lang="ts">
     import type { Ref } from 'vue';
     import type { TASK } from '../api/apiSupabase';
 
     import Popper from "vue3-popper";
-    import { reactive, ref, onMounted } from 'vue';
+    import { reactive, ref } from 'vue';
     import { removeItem, S_saveData, updateCategory } from '../api/apiSupabase';
-    import { onFetch } from '../App.vue';
+    import { sortByUrgencyAndCompletion } from '../pages/Home.vue'
 
     import useAuthUser from "../composables/UseAuthUser"
 
@@ -127,22 +124,6 @@
     let taskName: Ref<string>[] = reactive([])
     let newTaskName: Ref<string> = ref('')
     let completedAreVisible: Ref<boolean> = ref(false)
-
-    let tasks = props.tasks
-    let categories = props.categories
-
-
-
-    // === Async functions ================================================================================================
-    /**
-     * * These async funtions are triggered on component load
-     */
-    onMounted(async () => {
-        await onFetch('categories')
-        await onFetch('tasks')
-        await sortByUrgencyAndCompletion(tasks)
-    }) 
-
 
     /**
      * ! update fires multiple times
@@ -175,28 +156,10 @@
      * @param todo 
      */
      const computedColor = (todo: TASK) => {
-        const foundCategory = categories !== null ? categories.find(category => category.name === todo.category) : categories
+        const foundCategory = props.categories !== null ? props.categories.find(category => category.name === todo.category) : props.categories
 
         return foundCategory?.color
     };
-
-
-    /**
-     * * Function for sorting according to completion and urgency
-     * @param tasks 
-     */
-     const sortByUrgencyAndCompletion = (tasks) => {
-        return tasks.sort((a, b) => {
-            // Check for done tasks first
-            if (a.completed === b.completed) {
-            // If completion is the same, sort by urgency (false comes before true)
-            return a.is_urgent - b.is_urgent;
-            } else {
-            // Completed tasks come first, regardless of urgency
-            return a.completed ? 1 : -1;
-            }
-        })
-    }
 
 
     /**
@@ -209,7 +172,7 @@
 
         await supabase.from("tasks").update({ is_urgent: todo.is_urgent }).eq('id', S_id)
 
-        sortByUrgencyAndCompletion(tasks)
+        sortByUrgencyAndCompletion(props.tasks)
     }
 
 
@@ -219,10 +182,10 @@
     const editTaskName = (index: number) => {
         editableIndex2.value = editableIndex2.value === index ? -1 : index;
         
-        taskName[index] = tasks[index].name
+        taskName[index] = props.tasks[index].name
     }
     const updateTaskName = async (index: number) => {
-        let oldTask = tasks !== null ? tasks[index].name : ""
+        let oldTask = props.tasks !== null ? props.tasks[index].name : ""
         let newTask = taskName[index]
 
         try {
@@ -255,7 +218,7 @@
 
         await supabase.from("tasks").update({ completed: todo.completed }).eq('id', S_id)
 
-        sortByUrgencyAndCompletion(tasks)
+        sortByUrgencyAndCompletion(props.tasks)
     }
 
 </script>
