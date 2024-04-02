@@ -15,7 +15,7 @@ const handleLogin = async () => {
   try {
     await login(form.value)
 
-    router.push({ name: "Me" })
+    router.push({ name: "Home" })
   } catch (error) {
     alert(error.message)
   }

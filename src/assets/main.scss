@@ -86,23 +86,6 @@
 
 // --- Icon and color picker -------------------------------------------------------------------------------- //
 .selectedIcon {
-    display: flex;
-    flex: 0 0 auto;
-    justify-content: center;
-    align-items: center;
-    margin: 0 $standardMargin 0 0;
-    border: 2px solid $textWhite;
-    opacity: 0.75;
-    transition: opacity 0.3s;
-    width: 2em;
-    height: 2em;
-    border-radius: 50%;
-    padding: 2px;
-    appearance: none;
-    outline: none;
-    background-clip: content-box;
-    background-color: transparent;
-
     @each $key, $name in $colors {
       &.#{$key} { 
         border-color: $name;
@@ -291,6 +274,11 @@
 }
 
 
+
+
+
+
+
 main {
   height: 100%;
   display: flex;
@@ -311,6 +299,7 @@ main {
       width: 100%;
       display: flex;
       line-height: 1;
+      padding: $standardMargin * 2;
 
       form {
         display: flex;
@@ -353,6 +342,17 @@ main {
     flex-direction: column;
     background-color: $medBkg;
     border-top-left-radius: $standardMargin * 3;
+
+    &--title {
+      font-family: $robotoSlab;
+      text-transform: uppercase;
+      font-size: 2rem;
+      font-weight: 700;
+      color: $textBeige;
+      white-space: nowrap;
+
+      & > span { color: $ctaColor }
+    }
   }
   .tasksArea {
     flex-basis: 65%;
@@ -378,14 +378,13 @@ main {
     );
     border-top-right-radius: $standardMargin * 3;
     box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.55),
-                inset -5px 5px 20px 0px rgba(0, 0, 0, 0.55);
+                inset -5px 5px 20px 0px rgba(0, 0, 0, 0.05);
 
     & > header {
       background: rgba(255, 98, 98, 0.2);
       border-top-right-radius: $standardMargin * 3;
-      padding: $standardMargin * 2;
       background: linear-gradient(to top, #502f3b 0%, #674455 100%);
-      box-shadow: inset -5px 5px 20px 0px rgba(0, 0, 0, 0.55);
+      //box-shadow: inset -5px 5px 20px 0px rgba(0, 0, 0, 0.55);
     }
     &--title {
       font-family: $robotoSlab;
@@ -425,13 +424,13 @@ main {
   }
 
   @each $key, $name in $colors {
-      &.#{$key} { 
-			background: linear-gradient(to left, rgba($name, 0.6) 25%, rgba(scale-color($name, $lightness: -40%), 0.6) 100%) $lightBkg;
-			//border-color: darken($name, 20%);
+    &.#{$key} { 
+      background: linear-gradient(to left, rgba($name, 0.6) 25%, rgba(scale-color($name, $lightness: -40%), 0.6) 100%) $lightBkg;
+      //border-color: darken($name, 20%);
       border-color: $name;
 
-			.taskList--completeTask > button[class*=icon-]:hover::before { color: #{$name} }
-			.taskList--category div[class*=icon-] { 
+      .taskList--completeTask > button[class*=icon-]:hover::before { color: #{$name} }
+      .taskList--category div[class*=icon-] { 
         background-color: #{$name};
         
         &:hover {
@@ -445,11 +444,12 @@ main {
           }
         }
       }
-			.taskList--actions > button.iconOnly:hover { color: lighten($name, 20%) }
-			.taskList--actions > .urgentSwitch input[type=checkbox]:hover:before { color: lighten($name, 20%) }  
-			.taskList--actions > .urgentSwitch input[type=checkbox].isUrgent { border-color: lighten($name, 20%) }  
-      }
+      .taskList--actions > button.iconOnly:hover { color: lighten($name, 20%) }
+      .taskList--actions > .urgentSwitch input[type=checkbox]:hover:before { color: lighten($name, 20%) }  
+      .taskList--actions > .urgentSwitch input[type=checkbox].isUrgent { border-color: lighten($name, 20%) }  
+    }
   }
+
   &--completeTask,
   &--category {
 		height: 100%;
@@ -518,6 +518,39 @@ main {
 	}
 }
 // ---------------------------------------------------------------------------------------------------------- //
+
+
+.categoryList {
+  li[class] {
+    display: flex;
+    justify-content: flex-end;
+
+    .selectedIcon {
+      display: flex;
+      flex: 0 0 auto;
+      justify-content: center;
+      align-items: center;
+      margin: 0 $standardMargin 0 0;
+      border: 2px solid $textWhite;
+      opacity: 0.75;
+      transition: opacity 0.3s;
+      width: 2em;
+      height: 2em;
+      border-radius: 50%;
+      padding: 2px;
+      appearance: none;
+      outline: none;
+      background-clip: content-box;
+      background-color: transparent;
+    }
+    
+    button[class^="btn--icn"] {
+      margin: $standardMargin/4;
+
+      &:not(:only-child):last-child { margin-right: 0 }
+    }
+  }
+}
 
 .tempLogin {
   width: 100%;

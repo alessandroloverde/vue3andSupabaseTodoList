@@ -54,11 +54,8 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   const { isLoggedIn } = useAuthUser();
-  if (
-    !isLoggedIn() &&
-    to.meta.requiresAuth &&
-    !Object.keys(to.query).includes("fromEmail")
-  ) {
+
+  if ( !isLoggedIn() && to.meta.requiresAuth && !Object.keys(to.query).includes("fromEmail") ) {
     return { name: "Login" };
   }
 });

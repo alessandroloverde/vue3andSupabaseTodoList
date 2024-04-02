@@ -8,9 +8,6 @@
 </template>
 
 <script setup lang="ts">
-    import type { Ref } from 'vue';
-    import type { TASK, CAT } from './api/apiSupabase';
-
     import AppHeader from './components/AppHeader.vue';
 </script>
 
@@ -27,10 +24,7 @@
         flex: 1 1 auto;
     }
 
-    .categoryList > li {
-        display: flex;
-        justify-content: flex-end;
-        
+    .categoryList > li {     
         @each $key, $name in $colors {
             &.#{$key} { 
                 border-color: #{$name};
@@ -39,9 +33,6 @@
                     background-color: #{$name};
                     border-color: darken($name, 20%);
                     color: darken($name, 40%);
-                    margin: $standardMargin/4;
-
-                    &:not(:only-child):last-child { margin-right: 0 }
                 }
                 span { 
                     color: #{$name};

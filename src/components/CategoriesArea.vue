@@ -2,9 +2,13 @@
     <section class="categoriesArea">
         <header>
             <form @submit.prevent="saveNewCategory()">
-                <label for="createNewCat">New category</label>
+                <label class="categoriesArea--title" for="createNewCat">New category</label>
                 <input v-model="newCategoryName" name="categoryName" autocomplete="off" id="createNewCat">
-                <button>Add category</button>
+                <button
+                    role="button"
+                    aria-label="Add new category"
+                    class="btn--add"
+                ></button>
             </form>
         </header>
         <section class="categoriesArea--info">
@@ -152,14 +156,13 @@
             user: user?.value?.id ?? null
         }
 
-
         try {
             if(content.name === 'Remove category') {
                 throw new Error("Sorry this name is reserved")
             }
 
             await S_saveData('categories', content)
-            await emit('categoryUpdated');
+            await emit('categoryUpdated')
         } catch(error) {
             alert(error.message)
 

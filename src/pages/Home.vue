@@ -8,7 +8,6 @@
    * @param tableType 
    */
   export const onFetch = async (tableType: string) => {
-    alert(tableType)
     const data: (TASK[] | CAT[]) = await fetchTable(tableType) as (TASK[] | CAT[]);
 
     tableType === "tasks" ? tasks.value = data as TASK[] : categories.value = data as CAT[]
@@ -50,6 +49,7 @@
   onMounted(async () => {
     await onFetch('categories')
     await onFetch('tasks')
+    
     if(tasks.value) {
       await sortByUrgencyAndCompletion(tasks.value)
     }

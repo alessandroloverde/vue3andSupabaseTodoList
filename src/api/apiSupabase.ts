@@ -68,8 +68,6 @@ export const updateColor = async (colorClass: string, S_id: number | null, $even
  */
 export const updateCategory = async ( S_table: string, S_id: number | null, S_content: string | undefined | null) => { 
     await supabase.from(S_table).update({ category: S_content === 'Remove category' ? null : S_content }).eq('id', S_id)
-
-    console.log('Content: ', S_content)
 }
 
 
@@ -83,7 +81,7 @@ export const updateIcon = async (iconClass: string, S_id: number | null, $event:
     let topo: EventTarget = $event.target as EventTarget
 
     console.log(iconClass)
-    console.log('event', topo)
+    console.log('event', topo) // !todo Just to check if event can be of any use
     try {
         await supabase.from("categories").update({ icon: iconClass }).eq('id', S_id)
     }
@@ -123,9 +121,6 @@ export function detectCSSVariables(prefix) {
  * * Function for saving a Task or a Category.
  */
 export async function S_saveData(S_table: string, S_content: TASK | CAT) {
-    console.log("save", S_content)
-    console.log(user.value)
-
     const insertObject: any = {name: S_content.name, user: user.value?.id}
 
     if ('icon' in S_content && S_content !== undefined) {

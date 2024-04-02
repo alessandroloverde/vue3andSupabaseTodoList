@@ -1,6 +1,8 @@
 <script setup>
   import useAuthUser from "../composables/UseAuthUser";
+  import { useRouter } from "vue-router";
 
+  const router = useRouter();
   const { user } = useAuthUser();
 </script>
 
@@ -10,5 +12,8 @@
     <p>Email: {{ user.email }}</p>
     <p>Status: {{ user.role }}</p>
     <p>Registered on: {{ user.created_at }}</p>
+    <router-link to="/">
+      <button>Go to your home page</button>
+    </router-link>
   </div>
 </template>

@@ -8,8 +8,9 @@
                     <div >
                         <ul>
                             <li>Welcome Supabase: {{ user?.email }}</li>
+                            <li v-if="!user"><RouterLink to="/login">Login</RouterLink></li>
                             <li v-if="user"><RouterLink to="/me">Profile</RouterLink></li>
-                            <li><a href="#" @click="handleLogin">Logout</a></li>
+                            <li v-if="user"><a href="#" @click="handleLogin">Logout</a></li>
                         </ul>
                     </div>
                 </template>
