@@ -100,6 +100,7 @@
     import useAuthUser from "../composables/UseAuthUser"
 
     const { supabase } = useAuthUser();
+    const { user } = useAuthUser()
 
     const props = defineProps(['categories', 'tasks'])
     const emit = defineEmits(['categoryUpdated'])
@@ -147,9 +148,10 @@
         let content: CAT = {
             name: newCategoryName.value,
             id: null,
-            icon: 'icon-star'
-            //user: to be done yet
+            icon: 'icon-star',
+            user: user?.value?.id ?? null
         }
+
 
         try {
             if(content.name === 'Remove category') {

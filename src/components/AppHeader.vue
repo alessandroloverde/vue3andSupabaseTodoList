@@ -29,8 +29,7 @@
     import useAuthUser from "../composables/UseAuthUser";
     import { useRouter } from "vue-router";
 
-    const router = useRouter();
-
+    const router = useRouter()
     const { user } = useAuthUser()
     const { logout } = useAuthUser()
     const handleLogin = async () => {
