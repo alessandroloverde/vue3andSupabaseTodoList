@@ -1,7 +1,9 @@
-import { createClient, type PostgrestError } from '@supabase/supabase-js';
 import type { Database } from '../types/supabase';
 
-const supabase = createClient(import.meta.env.VITE_SUPABASE_API_URL, import.meta.env.VITE_SUPABASE_API_KEY);
+import useAuthUser from "../composables/UseAuthUser"
+
+const { supabase } = useAuthUser();
+const { user } = useAuthUser();
 
 export type TASK = Database["public"]["Tables"]["tasks"]["Row"]
 export type CAT = Database["public"]["Tables"]["categories"]["Row"]
@@ -16,10 +18,6 @@ export const fetchTable = async (tableType: string) => {
     //alert(tableType)
     try {
         const {data} = await supabase.from(tableType).select();
-
-/*         return data.sort((a, b) => {
-            return (a.id > b.id) ? 0 : a.id ? 1 : -1
-        }) */
 
         return data
     }
@@ -69,7 +67,9 @@ export const updateColor = async (colorClass: string, S_id: number | null, $even
  * @param S_content     => Category name 
  */
 export const updateCategory = async ( S_table: string, S_id: number | null, S_content: string | undefined | null) => { 
-    await supabase.from(S_table).update({ category: S_content }).eq('id', S_id)
+    await supabase.from(S_table).update({ category: S_content === 'Remove category' ? null : S_content }).eq('id', S_id)
+
+    console.log('Content: ', S_content)
 }
 
 
@@ -124,8 +124,9 @@ export function detectCSSVariables(prefix) {
  */
 export async function S_saveData(S_table: string, S_content: TASK | CAT) {
     console.log("save", S_content)
+    console.log(user.value)
 
-    const insertObject: any = {name: S_content.name, user: S_content.user}
+    const insertObject: any = {name: S_content.name, user: user.value?.id}
 
     if ('icon' in S_content && S_content !== undefined) {
         insertObject.icon = S_content.icon

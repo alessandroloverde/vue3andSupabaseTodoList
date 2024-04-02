@@ -2,6 +2,7 @@
   export const tasks: Ref<TASK[] | null> = ref([]);
   export const categories: Ref<CAT[] | null> = ref([]);
 
+
   /**
    * * Helper function for fetching Tasks or Categories.
    * @param tableType 
@@ -13,24 +14,23 @@
     tableType === "tasks" ? tasks.value = data as TASK[] : categories.value = data as CAT[]
   }
 
+
   /**
    * * Function for sorting according to completion and urgency
    * @param tasks 
    */
-
   export const sortByUrgencyAndCompletion = (tasks: TASK[]) => {
-  return tasks.sort((a, b) => {
-    // Assuming `completed` is a boolean, invert its comparison to sort completed tasks last
-    if (a.completed === b.completed) {
-      // If completion is the same, sort by urgency (true comes before false)
-      return (b.is_urgent === a.is_urgent) ? 0 : b.is_urgent ? -1 : 1;
-    } else {
-      // If one is completed and the other isn't, the uncompleted one should come first
-      return a.completed ? 1 : -1;
-    }
-  })
-}
-
+    return tasks.sort((a, b) => {
+      // Assuming `completed` is a boolean, invert its comparison to sort completed tasks last
+      if (a.completed === b.completed) {
+        // If completion is the same, sort by urgency (true comes before false)
+        return (b.is_urgent === a.is_urgent) ? 0 : b.is_urgent ? -1 : 1;
+      } else {
+        // If one is completed and the other isn't, the uncompleted one should come first
+        return a.completed ? 1 : -1;
+      }
+    })
+  }
 </script>
 
 <script setup lang="ts">

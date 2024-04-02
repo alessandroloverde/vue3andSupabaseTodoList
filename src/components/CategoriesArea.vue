@@ -151,8 +151,21 @@
             //user: to be done yet
         }
 
-        await S_saveData('categories', content)
-        await emit('categoryUpdated');
+        try {
+            if(content.name === 'Remove category') {
+                throw new Error("Sorry this name is reserved")
+            }
+
+            await S_saveData('categories', content)
+            await emit('categoryUpdated');
+        } catch(error) {
+            alert(error.message)
+
+            return
+        } finally {
+            newCategoryName.value = ''
+        }
+
     }
 
 </script>
