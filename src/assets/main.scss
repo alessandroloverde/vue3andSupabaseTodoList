@@ -340,13 +340,21 @@ main {
     display: flex;
     flex-basis: 35%;
     flex-direction: column;
-    background-color: $medBkg;
+    background-color: $darkBkg;
     border-top-left-radius: $standardMargin * 3;
 
+    & > header {
+/*       background: $medBkg;
+      background: linear-gradient(to top, $darkBkg 0%, $lightBkg 100%); */
+      border-top-left-radius: $standardMargin * 3;
+
+      background: rgba(255, 98, 98, 0.2);
+      background: linear-gradient(to top, #502f3b 0%, #674455 100%);
+    }
     &--title {
       font-family: $robotoSlab;
       text-transform: uppercase;
-      font-size: 2rem;
+      font-size: 1.5625rem;
       font-weight: 700;
       color: $textBeige;
       white-space: nowrap;
@@ -356,40 +364,38 @@ main {
   }
   .tasksArea {
     flex-basis: 65%;
-    background-color: $darkestBkg;
-    background: linear-gradient(
+    background-color: hsla(260, 66.67%, 7.06%, 0.5);
+    background-color: $medBkg;
+/*     background: linear-gradient(
       to bottom left,
-          hsl(261.29, 26.5%, 22.94%) 0%,
-          hsl(261.28, 26.65%, 22.74%) 7.6%,
-          hsl(261.24, 27.12%, 22.17%) 14.8%,
-          hsl(261.18, 27.88%, 21.29%) 21.7%,
-          hsl(261.11, 28.96%, 20.16%) 28.4%,
-          hsl(261.02, 30.4%, 18.82%) 34.8%,
-          hsl(260.91, 32.25%, 17.35%) 41.1%,
-          hsl(260.79, 34.58%, 15.79%) 47.3%,
-          hsl(260.66, 37.47%, 14.21%) 53.4%,
-          hsl(260.53, 41.02%, 12.65%) 59.6%,
-          hsl(260.4, 45.29%, 11.18%) 65.9%,
-          hsl(260.28, 50.25%, 9.84%) 72.2%,
-          hsl(260.17, 55.66%, 8.71%) 78.8%,
-          hsl(260.08, 60.95%, 7.83%) 85.5%,
-          hsl(260.02, 65.05%, 7.26%) 92.6%,
-          hsl(260, 66.67%, 7.06%) 100%
-    );
+          hsla(261.29, 26.5%, 22.94%, 0.5) 0%,
+          hsla(261.28, 26.65%, 22.74%, 0.5) 7.6%,
+          hsla(261.24, 27.12%, 22.17%, 0.5) 14.8%,
+          hsla(261.18, 27.88%, 21.29%, 0.5) 21.7%,
+          hsla(261.11, 28.96%, 20.16%, 0.5) 28.4%,
+          hsla(261.02, 30.4%, 18.82%, 0.5) 34.8%,
+          hsla(260.91, 32.25%, 17.35%, 0.5) 41.1%,
+          hsla(260.79, 34.58%, 15.79%, 0.5) 47.3%,
+          hsla(260.66, 37.47%, 14.21%, 0.5) 53.4%,
+          hsla(260.53, 41.02%, 12.65%, 0.5) 59.6%,
+          hsla(260.4, 45.29%, 11.18%, 0.5) 65.9%,
+          hsla(260.17, 55.66%, 8.71%, 0.5) 78.8%,
+          hsla(260.08, 60.95%, 7.83%, 0.5) 85.5%,
+          hsla(260.02, 65.05%, 7.26%, 0.5) 92.6%,
+          hsla(260, 66.67%, 7.06%, 0.5) 100%
+    ); */
     border-top-right-radius: $standardMargin * 3;
     box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.55),
                 inset -5px 5px 20px 0px rgba(0, 0, 0, 0.05);
 
     & > header {
-      background: rgba(255, 98, 98, 0.2);
       border-top-right-radius: $standardMargin * 3;
-      background: linear-gradient(to top, #502f3b 0%, #674455 100%);
-      //box-shadow: inset -5px 5px 20px 0px rgba(0, 0, 0, 0.55);
+      background: rgba(255, 98, 98, 0.2) linear-gradient(to top, rgba(80, 47, 59, 0.7) 0%, rgba(103, 68, 85, 0.7) 100%);
     }
     &--title {
       font-family: $robotoSlab;
       text-transform: uppercase;
-      font-size: 2rem;
+      font-size: 1.5625rem;
       font-weight: 700;
       color: $textBeige;
       white-space: nowrap;
