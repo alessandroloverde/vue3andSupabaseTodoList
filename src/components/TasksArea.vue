@@ -50,7 +50,7 @@
                         class="taskList--title" 
                         :class="{ completed: todo.completed }"
                         @click="S_doneTodo(todo.id, todo)">
-                            <h3>{{ todo.name }}</h3>
+                            <h4>{{ todo.name }}</h4>
                     </div>
                     <div class="taskList--actions">
                         <div class="urgentSwitch">

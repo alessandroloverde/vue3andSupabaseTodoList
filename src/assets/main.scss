@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import "./_variables.scss";
 @import "./_base.scss";
 @import "./fonts.scss";
@@ -344,12 +346,9 @@ main {
     border-top-left-radius: $standardMargin * 3;
 
     & > header {
-/*       background: $medBkg;
-      background: linear-gradient(to top, $darkBkg 0%, $lightBkg 100%); */
       border-top-left-radius: $standardMargin * 3;
-
       background: rgba(255, 98, 98, 0.2);
-      background: linear-gradient(to top, #502f3b 0%, #674455 100%);
+      background: linear-gradient(to top, rgba($darkestBkg, 0.7) 0%, rgba($lightBkg, 0.7) 100%);
     }
     &--title {
       font-family: $robotoSlab;
@@ -364,7 +363,6 @@ main {
   }
   .tasksArea {
     flex-basis: 65%;
-    background-color: hsla(260, 66.67%, 7.06%, 0.5);
     background-color: $medBkg;
 /*     background: linear-gradient(
       to bottom left,
@@ -385,12 +383,13 @@ main {
           hsla(260, 66.67%, 7.06%, 0.5) 100%
     ); */
     border-top-right-radius: $standardMargin * 3;
-    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.55),
-                inset -5px 5px 20px 0px rgba(0, 0, 0, 0.05);
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.55), 
+                inset 5px -5px 10px 0px rgba(0, 0, 0, 0.45);
 
     & > header {
       border-top-right-radius: $standardMargin * 3;
-      background: rgba(255, 98, 98, 0.2) linear-gradient(to top, rgba(80, 47, 59, 0.7) 0%, rgba(103, 68, 85, 0.7) 100%);
+      background: rgba(255, 98, 98, 0.2);
+      background: linear-gradient(to top, rgba(31, 9, 17, 0.7) 0%, rgba($lightAltBkg, 0.7) 100%);
     }
     &--title {
       font-family: $robotoSlab;
@@ -431,13 +430,16 @@ main {
 
   @each $key, $name in $colors {
     &.#{$key} { 
-      background: linear-gradient(to left, rgba($name, 0.6) 25%, rgba(scale-color($name, $lightness: -40%), 0.6) 100%) $lightBkg;
+
+      background: linear-gradient(to left, rgba($name, 0.6) 25%, rgba(color.scale($name, $lightness: -40%), 0.6) 100%) $lightBkg;
       //border-color: darken($name, 20%);
       border-color: $name;
 
       .taskList--completeTask > button[class*=icon-]:hover::before { color: #{$name} }
+      .taskList--title > h4 { text-shadow: 0 1px color-mix(in srgb, black 70%, #{$name})}
       .taskList--category div[class*=icon-] { 
-        background-color: #{$name};
+        //background-color: color.scale($name, $lightness: -35%, $saturation: -25%);
+        background-color: color-mix(in srgb, black 35%, #{$name});
         
         &:hover {
           color: lighten($name, 20%);
