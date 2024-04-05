@@ -413,7 +413,7 @@ main {
 
 // --- Style for each task ---------------------------------------------------------------------------------- //
 .taskList {
-  height: 66px; // Beware!
+  height: 66px; // ! Beware: hard-coded value
   background: linear-gradient(to left, rgba(grey, 0.6) 25%, rgba(scale-color(grey, $lightness: -40%), 0.6) 100%) $lightBkg;
   display: flex;
   align-items: center;
@@ -423,6 +423,7 @@ main {
   border: 1px solid grey;
   overflow: hidden;
 
+  &:first-child { margin-top: 0 }
   &.completed { 
     opacity: 0.5;
     filter: saturate(70%); 
@@ -430,16 +431,13 @@ main {
 
   @each $key, $name in $colors {
     &.#{$key} { 
-
       background: linear-gradient(to left, rgba($name, 0.6) 25%, rgba(color.scale($name, $lightness: -40%), 0.6) 100%) $lightBkg;
-      //border-color: darken($name, 20%);
-      border-color: $name;
+      border-color: $name; // ? Cosmetic: not sure about it
 
       .taskList--completeTask > button[class*=icon-]:hover::before { color: #{$name} }
-      .taskList--title > h4 { text-shadow: 0 1px color-mix(in srgb, black 70%, #{$name})}
+      .taskList--title > h4 { text-shadow: 0 1px color-mix(in srgb, black 70%, #{$name}) }
       .taskList--category div[class*=icon-] { 
-        //background-color: color.scale($name, $lightness: -35%, $saturation: -25%);
-        background-color: color-mix(in srgb, black 35%, #{$name});
+        background-color: color-mix(in srgb, black 35%, #{$name}); // * Also an option: color.scale($name, $lightness: -35%, $saturation: -25%)
         
         &:hover {
           color: lighten($name, 20%);
@@ -464,10 +462,11 @@ main {
 		display: flex;
 		flex: 0 0 auto;
 		align-items: center;
-		border-right: 1px solid rgba(0,0,0, 0.15);
+		border-left: 1px solid rgba(0,0,0, 0.15);
+    background-color: rgba(0,0,0, 0.15);
   }
   &--completeTask {
-    background-color: rgba(0,0,0, 0.15);
+		border-right: 1px solid rgba(0,0,0, 0.15);
 
     & > button[class*=icon-] {
       width: auto;
@@ -505,6 +504,7 @@ main {
 		flex: 1 1 auto;
 		color: $textBeige;
 		margin-left: $standardMargin;
+    pointer-events: none;
 
     .completed & { text-decoration: line-through }
   }
