@@ -20,7 +20,10 @@ $colors: (
     SlateBlue: rgb(106, 90, 205),
     YellowGreen: rgb(154, 205, 50),
     MediumAquamarine: rgb(102, 205, 170),
-    MetallicSilver: rgb(188, 198, 204)
+    MetallicSilver: rgb(188, 198, 204),
+    Coral: rgb(255, 127, 80),
+    Thistle: rgb(216, 191, 216),
+    DarkSeaGreen: rgb(143, 188, 139),
 );
 $iconsSelected: (
     icon-times-circle: "\f057",
@@ -60,6 +63,10 @@ $darkBkg: #2c2638;
 $darkestBkg: #120d1c;
 $lightAltBkg: #674457;
 $darkAltBkg: #593542;
+$baseGray1: rgb(144, 164, 174);
+$baseGray2: rgb(120, 144, 156);
+$baseGray3: rgb(96, 125, 139);
+$neutralGray: rgb(97, 97, 97);
 
 $fff: #8b6d7e;
 

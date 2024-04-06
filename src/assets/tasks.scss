@@ -1,0 +1,157 @@
+@use 'sass:color';
+
+@import "./_variables.scss";
+@import "./_base.scss";
+@import "./fonts.scss";
+
+.taskList {
+  height: 66px; // ! Beware: hard-coded value
+  background: linear-gradient(to left, rgba($darkBkg, 0.5) 25%, rgba(scale-color($darkBkg, $lightness: -40%), 0.5) 100%) $medBkg;
+  background: $lightBkg;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: $border-radius * 2;
+  margin: $standardMargin * 1.5 auto;
+  border: 1px solid grey;
+  overflow: hidden;
+
+  &:first-child { margin-top: 0 }
+  &.completed { 
+    opacity: 0.5;
+    filter: saturate(70%); 
+  }
+
+  @each $key, $name in $colors {
+    &.#{$key} { 
+      background: linear-gradient(to left, rgba($name, 0.7) 25%, rgba(color.scale($name, $lightness: -35%, $saturation: -15%), 0.6) 100%) $medBkg;
+      border-color: color.scale($name, $lightness: -20%); // ? Cosmetic: not sure about it
+
+      .taskList--completeTask {
+        & > button[class*=icon-] { color: color.scale($name, $lightness: -25%, $saturation: -25%) }
+      }
+      .taskList--title {
+        & > h4 { text-shadow: 0 1px color-mix(in srgb, black 70%, #{$name}) }
+      }
+      .taskList--category {
+        div[class*=icon-] { 
+          background-color: color-mix(in srgb, black 35%, #{$name}); // * Also an option: color.scale($name, $lightness: -35%, $saturation: -25%)
+          
+          &:hover {
+            color: lighten($name, 20%);
+            cursor: pointer;
+            transition: color 0.3s ease-in-out;
+  
+            &::before { 
+              border-color: lighten($name, 20%);
+              transition: border-color 0.3s ease-in-out
+            }
+          }
+        }
+      }
+      .taskList--actions {
+        & > button.iconOnly,
+        & > .urgentSwitch input[type=checkbox] { 
+          color: color.scale($name, $lightness: 25%, $saturation: -20%); 
+        
+          &:hover { color: $textBeige }
+          &.isUrgent {
+            color: $textBeige;
+            border-color: $textBeige; 
+          }
+        }
+      }
+    }
+  }
+
+  &--completeTask,
+  &--category {
+		height: 100%;
+		display: flex;
+		flex: 0 0 auto;
+		align-items: center;
+		border-left: 1px solid rgba(0,0,0, 0.15);
+    background-color: rgba(0,0,0, 0.15);
+  }
+
+  &--completeTask {
+		border-right: 1px solid rgba(0,0,0, 0.15);
+
+    & > button[class*=icon-] {
+      width: auto;
+      height: auto;
+      font-size: 2.5rem;
+      margin: auto $standardMargin;
+      color: grey;
+
+      &:hover::before { 
+        color: $textBeige;
+        transition: color 0.3s ease-in-out; 
+      }
+    }
+  }
+
+  &--category {
+    div[class*=icon-] {
+      width: 3rem;
+      height: 3rem;
+      font-size: 1.25rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: auto $standardMargin;
+      color: $textBeige;
+  
+      &::before {
+        width: 2.5rem;
+        height: 2.5rem;
+        border: 2px solid $textBeige;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  &--title { 
+		flex: 1 1 auto;
+		color: $textBeige;
+		margin-left: $standardMargin;
+    pointer-events: none;
+
+    .completed & { text-decoration: line-through }
+  }
+	&--actions {
+		flex: 1 1 auto;
+		display: flex;
+		justify-content: flex-end;
+		margin-right: $standardMargin;
+
+		button.iconOnly {
+			font-size: 24px; // Uniform to H3
+			width: auto;
+			margin: auto $standardMargin/2;
+      color: gray;
+
+			&:hover {
+        color: $textBeige;
+        transition: color 0.3s ease-in-out; 
+      }
+		}
+		.urgentSwitch input[type=checkbox] { 
+      color: gray;
+      margin: auto $standardMargin/2;
+
+      
+
+      &:hover { color: $textBeige }
+      &.isUrgent {
+        color: $textBeige;
+        border-color: $textBeige;
+      }
+    }
+	}
+}
