@@ -35,5 +35,9 @@
       <label>Password <input v-model="form.password" type="password" /></label>
       <button>Register</button>
     </form>
+    <p>Already have an account?</p>
+    <router-link to="Login">
+      <h3>Log in</h3>
+    </router-link>
   </div>
 </template>

@@ -38,8 +38,7 @@ const routes = [
     name: "Logout",
     path: "/logout",
     /**
-     * Route guard that logs out the user and redirects them to the Home page.
-     *
+     * * Route guard that logs out the user and redirects them to the Home page.
      * @return {Object} An object with a name property set to "Home".
      */
     beforeEnter: async () => {

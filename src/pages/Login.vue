@@ -30,6 +30,11 @@ const handleLogin = async () => {
       <label>Password <input v-model="form.password" type="password" /></label>
       <button>Login</button>
       <router-link to="/forgotPassword">Forgot Password?</router-link>
+      <hr>
+      <p>You don't have an account yet?</p>
+      <router-link to="Register">
+        <h3>Register</h3>
+      </router-link>
     </form>
   </div>
 </template>
