@@ -12,6 +12,9 @@ const routes = [
     name: "Home",
     path: "/",
     component: () => import("../pages/Home.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     name: "Me",
@@ -34,9 +37,16 @@ const routes = [
   {
     name: "Logout",
     path: "/logout",
+    /**
+     * Route guard that logs out the user and redirects them to the Home page.
+     *
+     * @return {Object} An object with a name property set to "Home".
+     */
     beforeEnter: async () => {
       const { logout } = useAuthUser();
+
       await logout();
+
       return { name: "Home" };
     },
   },
@@ -54,6 +64,13 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   const { isLoggedIn } = useAuthUser();
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const originalRequiresAuth = to.meta.requiresAuth
+
+  console.log('isLoggedIn', isLoggedIn())
+  console.log('requiresAuth', requiresAuth)
+  console.log('originalRequiresAuth', originalRequiresAuth)
+  console.log('query', Object.keys(to.query))
 
   if ( !isLoggedIn() && to.meta.requiresAuth && !Object.keys(to.query).includes("fromEmail") ) {
     return { name: "Login" };

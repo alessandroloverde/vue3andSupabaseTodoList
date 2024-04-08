@@ -1,7 +1,7 @@
 <template>
     <header class="appHeader">
         <h1 class="appHeader--title">Wondertask</h1>
-        <h2>{{ user?.role }}</h2>
+        <h2>{{user?.user_metadata.name}} – {{ user?.role }}</h2>
         <aside class="appHeader--avatar">
             <Popper :placement="'left'" arrow >
                 <template #content class="flyoutMenu">
