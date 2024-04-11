@@ -43,8 +43,12 @@
 
   import CategoriesArea from '../components/CategoriesArea.vue';
   import TasksArea from '../components/TasksArea.vue';
+  import Login from './Login.vue';
+  import Register from './Register.vue';
 
   const router = useRouter();
+
+  const {isLoggedIn} = useAuthUser();
 
   onMounted(async () => {
     await onFetch('categories')
@@ -57,14 +61,21 @@
 </script>
 
 <template>
-    <CategoriesArea
+  <div v-if="!isLoggedIn()" class="homePage">
+    Home page for unauthenticated users
+    <Login></Login>
+    <Register></Register>
+  </div>
+  <CategoriesArea
       :categories="categories"
       :tasks="tasks"
       @categoryUpdated="onFetch('categories')"
+      v-if="isLoggedIn()"
   ></CategoriesArea>
   <TasksArea
       :categories="categories"
       :tasks="tasks"
       @taskUpdated="onFetch('tasks')"
+      v-if="isLoggedIn()"
   ></TasksArea>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <AppHeader></AppHeader>
+    <AppHeader v-if="isLoggedIn()"></AppHeader>
     <main>
         <div class="appContainer">
             <router-view />
@@ -8,7 +8,11 @@
 </template>
 
 <script setup lang="ts">
-    import AppHeader from './components/AppHeader.vue';
+    import AppHeader  from './components/AppHeader.vue';
+    import useAuthUser from  './composables/UseAuthUser';
+
+    const { isLoggedIn } = useAuthUser();
+
 </script>
 
 <style lang="scss">

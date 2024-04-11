@@ -12,9 +12,6 @@ const routes = [
     name: "Home",
     path: "/",
     component: () => import("../pages/Home.vue"),
-    meta: {
-      requiresAuth: true,
-    },
   },
   {
     name: "Me",
@@ -72,7 +69,7 @@ router.beforeEach((to) => {
   console.log('query', Object.keys(to.query))
 
   if ( !isLoggedIn() && to.meta.requiresAuth && !Object.keys(to.query).includes("fromEmail") ) {
-    return { name: "Login" };
+    return { name: "Home" };
   }
 });
 

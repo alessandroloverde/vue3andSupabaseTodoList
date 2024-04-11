@@ -121,3 +121,25 @@ input[type="text"] {
 }
 // ---------------------------------------------------------------------------------------------------------- //
 
+#app {
+  width: 100%;
+  height: 100%;
+  background-image: url("../src/assets/images/mainBkg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+
+  // *** Style fot the Flyout Menu. Needs specificity ***
+  .popper {
+    $popperBkgColor: $textWhite;
+
+    //background-color: $popperBkgColor;
+    padding: $standardMargin * 2;
+    border-radius: 20px;
+    color: $darkBkg;
+
+    & #arrow::before { background: $popperBkgColor }
+    /* &:hover,
+    &:hover > #arrow::before { background: $popperBkgColor } */
+  }
+}
