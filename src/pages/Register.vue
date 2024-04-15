@@ -26,6 +26,7 @@
     }
   };
 </script>
+
 <template>
   <div id="Register">
     <form @submit.prevent="handleSubmit">

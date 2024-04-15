@@ -12,7 +12,6 @@
     import useAuthUser from  './composables/UseAuthUser';
 
     const { isLoggedIn } = useAuthUser();
-
 </script>
 
 <style lang="scss">

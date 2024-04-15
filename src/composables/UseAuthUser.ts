@@ -37,12 +37,18 @@ export default function useAuthUser() {
     if (error) throw error
   };
 
+  /**
+   * * Register a new user with the provided email, password, and additional metadata.
+   */
   const register = async ({email, password, ...meta}) => {
     const { data, error } = await supabase.auth.signUp({email, password, options: { data: meta }})
 
     console.log(user)
   };
 
+  /**
+   * * Check if the user is logged in or not (return boolean)
+   */
   const isLoggedIn = () => {
     return !!user.value
   };

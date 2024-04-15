@@ -1,12 +1,25 @@
-@import "variables";
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+
+@mixin textFont($weight: 500) {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: $weight;
+  font-style: normal;
+}
+
+
 
 @font-face {
   font-family: 'Icomoon';
-  src:  url('fonts/Icomoon.eot?a0b353');
-  src:  url('fonts/Icomoon.eot?a0b353#iefix') format('embedded-opentype'),
-    url('fonts/Icomoon.ttf?a0b353') format('truetype'),
-    url('fonts/Icomoon.woff?a0b353') format('woff'),
-    url('fonts/Icomoon.svg?a0b353#Icomoon') format('svg');
+  src:  url('fonts/Icomoon/Icomoon.eot?a0b353');
+  src:  url('fonts/Icomoon/Icomoon.eot?a0b353#iefix') format('embedded-opentype'),
+    url('fonts/Icomoon/Icomoon.ttf?a0b353') format('truetype'),
+    url('fonts/Icomoon/Icomoon.woff?a0b353') format('woff'),
+    url('fonts/Icomoon/Icomoon.svg?a0b353#Icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;

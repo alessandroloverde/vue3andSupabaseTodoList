@@ -1,11 +1,10 @@
 @use 'sass:color';
 
 @import "./_variables.scss";
+@import "./_fonts.scss";
 @import "./_base.scss";
-@import "./fonts.scss";
-@import "./tasks.scss";
-@import "./home.scss";
-
+@import "./_tasks.scss";
+@import "./_home.scss";
 
 
 :root {
@@ -18,7 +17,6 @@
   --popper-theme-padding: 32px;
   --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
 }
-
 
 .spacer { width: $standardMargin }
 
@@ -228,6 +226,8 @@
 }
 // ---------------------------------------------------------------------------------------------------------- //
 
+
+// --- Header and Footer ------------------------------------------------------------------------------------ //
 .appHeader {
   display: flex;
   flex-wrap: wrap;
@@ -248,37 +248,82 @@
     font-size: 24px;
   }
 }
+.appFooter {
+  $footerHeight: 60px;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: calc($standardMargin * 3) calc($standardMargin * 4) calc($standardMargin * 2);
+
+  &--info {
+    display: flex;
+    width: 100%;
+    height: $footerHeight;
+    justify-content: space-between;
+
+    &--logo {
+      display: flex;
+      align-items: center;
+  
+      & > img { height: calc($footerHeight / 2) }
+    }
+    &--privacy {
+      color: $textWhite;
+      display: flex;
+      align-items: center;
+
+      & > nav > ul { 
+        display: flex;
+        
+        li {
+          margin: 0 calc($standardMargin * 2);
+
+
+          & > a {
+            color: $textWhite;
+            text-decoration: none;
+            @include textFont();
+            font-size: 1.25em;
+            text-transform: uppercase;
+
+            &:hover { 
+              color: $textBeige;
+              text-decoration: underline; 
+            }
+          }
+        }
+      }
+    }
+    &--contact {
+      & > button.iconOnly {
+        width: $footerHeight;
+        height: $footerHeight;
+        border-radius: 50%;
+        background-color: $ctaColor;
+        color: $textWhite;
+        font-size: calc($footerHeight / 2);
+      }
+    }
+  }
+  &--copyright {
+    font-size: 12
+    4px;
+    color: $textWhite;
+    flex: 1 1 100%;
+    text-align: center;
+    margin-top: calc($standardMargin * 2);
+  }
+}
+// ---------------------------------------------------------------------------------------------------------- //
+
+
 
 .flyoutMenu {
   background-color: $textWhite;
   border-radius: $border-radius;
 }
-
-#app {
-  max-width: 1280px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  //background-color: rgba(107, 198, 194, 0.25);
-
-  // *** Style fot the Flyout Menu. Needs specificity ***
-  .popper {
-    $popperBkgColor: $textWhite;
-
-    //background-color: $popperBkgColor;
-    padding: $standardMargin * 2;
-    border-radius: 20px;
-    color: $darkBkg;
-
-    & #arrow::before { background: $popperBkgColor }
-    /* &:hover,
-    &:hover > #arrow::before { background: $popperBkgColor } */
-  }
-}
-
-
-
 
 
 
@@ -439,7 +484,7 @@ main {
     }
     
     button[class^="btn--icn"] {
-      margin: $standardMargin/4;
+      margin: calc($standardMargin / 4);
 
       &:not(:only-child):last-child { margin-right: 0 }
     }
@@ -451,12 +496,6 @@ main {
   display: flex;
   justify-content: space-between;
   margin: 12px;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
 }
 
 .authentication {

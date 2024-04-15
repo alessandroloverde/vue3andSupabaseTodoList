@@ -1,0 +1,92 @@
+@use 'sass:color';
+
+
+.homePage {
+  width: 100%;
+  height: 100%;
+
+  &--intro {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-image: url("../src/assets/images/mainBkg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+
+    &--logo {
+      width: 40%;
+      margin: calc($standardMargin * 2) auto;
+
+      & > img { width: 100% }
+    }
+    &--jumpTo {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      bottom: 0;
+
+      a { color: transparent }
+      & button { 
+        height: 100%;
+        width: 100%;
+        font-size: 120px !important;
+        color: rgba(255, 255, 255, 0.5);
+        margin: auto;
+        transition: color 0.2s ease-in-out;
+        transform: translatey(0px);
+        animation: float 5s linear infinite;
+
+        &:hover {
+          color: rgba(255, 255, 255, 0.9);
+          transition: color 0.3s ease-in-out;
+        }
+      }
+    }
+  }
+  &--cta {
+    display: flex;
+    flex-wrap: wrap;
+    padding: calc($standardMargin * 3);
+
+    h1 {
+      width: 100%;
+      font-size: 48px;
+      margin-bottom: calc($standardMargin * 2); 
+    }
+
+    &--card {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+
+      &--text {}
+      &--image {}
+    }
+    &--authentication {
+      width: 100%;
+      display: flex;
+    }
+  }
+}
+
+.todoListApp {
+  max-width: 1280px;
+  height: 100vh;
+  display: flex;
+  margin: 0 auto;
+}
+
+
+@keyframes float {
+	0% { transform: translatey(0) }
+  25% { transform: translatey(2vh) }
+	50% { transform: translatey(0) }
+  75% { transform: translatey(-2vh) }
+	100% { transform: translatey(0) }
+}

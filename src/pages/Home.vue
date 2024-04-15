@@ -45,6 +45,7 @@
   import TasksArea from '../components/TasksArea.vue';
   import Login from './Login.vue';
   import Register from './Register.vue';
+  import AppFooter from '../components/AppFooter.vue';
 
   const router = useRouter();
 
@@ -62,20 +63,43 @@
 
 <template>
   <div v-if="!isLoggedIn()" class="homePage">
-    Home page for unauthenticated users
-    <Login></Login>
-    <Register></Register>
+    <section class="homePage--intro">
+      <div class="homePage--intro--logo">
+        <img src="../assets/images/LogoWithTagline.png" alt="logo">
+      </div>
+      <div class="homePage--intro--jumpTo">
+        <a href="#login&register">
+          <button class="iconOnly btn--icn--icon-chevron-circle-down" role="button" aria-label="Next Page"></button>
+        </a>
+      </div>
+    </section>
+    <section class="homePage--cta" id="login&register">
+      <h1>Why Wondertask?</h1>
+      <div class="homePage--cta--card">
+        <div class="homePage--cta--card--text">
+          <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
+        </div>
+        <div class="homePage--cta--card--image">
+          <img src="../assets/images/Cards-stack.png" alt="Task List">
+        </div>
+      </div>
+      <div class="homePage--cta--authentication">
+        <Login></Login>
+        <Register></Register>
+      </div>
+    </section>
+    <AppFooter></AppFooter>
   </div>
-  <CategoriesArea
-      :categories="categories"
-      :tasks="tasks"
-      @categoryUpdated="onFetch('categories')"
-      v-if="isLoggedIn()"
-  ></CategoriesArea>
-  <TasksArea
-      :categories="categories"
-      :tasks="tasks"
-      @taskUpdated="onFetch('tasks')"
-      v-if="isLoggedIn()"
-  ></TasksArea>
+  <div v-else class="todoListApp">
+    <CategoriesArea 
+      :categories="categories" 
+      :tasks="tasks" 
+      @categoryUpdated="onFetch('categories')">
+    </CategoriesArea>
+    <TasksArea 
+      :categories="categories" 
+      :tasks="tasks" 
+      @taskUpdated="onFetch('tasks')">
+    </TasksArea>
+  </div>
 </template>

@@ -30,7 +30,7 @@ body {
 }
 
 h1 {
-  font-family: $atkinson;
+  @include textFont();
 }
 h2 {}
 h3 {
@@ -123,11 +123,7 @@ input[type="text"] {
 
 #app {
   width: 100%;
-  height: 100%;
-  background-image: url("../src/assets/images/mainBkg.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-
+  height: 100vh;
 
   // *** Style fot the Flyout Menu. Needs specificity ***
   .popper {
