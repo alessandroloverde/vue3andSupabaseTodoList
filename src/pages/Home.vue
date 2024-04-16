@@ -74,18 +74,20 @@
       </div>
     </section>
     <section class="homePage--cta" id="login&register">
-      <h1>Why Wondertask?</h1>
-      <div class="homePage--cta--card">
-        <div class="homePage--cta--card--text">
-          <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
+      <div class="container">
+        <div class="homePage--cta--card">
+          <div class="homePage--cta--card--text">
+            <h1>Why Wondertask?</h1>
+            <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
+          </div>
+          <div class="homePage--cta--card--image">
+            <img src="../assets/images/Cards-stack.png" alt="Task List">
+          </div>
         </div>
-        <div class="homePage--cta--card--image">
-          <img src="../assets/images/Cards-stack.png" alt="Task List">
+        <div class="homePage--cta--authentication">
+          <Login></Login>
+          <Register></Register>
         </div>
-      </div>
-      <div class="homePage--cta--authentication">
-        <Login></Login>
-        <Register></Register>
       </div>
     </section>
     <AppFooter></AppFooter>

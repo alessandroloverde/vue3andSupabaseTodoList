@@ -77,6 +77,27 @@ $titillium: 'Titillium Web', sans-serif;
 $border-radius: 6px;
 $standardMargin: 12px;
 
+
+// --- Media Queries breakpoints ---------------------------------------------------------------------------- //
+$breakpoints: (
+    sm: 640px,
+    md: 960px,
+    lg: 1200px,
+    xl: 1680px,
+);
+
+@mixin respond-to($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (min-width: map-get($breakpoints, $breakpoint)) {
+            @content;
+        }
+    } @else {
+        @warn "Unknown breakpoint: #{$breakpoint}.";
+    }
+}
+// ---------------------------------------------------------------------------------------------------------- //
+
+
 $icomoon-font-family: "icomoon" !default;
 $icomoon-font-path: "fonts" !default;
 

@@ -54,19 +54,24 @@
     flex-wrap: wrap;
     padding: calc($standardMargin * 3);
 
-    h1 {
-      width: 100%;
-      font-size: 48px;
-      margin-bottom: calc($standardMargin * 2); 
-    }
-
     &--card {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
 
-      &--text {}
-      &--image {}
+      &--text {
+        width: 50%;
+        
+        h1 {
+          width: 100%;
+          font-size: 60px;
+          margin-bottom: calc($standardMargin * 2); 
+        }
+        p { font-size: 24px }
+      }
+      &--image {
+        width: 50%;
+      }
     }
     &--authentication {
       width: 100%;

@@ -1,3 +1,4 @@
+@use "sass:map";
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -12,6 +13,7 @@
     --color-text: var(--vt-c-text-dark-2);
   }
 }
+
 
 html { height: 100% }
 body {
@@ -120,6 +122,29 @@ input[type="text"] {
   }
 }
 // ---------------------------------------------------------------------------------------------------------- //
+
+
+// --- Custom elements -------------------------------------------------------------------------------------- //
+.container {
+  width: 100%;
+  padding-left: calc($standardMargin * 2);
+  padding-right: calc($standardMargin * 2);
+  margin-right: auto;
+  margin-left: auto;
+
+  $hue: 230;
+
+  @each $breakpoint, $value in $breakpoints {
+    $hue: $hue + 30;
+
+    @include respond-to($breakpoint) {
+      max-width: $value;
+      outline: 2px solid oklch(70% .2 $hue);
+    }
+  }
+}
+// ---------------------------------------------------------------------------------------------------------- //
+
 
 #app {
   width: 100%;
