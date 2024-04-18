@@ -1,9 +1,14 @@
 @use 'sass:color';
 
-
 .homePage {
   width: 100%;
   height: 100%;
+  background-color: $homePageBkg;
+
+  h1 { 
+    color: $ctaColor;
+    margin-bottom: calc($standardMargin * 2); 
+  }
 
   &--intro {
     width: 100%;
@@ -12,13 +17,21 @@
     flex-direction: column;
     background-image: url("../src/assets/images/mainBkg.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center center;
     position: relative;
 
     &--logo {
-      width: 40%;
-      margin: calc($standardMargin * 2) auto;
+      margin: 5vh auto;
+
+      @each $breakpoint, $value in $logoSizes {
+        $hue: $hue + 50;
+    
+        @include respond-to($breakpoint) {
+          max-width: $value;
+          outline: 2px solid oklch(70% .2 $hue);    // *** debug ***
+        }
+      }
 
       & > img { width: 100% }
     }
@@ -53,6 +66,7 @@
     display: flex;
     flex-wrap: wrap;
     padding: calc($standardMargin * 3);
+    background-color: $homePageBkg;
 
     &--card {
       width: 100%;
@@ -62,12 +76,8 @@
       &--text {
         width: 50%;
         
-        h1 {
-          width: 100%;
-          font-size: 60px;
-          margin-bottom: calc($standardMargin * 2); 
-        }
-        p { font-size: 24px }
+        h1 { width: 100% }
+        p { font-size: 1.5em; }
       }
       &--image {
         width: 50%;
@@ -76,6 +86,86 @@
     &--authentication {
       width: 100%;
       display: flex;
+
+      & > #Login {
+        margin-right: 10%;
+      }
+      & > #Login, 
+      & > #Register { 
+        width: 45%;
+        
+        fieldset + fieldset { margin-top: $standardMargin * 2 }
+      }
+    }
+  }
+  &--footer {
+    $footerHeight: 60px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: calc($standardMargin * 3) calc($standardMargin * 4) calc($standardMargin * 2);
+    background-color: $homePageBkg;
+
+    &--info {
+      width: 100%;
+      height: $footerHeight;
+      display: flex;
+      justify-content: space-between;
+  
+      &--logo {
+        display: flex;
+        align-items: center;
+        max-width: calc($footerHeight * 6);
+    
+        & > img { max-width: 100% }
+      }
+      &--privacy {
+        color: $textWhite;
+        display: flex;
+        align-items: center;
+  
+        & > nav > ul { 
+          display: flex;
+          
+          li {
+            margin: 0 calc($standardMargin * 2);
+  
+            & > a {
+              @include Quicksand();
+  
+              color: $textWhite;
+              text-decoration: none;
+              font-size: 1.25em;
+              text-transform: uppercase;
+  
+              &:hover { 
+                color: $textBeige;
+                text-decoration: underline; 
+              }
+            }
+          }
+        }
+      }
+      &--contact {
+        & > button.iconOnly {
+          width: $footerHeight;
+          height: $footerHeight;
+          border-radius: 50%;
+          background-color: $ctaColor;
+          color: $textBeige;
+          font-size: calc($footerHeight / 2);
+          border: 2px solid $textBeige;
+        }
+      }
+    }
+    &--copyright {
+      font-size: 14px;
+      color: $textBeige;
+      flex: 1 1 100%;
+      text-align: center;
+      margin-top: calc($standardMargin * 2);
     }
   }
 }

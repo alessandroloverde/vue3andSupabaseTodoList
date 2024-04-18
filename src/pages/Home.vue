@@ -65,7 +65,7 @@
   <div v-if="!isLoggedIn()" class="homePage">
     <section class="homePage--intro">
       <div class="homePage--intro--logo">
-        <img src="../assets/images/LogoWithTagline.png" alt="logo">
+        <img src="../assets/images/LogoWithTagline.png" class="responsiveImg" alt="logo">
       </div>
       <div class="homePage--intro--jumpTo">
         <a href="#login&register">
@@ -81,7 +81,7 @@
             <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
           </div>
           <div class="homePage--cta--card--image">
-            <img src="../assets/images/Cards-stack.png" alt="Task List">
+            <img src="../assets/images/Cards-stack.png" class="responsiveImg" alt="Task List">
           </div>
         </div>
         <div class="homePage--cta--authentication">

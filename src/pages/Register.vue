@@ -31,9 +31,19 @@
   <div id="Register">
     <form @submit.prevent="handleSubmit">
       <h1>Register</h1>
-      <label>Name <input v-model="form.name" type="text" /></label>
-      <label>Email <input v-model="form.email" type="email" /></label>
-      <label>Password <input v-model="form.password" type="password" /></label>
+      <fieldset>
+        <label for="register-name">Name</label>
+        <input v-model="form.name" id="register-name" type="text" />
+      </fieldset>
+      <fieldset>
+        <label for="register-email">Email</label>
+        <input v-model="form.email" id="register-email" type="email" />
+      </fieldset>
+      <fieldset>
+        <label for="register-password">Password</label>
+        <input v-model="form.password" id="register-password" type="password" />
+      </fieldset>
+      
       <button>Register</button>
     </form>
     <p>Already have an account?</p>

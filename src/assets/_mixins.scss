@@ -1,0 +1,10 @@
+@use "sass:map";
+@use "sass:list";
+
+
+$logoSizes: (
+    sm: 100%,
+    md: 500px,
+    lg: 620px,
+    xl: 730px,
+);

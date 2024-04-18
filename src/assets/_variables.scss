@@ -67,6 +67,7 @@ $baseGray1: rgb(144, 164, 174);
 $baseGray2: rgb(120, 144, 156);
 $baseGray3: rgb(96, 125, 139);
 $neutralGray: rgb(97, 97, 97);
+$homePageBkg: #080007;
 
 $fff: #8b6d7e;
 
@@ -76,14 +77,15 @@ $titillium: 'Titillium Web', sans-serif;
 
 $border-radius: 6px;
 $standardMargin: 12px;
+$baseFontSize: 16px;
 
 
 // --- Media Queries breakpoints ---------------------------------------------------------------------------- //
 $breakpoints: (
     sm: 640px,
-    md: 960px,
-    lg: 1200px,
-    xl: 1680px,
+    md: 768px,
+    lg: 1280px,
+    xl: 1440px,
 );
 
 @mixin respond-to($breakpoint) {

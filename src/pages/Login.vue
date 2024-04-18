@@ -26,8 +26,14 @@ const handleLogin = async () => {
   <div id="Login">
     <form @submit.prevent="handleLogin()">
       <h1>Login</h1>
-      <label>Email <input v-model="form.email" type="email" /></label>
-      <label>Password <input v-model="form.password" type="password" /></label>
+      <fieldset>
+        <label for="login-email">Email</label>
+        <input v-model="form.email" id="login-email" type="email" />
+      </fieldset>
+      <fieldset>
+        <label for="login-password">Password</label>
+        <input v-model="form.password" id="login-password" type="password" />
+      </fieldset>
       <button>Login</button>
       <router-link to="/forgotPassword">Forgot Password?</router-link>
       <hr>

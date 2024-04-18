@@ -1,10 +1,12 @@
 @use 'sass:color';
 
 @import "./_variables.scss";
+@import "./_mixins.scss";
 @import "./_fonts.scss";
 @import "./_base.scss";
 @import "./_tasks.scss";
 @import "./_home.scss";
+@import "./_forms.scss";
 
 
 :root {
@@ -248,73 +250,6 @@
     font-size: 24px;
   }
 }
-.appFooter {
-  $footerHeight: 60px;
-
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  padding: calc($standardMargin * 3) calc($standardMargin * 4) calc($standardMargin * 2);
-
-  &--info {
-    display: flex;
-    width: 100%;
-    height: $footerHeight;
-    justify-content: space-between;
-
-    &--logo {
-      display: flex;
-      align-items: center;
-  
-      & > img { height: calc($footerHeight / 2) }
-    }
-    &--privacy {
-      color: $textWhite;
-      display: flex;
-      align-items: center;
-
-      & > nav > ul { 
-        display: flex;
-        
-        li {
-          margin: 0 calc($standardMargin * 2);
-
-
-          & > a {
-            color: $textWhite;
-            text-decoration: none;
-            @include textFont();
-            font-size: 1.25em;
-            text-transform: uppercase;
-
-            &:hover { 
-              color: $textBeige;
-              text-decoration: underline; 
-            }
-          }
-        }
-      }
-    }
-    &--contact {
-      & > button.iconOnly {
-        width: $footerHeight;
-        height: $footerHeight;
-        border-radius: 50%;
-        background-color: $ctaColor;
-        color: $textWhite;
-        font-size: calc($footerHeight / 2);
-      }
-    }
-  }
-  &--copyright {
-    font-size: 14px;
-    color: $textWhite;
-    flex: 1 1 100%;
-    text-align: center;
-    margin-top: calc($standardMargin * 2);
-  }
-}
 // ---------------------------------------------------------------------------------------------------------- //
 
 
@@ -487,84 +422,5 @@ main {
 
       &:not(:only-child):last-child { margin-right: 0 }
     }
-  }
-}
-
-.tempLogin {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin: 12px;
-}
-
-.authentication {
-  height: 120px;
-  background-color: antiquewhite;
-  display: flex;
-  flex: 1 1 100%;
-  color: #333333;
-
-  & > div:first-child {
-    display: flex;
-    flex-direction: column;
-    padding: 12px;
-    background-color: burlywood;
-  }
-  p { margin: 0; }
-}
-
-#Register {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: chocolate;
-
-  & > form {
-    display: flex;
-    flex-direction: column;
-  }
-}
-#EmailConfirmation {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(90, 172, 131);
-}
-#Login {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(180, 106, 159);
-
-  & > form {
-    display: flex;
-    flex-direction: column;
-  }
-}
-#ForgotPassword {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(60, 58, 79);
-
-  & > form {
-    display: flex;
-    flex-direction: column;
-  }
-}
-#UserPage {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(128, 144, 90);
-
-  & > form {
-    display: flex;
-    flex-direction: column;
   }
 }
