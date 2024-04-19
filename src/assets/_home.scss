@@ -29,7 +29,7 @@
     
         @include respond-to($breakpoint) {
           max-width: $value;
-          outline: 2px solid oklch(70% .2 $hue);    // *** debug ***
+          //outline: 2px solid oklch(70% .2 $hue);    // *** debug ***
         }
       }
 
@@ -88,13 +88,21 @@
       display: flex;
 
       & > #Login {
-        margin-right: 10%;
+        margin-right: 8%;
       }
       & > #Login, 
       & > #Register { 
-        width: 45%;
+        width: 46%;
         
-        fieldset + fieldset { margin-top: $standardMargin * 2 }
+        fieldset { 
+          & + fieldset { margin-top: $standardMargin * 2 }
+          & + button.btn { margin-top: $standardMargin * 2 }
+        }
+        button.btn {
+          background-color: $ctaColor;
+          color: white;
+          font-size: 20px;   
+        }
       }
     }
   }
@@ -134,16 +142,9 @@
   
             & > a {
               @include Quicksand();
-  
-              color: $textWhite;
-              text-decoration: none;
+
               font-size: 1.25em;
               text-transform: uppercase;
-  
-              &:hover { 
-                color: $textBeige;
-                text-decoration: underline; 
-              }
             }
           }
         }
@@ -162,7 +163,7 @@
     }
     &--copyright {
       font-size: 14px;
-      color: $textBeige;
+      color: $textWhite;
       flex: 1 1 100%;
       text-align: center;
       margin-top: calc($standardMargin * 2);

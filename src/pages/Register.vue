@@ -44,11 +44,11 @@
         <input v-model="form.password" id="register-password" type="password" />
       </fieldset>
       
-      <button>Register</button>
+      <button class="btn">Register</button>
     </form>
-    <p>Already have an account?</p>
+   <!--  <p>Already have an account?</p>
     <router-link to="Login">
       <h3>Log in</h3>
-    </router-link>
+    </router-link> -->
   </div>
 </template>

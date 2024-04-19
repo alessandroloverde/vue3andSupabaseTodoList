@@ -23,14 +23,20 @@
 .spacer { width: $standardMargin }
 
 .btn {
-  width: 2.5em;
-  height: 2.5em;
   border-radius: $border-radius;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none;
+  padding: calc($standardMargin / 1.5);
+  transition: all 0.3s;
+  cursor: pointer;
+  -webkit-appearance: none;
+          appearance: none;
 
   &.iconOnly {
+    width: 2.5em;
+    height: 2.5em;
     text-transform: none;
     background-color: transparent;
     border-width: 0;

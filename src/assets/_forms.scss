@@ -10,11 +10,13 @@ fieldset {
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-  padding: $standardMargin;
+  padding: $standardMargin / 1.5;
   border: 1px solid #d1d5db; /* border-gray-300 */
   border-radius: 0.375rem;
   box-shadow: none;
   transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+          appearance: none;
 }
 
 input[type="text"]:focus,
