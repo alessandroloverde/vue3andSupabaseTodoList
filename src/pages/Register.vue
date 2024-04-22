@@ -51,28 +51,3 @@
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.register {
-  &-link { margin-top: 12px }
-  &--container {
-    display: flex;
-
-    &--illustration {
-      width: 40%;
-      opacity: 0.8;
-      background-image: url("../assets/images/Register-bkg.jpg");
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-position-x: center;
-      background-position-y: top;
-    }
-    &--formContent {
-      width: 60%;
-
-      .btn { width: 100% }
-    }
-  }
-}
-</style>
-

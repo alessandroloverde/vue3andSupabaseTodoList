@@ -37,8 +37,8 @@ const handleLogin = async () => {
             <label for="login-password"><i class="icon-bookmark"></i>Password</label>
             <input v-model="form.password" id="login-password" type="password" />
           </fieldset>
-          <button class="btn btn--cta">Login</button>
           <router-link to="/forgotPassword" class="login-link">Forgot Password?</router-link>
+          <button class="btn btn--cta">Login</button>
           <!-- <p>You don't have an account yet?</p>
           <router-link to="Register">
             <h3>Register</h3>
@@ -49,26 +49,3 @@ const handleLogin = async () => {
   </div>
 </template>
 
-<style lang="scss" scoped>
-.login {
-  &-link { margin-top: 12px }
-  &--container {
-    display: flex;
-
-    &--illustration {
-      width: 40%;
-      opacity: 0.8;
-      background-image: url("../assets/images/Login-bkg.jpg");
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-position-x: -20px;
-      background-position-y: top;
-    }
-    &--formContent {
-      width: 60%;
-
-      .btn { width: 100% }
-    }
-  }
-}
-</style>
