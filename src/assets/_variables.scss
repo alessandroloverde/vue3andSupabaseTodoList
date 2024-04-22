@@ -79,27 +79,6 @@ $border-radius: 6px;
 $standardMargin: 12px;
 $baseFontSize: 16px;
 
-
-// --- Media Queries breakpoints ---------------------------------------------------------------------------- //
-$breakpoints: (
-    sm: 640px,
-    md: 768px,
-    lg: 1280px,
-    xl: 1440px,
-);
-
-@mixin respond-to($breakpoint) {
-    @if map-has-key($breakpoints, $breakpoint) {
-        @media (min-width: map-get($breakpoints, $breakpoint)) {
-            @content;
-        }
-    } @else {
-        @warn "Unknown breakpoint: #{$breakpoint}.";
-    }
-}
-// ---------------------------------------------------------------------------------------------------------- //
-
-
 $icomoon-font-family: "icomoon" !default;
 $icomoon-font-path: "fonts" !default;
 

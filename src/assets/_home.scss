@@ -87,21 +87,24 @@
       width: 100%;
       display: flex;
 
-      & > #Login {
-        margin-right: 8%;
-      }
+      & > #Login { margin-right: 6% }
       & > #Login, 
       & > #Register { 
-        width: 46%;
+        width: 47%;
         
         fieldset { 
-          & + fieldset { margin-top: $standardMargin * 2 }
-          & + button.btn { margin-top: $standardMargin * 2 }
-        }
-        button.btn {
-          background-color: $ctaColor;
-          color: white;
-          font-size: 20px;   
+          & + fieldset { margin-top: $standardMargin }
+          & + button.btn { margin-top: $standardMargin * 3 }
+          & > label {
+            display: flex;
+            align-items: center;
+            color: $textBeige;
+
+            & > [class^="icon-"] {
+              color: $ctaColor;
+              margin-right: calc($standardMargin / 2);
+            }
+          }
         }
       }
     }

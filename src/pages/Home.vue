@@ -86,8 +86,10 @@
           </div>
         </div>
         <div class="homePage--cta--authentication">
-          <Login></Login>
-          <Register></Register>
+          <div class="container">
+            <Login></Login>
+            <Register></Register>
+          </div>
         </div>
       </div>
     </section>

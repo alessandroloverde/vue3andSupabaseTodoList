@@ -11,6 +11,19 @@
   font-style: normal;
 }
 
+@mixin RobotoSlab($weight: 500) {
+  font-family: "Roboto Slab", serif;;
+  font-optical-sizing: auto;
+  font-weight: $weight;
+  font-style: normal;
+
+  @if ($weight <= 500) {
+    letter-spacing: normal;
+  } @else {
+    letter-spacing: 0.5px;
+  }
+}
+
 
 
 @font-face {
@@ -25,7 +38,8 @@
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="icon-"], 
+[class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'Icomoon' !important;
   speak: never;
@@ -40,6 +54,71 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-diamond {
+  &:before {
+    content: $icon-diamond; 
+  }
+}
+.icon-expeditedssl {
+  &:before {
+    content: $icon-expeditedssl; 
+  }
+}
+.icon-battery {
+  &:before {
+    content: $icon-battery; 
+  }
+}
+.icon-battery-4 {
+  &:before {
+    content: $icon-battery-4; 
+  }
+}
+.icon-battery-full {
+  &:before {
+    content: $icon-battery-full; 
+  }
+}
+.icon-battery-3 {
+  &:before {
+    content: $icon-battery-3; 
+  }
+}
+.icon-battery-three-quarters {
+  &:before {
+    content: $icon-battery-three-quarters; 
+  }
+}
+.icon-battery-2 {
+  &:before {
+    content: $icon-battery-2; 
+  }
+}
+.icon-battery-half {
+  &:before {
+    content: $icon-battery-half; 
+  }
+}
+.icon-battery-1 {
+  &:before {
+    content: $icon-battery-1; 
+  }
+}
+.icon-battery-quarter {
+  &:before {
+    content: $icon-battery-quarter; 
+  }
+}
+.icon-battery-0 {
+  &:before {
+    content: $icon-battery-0; 
+  }
+}
+.icon-battery-empty {
+  &:before {
+    content: $icon-battery-empty; 
+  }
+}
 .icon-plus {
   &:before {
     content: $icon-plus; 
@@ -363,6 +442,71 @@
 .icon-eyedropper {
   &:before {
     content: $icon-eyedropper; 
+  }
+}
+.icon-user-circle-o {
+  &:before {
+    content: $icon-user-circle-o; 
+  }
+}
+.icon-user-circle {
+  &:before {
+    content: $icon-user-circle; 
+  }
+}
+.icon-headphones {
+  &:before {
+    content: $icon-headphones; 
+  }
+}
+.icon-music {
+  &:before {
+    content: $icon-music; 
+  }
+}
+.icon-video-camera {
+  &:before {
+    content: $icon-video-camera; 
+  }
+}
+.icon-dice {
+  &:before {
+    content: $icon-dice; 
+  }
+}
+.icon-pacman {
+  &:before {
+    content: $icon-pacman; 
+  }
+}
+.icon-spades {
+  &:before {
+    content: $icon-spades; 
+  }
+}
+.icon-clubs {
+  &:before {
+    content: $icon-clubs; 
+  }
+}
+.icon-diamonds {
+  &:before {
+    content: $icon-diamonds; 
+  }
+}
+.icon-library {
+  &:before {
+    content: $icon-library; 
+  }
+}
+.icon-cart {
+  &:before {
+    content: $icon-cart; 
+  }
+}
+.icon-bell {
+  &:before {
+    content: $icon-bell; 
   }
 }
 .icon-bubbles {

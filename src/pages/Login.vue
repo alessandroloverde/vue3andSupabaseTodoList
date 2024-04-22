@@ -23,22 +23,22 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <div id="Login" class="login">
+  <div id="Login" class="login col-50">
     <h1>Login</h1>
     <div class="login--container">
       <section class="login--container--illustration"></section>
       <section class="login--container--formContent">
         <form @submit.prevent="handleLogin()">
           <fieldset>
-            <label for="login-email">Email</label>
+            <label for="login-email"><i class="icon-envelope"></i>Email</label>
             <input v-model="form.email" id="login-email" type="email" />
           </fieldset>
           <fieldset>
-            <label for="login-password">Password</label>
+            <label for="login-password"><i class="icon-bookmark"></i>Password</label>
             <input v-model="form.password" id="login-password" type="password" />
           </fieldset>
-          <button class="btn">Login</button>
-          <router-link to="/forgotPassword">Forgot Password?</router-link>
+          <button class="btn btn--cta">Login</button>
+          <router-link to="/forgotPassword" class="login-link">Forgot Password?</router-link>
           <!-- <p>You don't have an account yet?</p>
           <router-link to="Register">
             <h3>Register</h3>
@@ -49,8 +49,9 @@ const handleLogin = async () => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .login {
+  &-link { margin-top: 12px }
   &--container {
     display: flex;
 
@@ -59,17 +60,15 @@ const handleLogin = async () => {
       opacity: 0.8;
       background-image: url("../assets/images/Login-bkg.jpg");
       background-repeat: no-repeat;
-      background-size: cover;
-      background-position-x: -30px;
+      background-size: contain;
+      background-position-x: -20px;
+      background-position-y: top;
     }
     &--formContent {
       width: 60%;
 
-      .btn {
-        width: 100%;
-      }
+      .btn { width: 100% }
     }
   }
 }
-
 </style>

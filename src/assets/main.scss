@@ -23,6 +23,9 @@
 .spacer { width: $standardMargin }
 
 .btn {
+  @include RobotoSlab(600);
+
+  text-transform: uppercase;
   border-radius: $border-radius;
   display: flex;
   justify-content: center;
@@ -57,6 +60,14 @@
         color: inherit;
       }
     }
+  }
+
+  &--cta {
+    background-color: $ctaColor;
+    color: white;
+    font-size: 1.5rem;
+
+    &:hover { background-color: color.scale($ctaColor, $lightness: -25%, $saturation: -30%) }
   }
   &--avatar,
   &--add {
