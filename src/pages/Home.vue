@@ -64,24 +64,28 @@
 <template>
   <div v-if="!isLoggedIn()" class="homePage">
     <section class="homePage--intro">
-      <div class="homePage--intro--logo">
-        <img src="../assets/images/LogoWithTagline.png" class="responsiveImg" alt="logo">
-      </div>
-      <div class="homePage--intro--jumpTo">
-        <a href="#login&register">
-          <button class="iconOnly btn--icn--icon-chevron-circle-down" role="button" aria-label="Next Page"></button>
-        </a>
+      <div class="container">
+        <div class="homePage--intro--logo">
+          <img src="../assets/images/LogoWithTagline.png" class="responsiveImg" alt="logo">
+        </div>
+        <div class="homePage--intro--jumpTo">
+          <a href="#login&register">
+            <button class="iconOnly btn--icn--icon-chevron-circle-down" role="button" aria-label="Next Page"></button>
+          </a>
+        </div>
       </div>
     </section>
     <section class="homePage--cta" id="login&register">
       <div class="container">
         <div class="homePage--cta--card">
-          <div class="homePage--cta--card--text">
+          <div class="homePage--cta--card--text col-3">
             <h1>Why Wondertask?</h1>
             <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
             <p>Second line with some instructions on how to use.</p>
+            <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
+            <p>Second line with some instructions on how to use.</p>
           </div>
-          <div class="homePage--cta--card--image">
+          <div class="homePage--cta--card--image col-2">
             <img src="../assets/images/Cards-stack.png" class="responsiveImg" alt="Task List">
           </div>
         </div>

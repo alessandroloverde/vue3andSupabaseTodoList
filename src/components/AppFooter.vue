@@ -2,11 +2,11 @@
 <footer class="homePage--footer">
     <div class="container">
         <div class="homePage--footer--info">
-            <section class="homePage--footer--info--logo">
+            <section class="homePage--footer--info--logo col-4">
                 <img src="../assets/images/Logo.png" alt="logo">
             </section>
 
-            <section class="homePage--footer--info--privacy">
+            <section class="homePage--footer--info--privacy col-7">
                 <nav>
                     <ul>
                         <li>
@@ -22,7 +22,7 @@
                 </nav>
             </section>
 
-            <section class="homePage--footer--info--contact">
+            <section class="homePage--footer--info--contact col-1">
                 <button class="iconOnly btn--icn--icon-envelope-o" role="button" aria-label="Contact"></button>
             </section>
         </div> 

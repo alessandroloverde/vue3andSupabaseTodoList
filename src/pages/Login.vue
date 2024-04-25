@@ -23,11 +23,13 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <div id="Login" class="login col-50">
+  <div id="Login" class="login col-2">
     <h1>Login</h1>
-    <div class="login--container">
-      <section class="login--container--illustration"></section>
-      <section class="login--container--formContent">
+    <div class="container">
+      <section class="login--illustration col-2 noPadding">
+        <img src="../assets/images/Login-bkg.jpg" class="fitImg" alt="Illustration">
+      </section>
+      <section class="login--formContent col-3 noPadding">
         <form @submit.prevent="handleLogin()">
           <fieldset>
             <label for="login-email"><i class="icon-envelope"></i>Email</label>
@@ -39,6 +41,7 @@ const handleLogin = async () => {
           </fieldset>
           <router-link to="/forgotPassword" class="login-link">Forgot Password?</router-link>
           <button class="btn btn--cta">Login</button>
+
           <!-- <p>You don't have an account yet?</p>
           <router-link to="Register">
             <h3>Register</h3>

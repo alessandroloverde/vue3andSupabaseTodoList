@@ -27,10 +27,10 @@
 </script>
 
 <template>
-  <div id="Register"  class="login col-50">
+  <div id="Register"  class="login col-2">
     <h1>Register</h1>
-    <div class="register--container">
-      <section class="register--container--formContent">
+    <div class="container">
+      <section class="register--formContent col-3">
         <form @submit.prevent="handleSubmit">
           <fieldset>
             <label for="register-name"><i class="icon-user"></i>Name (optional)</label>
@@ -47,7 +47,9 @@
           <button class="btn btn--cta">Register</button>
         </form>
       </section>
-      <section class="register--container--illustration"></section>
+      <section class="register--illustration col-2">
+        <img src="../assets/images/Register-bkg.jpg" class="fitImg" alt="Illustration">
+      </section>
     </div>
   </div>
 </template>
