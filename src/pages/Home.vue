@@ -78,14 +78,14 @@
     <section class="homePage--cta" id="login&register">
       <div class="container">
         <div class="homePage--cta--card">
-          <div class="homePage--cta--card--text col-3">
+          <div class="homePage--cta--card--text col-sm-3">
             <h1>Why Wondertask?</h1>
             <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
             <p>Second line with some instructions on how to use.</p>
             <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
             <p>Second line with some instructions on how to use.</p>
           </div>
-          <div class="homePage--cta--card--image col-2">
+          <div class="homePage--cta--card--image col-sm-2">
             <img src="../assets/images/Cards-stack.png" class="responsiveImg" alt="Task List">
           </div>
         </div>
