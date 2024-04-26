@@ -64,7 +64,6 @@
 <template>
   <div v-if="!isLoggedIn()" class="homePage">
     <section class="homePage--intro">
-      <div class="container">
         <div class="homePage--intro--logo">
           <img src="../assets/images/LogoWithTagline.png" class="responsiveImg" alt="logo">
         </div>
@@ -73,26 +72,27 @@
             <button class="iconOnly btn--icn--icon-chevron-circle-down" role="button" aria-label="Next Page"></button>
           </a>
         </div>
-      </div>
     </section>
     <section class="homePage--cta" id="login&register">
       <div class="container">
-        <div class="homePage--cta--card">
-          <div class="homePage--cta--card--text col-sm-3">
-            <h1>Why Wondertask?</h1>
-            <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
-            <p>Second line with some instructions on how to use.</p>
-            <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
-            <p>Second line with some instructions on how to use.</p>
+        <h1>Why Wondertask?</h1>
+        <div class="flex-row">
+          <div class="homePage--cta--card">
+            <div class="homePage--cta--card--text flex-col-md-8">
+              <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
+              <p>Second line with some instructions on how to use.</p>
+              <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
+              <p>Second line with some instructions on how to use.</p>
+            </div>
+            <div class="homePage--cta--card--image flex-col-md-4">
+              <img src="../assets/images/Cards-stack.png" class="responsiveImg" alt="Task List">
+            </div>
           </div>
-          <div class="homePage--cta--card--image col-sm-2">
-            <img src="../assets/images/Cards-stack.png" class="responsiveImg" alt="Task List">
-          </div>
-        </div>
-        <div class="homePage--cta--authentication">
-          <div class="container">
-            <Login></Login>
-            <Register></Register>
+          <div class="homePage--cta--authentication">
+            <div class="flex-row">
+              <Login></Login>
+              <Register></Register>
+            </div>
           </div>
         </div>
       </div>

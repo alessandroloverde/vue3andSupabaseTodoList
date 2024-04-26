@@ -23,13 +23,13 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <div id="Login" class="login col-sm-2">
+  <div id="Login" class="login flex-col-md-6">
     <h1>Login</h1>
-    <div class="container">
-      <section class="login--illustration col-sm-2 noPadding">
+    <div class="flex-row h100-md">
+      <section class="login--illustration flex-col-lg-4 noPadding">
         <img src="../assets/images/Login-bkg.jpg" class="fitImg" alt="Illustration">
       </section>
-      <section class="login--formContent col-sm-3 noPadding">
+      <section class="login--formContent flex-col-lg-8 noPadding">
         <form @submit.prevent="handleLogin()">
           <fieldset>
             <label for="login-email"><i class="icon-envelope"></i>Email</label>

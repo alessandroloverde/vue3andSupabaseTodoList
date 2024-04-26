@@ -117,7 +117,6 @@
             }
           }
         }
-        .container { height: 100% }
       }
     }
   }
@@ -133,14 +132,12 @@
 
     &--info {
       width: 100%;
-      height: $footerHeight;
       display: flex;
       justify-content: space-between;
   
       &--logo {
         display: flex;
         align-items: center;
-        max-width: calc($footerHeight * 6);
     
         & > img { max-width: 100% }
       }

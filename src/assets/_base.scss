@@ -183,21 +183,54 @@ img {
     @include respond-to($breakpoint) {
       flex-direction: row;
       max-width: $value;
-      outline: 2px solid oklch(70% .2 $hue);    // *** debug ***
-      &::before { content: "#{$breakpoint}"; }
+      outline: 3px solid oklch(70% .2 $hue);    // *** debug ***
 
-     // @if ($breakpoint == "sm") { flex-direction: column }
+      &::before { content: "#{$breakpoint}"; }
     }
   }
 }
-/* 
-@include respond-to(md) {
-  .container { flex-direction: row;}
-  .container--md {
-      flex-direction: column;
+
+.flex-row {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+
+  outline: 1px solid lightblue;
+}
+
+@for $i from 1 through 12 {
+  @each $breakPoint, $value in $breakpoints {
+
+    .flex-col-#{$breakPoint}-#{$i} {
+      box-sizing: border-box;
+      padding: 1em;
+      width: 100%;
+
+      @media (min-width: $value) {
+        width: calc(100% * (#{$i} / 12));
+      }
+    }
   }
-} */
+}
+
+@each $breakPoint, $value in $breakpoints {
+  .h100-#{$breakPoint} {
+    height: auto;
+
+    @media (min-width: $value) {
+      height: 100%;
+    }
+  }
+}
 // ---------------------------------------------------------------------------------------------------------- //
+
+
+
+
+
+
+
 
 
 
