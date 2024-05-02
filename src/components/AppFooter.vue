@@ -6,11 +6,11 @@
                     <section class="homePage--footer--info--logo flex-col-md-4">
                         <img src="../assets/images/Logo.png" alt="logo">
                     </section>
-                    <section class="homePage--footer--info--privacy flex-col-sm-7">
+                    <section class="homePage--footer--info--privacy flex-col-md-8">
                         <nav>
                             <ul>
                                 <li>
-                                    <a href="#">How it works</a>
+                                    <a class="topo" href="#">How it works</a>
                                 </li>
                                 <li>
                                     <a href="#">Privacy Policy</a>
@@ -18,11 +18,11 @@
                                 <li>
                                     <a href="#">Terms & Conditions</a>
                                 </li>
+                                <li>
+                                    <a href="#"><i class="icon-envelope-o hide-md"></i> Contact</a>
+                                </li>
                             </ul>
                         </nav>
-                    </section>
-                    <section class="homePage--footer--info--contact flex-col-sm-1">
-                        <button class="iconOnly btn--icn--icon-envelope-o" role="button" aria-label="Contact"></button>
                     </section>
                 </div>
             </div> 

@@ -14,7 +14,11 @@
   }
 }
 
-html { height: 100% }
+html { 
+  height: 100%;
+  
+  @include responsive-font-size;
+}
 body {
   min-height: 100%;
   margin: 0;
@@ -25,26 +29,37 @@ body {
   line-height: 1.6;
   font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
     Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
+  -webkit-hyphenate-limit-before: 3; /* For Safari */
+  -webkit-hyphenate-limit-after: 3; /* For Safari */
+      -ms-hyphenate-limit-chars: 6 3 3;
+  hyphenate-limit-chars: 6 3 3;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
    -webkit-font-smoothing: antialiased;
 }
 
+
+
 h1 {
   @include Quicksand();
 
-  font-size: calc($baseFontSize * 4);
+  font-size: 4rem;
   line-height: 1;
 }
 h2 {}
 h3 {
   font-family: $robotoSlab;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 500;
 }
 h4 {
   font-family: $atkinson;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 600;
 }
 h5 {}
@@ -55,7 +70,7 @@ h1, h2, h3, h4, h5, h6 { margin: 0 }
 p {
   @include Quicksand();
 
-  font-size: calc($baseFontSize);
+  font-size: 1rem;
 }
 
 a {
@@ -220,6 +235,13 @@ img {
 
     @media (min-width: $value) {
       height: 100%;
+    }
+  }
+  .hide-#{$breakPoint} {
+    display: none;
+
+    @media (min-width: $value) {
+      display: initial;
     }
   }
 }

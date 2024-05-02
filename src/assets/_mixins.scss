@@ -2,20 +2,26 @@
 @use "sass:list";
 
 $logoSizes: (
-    sm: 100%,
-    md: 500px,
-    lg: 620px,
+    sm: 530px,
+    md: 620px,
+    lg: 730px,
     xl: 730px,
 );
 
-
-// --- Media Queries breakpoints ---------------------------------------------------------------------------- //
 $breakpoints: (
     sm: 640px,
     md: 980px,
     lg: 1280px,
     xl: 1440px,
 );
+
+$font-sizes: (
+  default: 14px,
+  md: 15px,
+  lg: 16px,
+  xl: 16px,
+);
+
 
 @mixin respond-to($breakpoint) {
     @if map-has-key($breakpoints, $breakpoint) {
@@ -26,7 +32,35 @@ $breakpoints: (
         @warn "Unknown breakpoint: #{$breakpoint}.";
     }
 }
-// ---------------------------------------------------------------------------------------------------------- //
+
+@for $i from 1 through 12 {
+    @each $breakPoint, $value in $breakpoints {
+  
+      .flex-col-#{$breakPoint}-#{$i} {
+        box-sizing: border-box;
+        padding: 1em;
+        width: 100%;
+  
+        @media (min-width: $value) {
+          width: calc(100% * (#{$i} / 12));
+        }
+      }
+    }
+}
+
+@mixin responsive-font-size {
+    $size: map-get($font-sizes, 'default');
+    font-size: $size;
+  
+    @each $breakpoint, $point in $breakpoints {
+      $size: map-get($font-sizes, $breakpoint);
+      @if $size {
+        @media (min-width: $point) {
+          font-size: $size;
+        }
+      }
+    }
+  }
 
 
 

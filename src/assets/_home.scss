@@ -23,6 +23,7 @@
 
     & > .container { height: 100% }
     &--logo {
+      width: 80%;
       margin: 5vh auto;
 
       @each $breakpoint, $value in $logoSizes {
@@ -49,7 +50,7 @@
       & button { 
         height: 100%;
         width: 100%;
-        font-size: 120px !important;
+        font-size: 7.5rem !important;
         color: rgba(255, 255, 255, 0.5);
         margin: auto;
         transition: color 0.2s ease-in-out;
@@ -74,7 +75,7 @@
 
       &--text {   
         h1 { width: 100% }
-        p { font-size: 1.5em; }
+        p { font-size: 1.5rem; }
       }
 
     }
@@ -127,7 +128,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    padding: calc($standardMargin * 3) calc($standardMargin * 4) calc($standardMargin * 2);
+    padding: calc($standardMargin * 3) calc($standardMargin * 3) calc($standardMargin * 2);
     background-color: $homePageBkg;
 
     &--info {
@@ -148,33 +149,38 @@
   
         & > nav > ul { 
           display: flex;
+          line-height: 1;
+          @media screen and (max-width: map-get($breakpoints, sm)) {
+            display: inline-block;
+          }
           
           li {
             margin: 0 calc($standardMargin * 2);
+            display: flex;
+            align-items: center;
+
+            @media screen and (max-width: map-get($breakpoints, md)) {
+              margin: 0 calc($standardMargin * 1);
+            }
   
             & > a {
               @include Quicksand();
 
-              font-size: 1.25em;
               text-transform: uppercase;
+              display: flex;
+              font-size: 1.25em;
+
+              & > i[class^="icon-"] { 
+                color: $ctaColor; 
+                margin-right: 0.25em; 
+              }
             }
           }
         }
       }
-      &--contact {
-        & > button.iconOnly {
-          width: $footerHeight;
-          height: $footerHeight;
-          border-radius: 50%;
-          background-color: $ctaColor;
-          color: $textBeige;
-          font-size: calc($footerHeight / 2);
-          border: 2px solid $textBeige;
-        }
-      }
     }
     &--copyright {
-      font-size: 14px;
+      font-size: 0.875rem;
       color: $textWhite;
       flex: 1 1 100%;
       text-align: center;

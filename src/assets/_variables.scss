@@ -5,6 +5,12 @@
 
 $hue: 100; // *** debug ***
 
+$breakpoints: (
+    sm: 640px,
+    md: 980px,
+    lg: 1280px,
+    xl: 1440px,
+);
 
 /** 
 * * User can add any custom colors into the $colors variable. 
@@ -78,7 +84,7 @@ $robotoSlab: 'Roboto Slab', serif;
 $titillium: 'Titillium Web', sans-serif;
 
 $border-radius: 6px;
-$standardMargin: 12px;
+$standardMargin: 0.75rem;
 $baseFontSize: 16px;
 
 $icomoon-font-family: "icomoon" !default;
