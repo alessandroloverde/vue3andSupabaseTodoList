@@ -1,11 +1,21 @@
 @use "sass:map";
 @use "sass:list";
 
+$directions: 'T', 'B', 'L', 'R';
+
+
 $logoSizes: (
     sm: 530px,
     md: 620px,
     lg: 730px,
     xl: 730px,
+);
+
+$mainBkgSizes: (
+  default: cover,
+  md: cover,
+  lg: contain,
+  xl: contain,
 );
 
 $breakpoints: (
@@ -15,11 +25,55 @@ $breakpoints: (
     xl: 1440px,
 );
 
+$footerMenuMargins: (
+  default: 0 0 1rem 0,
+  md: 0 0.75rem,
+  lg: 0 1.5rem,
+  xl: 0 1.5rem,
+);
+
 $font-sizes: (
   default: 14px,
   md: 15px,
   lg: 16px,
   xl: 16px,
+);
+
+$h1: (
+  default: 3rem,
+  md: 3.25rem,
+  lg: 3.815rem,
+  xl: 3.815rem,
+);
+$h2: (
+  default: 2.25rem,
+  md: 2.5rem,
+  lg: 3.052rem,
+  xl: 3.052rem,
+);
+$h3: (
+  default: 1.75rem,
+  md: 2rem,
+  lg: 2.441rem,
+  xl: 2.441rem,
+);
+$h4: (
+  default: 1.25rem,
+  md: 1.5rem,
+  lg: 1.953rem,
+  xl: 1.953rem,
+);
+$h5: (
+  default: 1.25rem,
+  md: 1.25rem,
+  lg: 1.563rem,
+  xl: 1.563rem,
+);
+$h6: (
+  default: 1.15rem,
+  md: 1.25rem,
+  lg: 1.25rem,
+  xl: 1.25rem,
 );
 
 
@@ -48,19 +102,25 @@ $font-sizes: (
     }
 }
 
-@mixin responsive-font-size {
-    $size: map-get($font-sizes, 'default');
-    font-size: $size;
+/** Sets a CSS property throughout the media queries, based on a map with breakpoints as keys  **/
+@mixin responsiveProperty($map, $property) {
+  $unit: map-get($map, 'default');
   
-    @each $breakpoint, $point in $breakpoints {
-      $size: map-get($font-sizes, $breakpoint);
-      @if $size {
-        @media (min-width: $point) {
-          font-size: $size;
-        }
+  #{$property}: $unit;
+
+  @each $breakpoint, $value in $breakpoints {
+    $unit: map-get($map, $breakpoint);
+    $index: index($map, $breakpoint $value);
+
+    @if $unit {
+      @media (min-width: $value) {
+        #{$property}: $unit;
+
+        @content ($breakpoint, $value, $index);
       }
     }
   }
+}
 
 
 

@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:string";
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -17,7 +18,7 @@
 html { 
   height: 100%;
   
-  @include responsive-font-size;
+  @include responsiveProperty($font-sizes, font-size);
 }
 body {
   min-height: 100%;
@@ -26,7 +27,7 @@ body {
   background: linear-gradient(133deg, #4c4e5b,#444659,#3f3e51,#362f42);
   color: $textWhite;
   transition: color 0.5s, background-color 0.5s;
-  line-height: 1.6;
+  line-height: 1.4;
   font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
     Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-hyphens: auto;
@@ -43,27 +44,47 @@ body {
    -webkit-font-smoothing: antialiased;
 }
 
+@function lineHeight() {
+  $selector: #{&};
+  $headlineIndex: string.slice($selector, 2, 2);
 
+  @return  calc(1 + (0.05 * #{$headlineIndex}));
+}
 
 h1 {
   @include Quicksand();
+  @include responsiveProperty($h1, font-size);
 
-  font-size: 4rem;
-  line-height: 1;
+  line-height: lineHeight();
 }
-h2 {}
+h2 {
+  @include RobotoSlab();
+
+  @include responsiveProperty($h2, font-size);
+  line-height: lineHeight();
+}
 h3 {
   font-family: $robotoSlab;
   font-size: 1.5rem;
   font-weight: 500;
+
+  line-height: lineHeight();
 }
 h4 {
   font-family: $atkinson;
   font-size: 1.5rem;
   font-weight: 600;
+
+  line-height: lineHeight();
+
 }
-h5 {}
-h6 {}
+h5 {
+  line-height: lineHeight();
+
+}
+h6 {
+  line-height: lineHeight();
+}
 
 h1, h2, h3, h4, h5, h6 { margin: 0 }
 
@@ -71,6 +92,9 @@ p {
   @include Quicksand();
 
   font-size: 1rem;
+  margin: 0;
+
+  & + p { margin-top: $standardMargin }
 }
 
 a {
@@ -95,18 +119,6 @@ ul {
   padding: 0;
   margin: 0;
 }
-
-/* input[type="text"] {
-  height: 2em;
-  background-color: $textBeige;
-  background-image: linear-gradient(to bottom, rgba(0,0,0, 0) 0%, rgba(0,0,0, 0.25) 100%);
-  border-radius: $standardMargin * 3;
-  padding: 0 $standardMargin * 2;
-  border: none;
-  outline: none;
-  -webkit-appearance: none;
-          appearance: none;
-} */
 
 .toggle {
   cursor: pointer;
@@ -140,7 +152,6 @@ ul {
       background: linear-gradient(to bottom, #fff 0%, #fff 100%);
       box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
     }
-    
   }
   &--checkbox {
     position: absolute;
@@ -148,7 +159,6 @@ ul {
 
     &:checked + .toggle--switch { background: $ctaColor }
     &:checked + .toggle--switch::before { left: 26px }
-
   }
   &--label {
     margin: auto $standardMargin;
@@ -170,65 +180,26 @@ img {
 }
 // ---------------------------------------------------------------------------------------------------------- //
 
+// --- Utilities -------------------------------------------------------------------------------------------- //
+.noPadding { padding: 0 !important }
+.x2Padding { padding: $standardMargin * 2 !important }
 
-// --- Custom elements -------------------------------------------------------------------------------------- //
-.container {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-
-  position: relative;
-
-  &::before {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: red;
-    padding: 10px;
-    font-weight: bold;
-  }
-
-  @each $breakpoint, $value in $breakpoints {
-    $hue: $hue + 50;
-
-    @include respond-to($breakpoint) {
-      flex-direction: row;
-      max-width: $value;
-      outline: 3px solid oklch(70% .2 $hue);    // *** debug ***
-
-      &::before { content: "#{$breakpoint}"; }
-    }
-  }
-}
-
-.flex-row {
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 1em;
-
-  outline: 1px solid lightblue;
-}
-
-@for $i from 1 through 12 {
-  @each $breakPoint, $value in $breakpoints {
-
-    .flex-col-#{$breakPoint}-#{$i} {
-      box-sizing: border-box;
-      padding: 1em;
-      width: 100%;
-
-      @media (min-width: $value) {
-        width: calc(100% * (#{$i} / 12));
+@for $i from 0 through 6 {
+  .x#{$i}-Padding { padding: $standardMargin * $i !important }
+  .x#{$i}-Margin { margin: $standardMargin * $i !important }
+  
+  @if $i !=0 {
+      @each $dir in $directions {
+          .x#{$i}-Padding-#{$dir} {
+              padding-#{$dir}: $standardMargin * $i !important
+          }
       }
-    }
   }
-}
 
+}
+// ---------------------------------------------------------------------------------------------------------- //
+
+// --- Breakpoint-dependent utilieties ---------------------------------------------------------------------- //
 @each $breakPoint, $value in $breakpoints {
   .h100-#{$breakPoint} {
     height: auto;
@@ -248,11 +219,65 @@ img {
 // ---------------------------------------------------------------------------------------------------------- //
 
 
+// --- Grid System ------------------------------------------------------------------------------------------ //
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
 
+  position: relative;
 
+/*   &::before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: red;
+    padding: 10px;
+    font-weight: bold;
+  } */
 
+  @include responsiveProperty($breakpoints, max-width) using ($breakpoint, $value, $index) {  
+    $hue: 0; // ** debug
+  
+    flex-direction: row;
+    //z-index: $index; // ** debug
+    //outline: 3px solid oklch(70% .2 ($hue + (50 * $index)));   // ** debug
 
+/*     &::before { 
+      content: "#{$breakpoint}"; 
+    } */
+  }
+  
+}
 
+.flex-row {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+
+  //outline: 1px solid lightblue;
+}
+
+@for $i from 1 through 12 {
+  @each $breakPoint, $value in $breakpoints {
+
+    .flex-col-#{$breakPoint}-#{$i} {
+      box-sizing: border-box;
+      padding: $standardMargin;
+      width: 100%;
+
+      @media (min-width: $value) {
+        width: calc(100% * (#{$i} / 12));
+      }
+    }
+  }
+}
+// ---------------------------------------------------------------------------------------------------------- //
 
 
 

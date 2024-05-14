@@ -5,13 +5,6 @@
 
 $hue: 100; // *** debug ***
 
-$breakpoints: (
-    sm: 640px,
-    md: 980px,
-    lg: 1280px,
-    xl: 1440px,
-);
-
 /** 
 * * User can add any custom colors into the $colors variable. 
 * * The color must be in SCSS map format, with a key as left-assigment and a correspondent HTML color name as right-assigment.

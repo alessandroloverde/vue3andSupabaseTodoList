@@ -27,10 +27,10 @@
 </script>
 
 <template>
-  <div id="Register"  class="login flex-col-md-6">
+  <div id="Register"  class="login">
     <h1>Register</h1>
     <div class="flex-row">
-      <section class="register--formContent flex-col-lg-8">
+      <section class="register--formContent flex-col-lg-12 noPadding">
         <form @submit.prevent="handleSubmit">
           <fieldset>
             <label for="register-name"><i class="icon-user"></i>Name (optional)</label>
@@ -47,9 +47,9 @@
           <button class="btn btn--cta">Register</button>
         </form>
       </section>
-      <section class="register--illustration flex-col-lg-4">
+<!--       <section class="register--illustration flex-col-lg-4">
         <img src="../assets/images/Register-bkg.jpg" class="fitImg" alt="Illustration">
-      </section>
+      </section> -->
     </div>
   </div>
 </template>
