@@ -1,7 +1,7 @@
 <template>
     <footer class="homePage--footer">
         <div class="container">
-            <div class="homePage--footer--info">
+            <div class="homePage--footer--info x4-Margin-top">
                 <div class="flex-row">
                     <section class="homePage--footer--info--logo flex-col-md-4">
                         <img src="../assets/images/Logo.png" alt="logo">
@@ -26,7 +26,7 @@
                     </section>
                 </div>
             </div> 
-            <section class="homePage--footer--copyright">&copy; 2024 Alessandro Lo Verde</section>
+            <section class="homePage--footer--copyright x2-Margin-bottom">&copy; 2024 Alessandro Lo Verde</section>
         </div>
     </footer>
 </template>

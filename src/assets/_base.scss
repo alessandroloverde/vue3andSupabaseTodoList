@@ -1,5 +1,4 @@
 @use "sass:map";
-@use "sass:string";
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -27,7 +26,7 @@ body {
   background: linear-gradient(133deg, #4c4e5b,#444659,#3f3e51,#362f42);
   color: $textWhite;
   transition: color 0.5s, background-color 0.5s;
-  line-height: 1.4;
+  line-height: 1.35;
   font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
     Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-hyphens: auto;
@@ -44,12 +43,7 @@ body {
    -webkit-font-smoothing: antialiased;
 }
 
-@function lineHeight() {
-  $selector: #{&};
-  $headlineIndex: string.slice($selector, 2, 2);
 
-  @return  calc(1 + (0.05 * #{$headlineIndex}));
-}
 
 h1 {
   @include Quicksand();
@@ -58,7 +52,7 @@ h1 {
   line-height: lineHeight();
 }
 h2 {
-  @include RobotoSlab();
+  @include RobotoSlab(400);
 
   @include responsiveProperty($h2, font-size);
   line-height: lineHeight();
@@ -193,6 +187,9 @@ img {
           .x#{$i}-Padding-#{$dir} {
               padding-#{$dir}: $standardMargin * $i !important
           }
+          .x#{$i}-Margin-#{$dir} {
+            padding-#{$dir}: $standardMargin * $i !important
+        }
       }
   }
 
@@ -217,7 +214,6 @@ img {
   }
 }
 // ---------------------------------------------------------------------------------------------------------- //
-
 
 // --- Grid System ------------------------------------------------------------------------------------------ //
 .container {

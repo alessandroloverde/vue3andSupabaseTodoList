@@ -6,6 +6,7 @@
   background-color: $homePageBkg;
 
   h1 { color: $ctaColor }
+  p { font-size: 1.5rem }
 
   &--intro {
     width: 100%;
@@ -73,7 +74,6 @@
 
       &--text {   
         h1 { width: 100% }
-        p { font-size: 1.5rem; }
       }
 
     }
@@ -91,13 +91,10 @@
         border-bottom-left-radius: calc($border-radius * 2);
         background-image: url("../assets/images/3587568.jpg");
         background-size: cover;
-
-        p { font-size: 1.25rem }
       }
 
       .login,
       .register {
-        &-link { margin-bottom: calc($standardMargin * 2) }
         &--illustration {
           opacity: 0.8;
           background-repeat: no-repeat;
@@ -113,11 +110,14 @@
           }
           .btn { 
             width: 100%;
-            margin-top: auto; 
+            margin-top: calc($standardMargin * 2);
+
+            @media screen and (min-width: map-get($breakpoints, md)) {
+              margin-top: auto;
+            }
           }
           fieldset { 
             & + fieldset { margin-top: $standardMargin }
-            & + button.btn { margin-top: $standardMargin * 3 }
             & > label {
               display: flex;
               align-items: center;
@@ -142,7 +142,6 @@
       width: 100%;
       display: flex;
       justify-content: space-between;
-      margin-top: calc($standardMargin * 2);
   
       &--logo {
         display: flex;
