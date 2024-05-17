@@ -38,7 +38,6 @@
 
   import { ref, onMounted } from 'vue';
   import useAuthUser from "../composables/UseAuthUser";
-  import { useRouter } from "vue-router";
   import { fetchTable } from '../api/apiSupabase';
 
   import CategoriesArea from '../components/CategoriesArea.vue';
@@ -47,9 +46,8 @@
   import Register from './Register.vue';
   import AppFooter from '../components/AppFooter.vue';
 
-  const router = useRouter();
-
   const {isLoggedIn} = useAuthUser();
+
 
   onMounted(async () => {
     await onFetch('categories')

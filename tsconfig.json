@@ -17,15 +17,16 @@
     "sourceMap": true,
     "alwaysStrict": true,
     "strictNullChecks": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "verbatimModuleSyntax": false
   },
   "lib": ["esnext", "dom"],
   "paths": {
      "@/": ["src/"]
   },
   "include": [
-    // "src/*/.js",
-    "src/**/*.ts",
+    "src/*/.js",
+    // "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.vue",
   ],

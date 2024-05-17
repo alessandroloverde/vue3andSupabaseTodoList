@@ -120,7 +120,7 @@ export function detectCSSVariables(prefix) {
 /**
  * * Function for saving a Task or a Category.
  */
-export async function S_saveData(S_table: string, S_content: TASK | CAT) {
+export async function S_saveData(S_table: string, S_content:  Pick<TASK, 'name' > | CAT) {
     const insertObject: any = {name: S_content.name, user: user.value?.id}
 
     if ('icon' in S_content && S_content !== undefined) {
@@ -129,5 +129,8 @@ export async function S_saveData(S_table: string, S_content: TASK | CAT) {
     
     const { error } = await supabase.from(S_table).insert([insertObject]).select()
 
-    S_table && S_table === "tasks" ?  await fetchTable('tasks') : await fetchTable('categories')
+    /**
+     * TODO Commentata da Stefano
+     */
+    //S_table && S_table === "tasks" ?  await fetchTable('tasks') : await fetchTable('categories')
 }

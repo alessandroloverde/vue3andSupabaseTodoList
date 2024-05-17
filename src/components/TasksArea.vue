@@ -106,7 +106,7 @@
 
 <script setup lang="ts">
     import type { Ref } from 'vue';
-    import type { TASK } from '../api/apiSupabase';
+    import type { CAT, TASK } from '../api/apiSupabase';
 
     import Popper from "vue3-popper";
     import { reactive, ref } from 'vue';
@@ -137,14 +137,12 @@
      * * Fx for saving a new task in the DB. It emits an event.
      */
     const saveNewTask = async () => {
-        let content: TASK = {
+        // read use id
+        let taskName: Pick<TASK, 'name'> = {
             name: newTaskName.value,
-            id: null,
-            completed: false,
-            user: ''
         }
 
-        await S_saveData('tasks', content)
+        await S_saveData('tasks', taskName)
         await emit('taskUpdated')
         
         newTaskName.value = ''
@@ -155,8 +153,12 @@
      * * Function that assign the category's color to a class for a todo.
      * @param todo 
      */
-     const computedColor = (todo: TASK) => {
-        const foundCategory = props.categories !== null ? props.categories.find(category => category.name === todo.category) : props.categories
+     const computedColor = (todo: TASK): string | null => {
+        const foundCategory: CAT = props.categories !== null
+                            ? props.categories.find(category => category.name === todo.category)
+                            : props.categories
+        
+        console.log('found category', foundCategory)
 
         return foundCategory?.color
     };
