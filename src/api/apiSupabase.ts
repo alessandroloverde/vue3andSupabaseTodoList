@@ -95,7 +95,7 @@ export const updateIcon = async (iconClass: string, S_id: number | null, $event:
  * * Function that checks all the CSS rules in :root filtered by a string (prefix) that must be either '--icons--' or '--color--'
  * @param prefix
  */
-export function detectCSSVariables(prefix) {
+export function detectCSSVariables(prefix: string) {
     const documentRoot:  StyleSheetList = document.styleSheets;
     let combinedRootStyles = {};
 
@@ -105,6 +105,7 @@ export function detectCSSVariables(prefix) {
                 if (rule instanceof CSSStyleRule && rule.selectorText === ':root') {
                     for (let j = 0; j < rule.style.length; j++) {
                         const cssProperty = rule.style[j];
+                        let combinedRootStyles: { [key: string]: string } = {};
                         
                         combinedRootStyles[cssProperty] = rule.style.getPropertyValue(cssProperty);
                     }

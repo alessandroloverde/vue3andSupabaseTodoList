@@ -28,7 +28,7 @@
                 <li v-if="tasks" v-for="(todo, index) in tasks" 
                     :key="todo.id!"
                     class="taskList"
-                    :class="['category-' + todo.category, computedColor(todo), { completed: todo.completed }]"
+                    :class="['category-' + todo.category, computedColor(todo, props.categories), { completed: todo.completed }]"
                     v-show="!todo.completed ? true : (completedAreVisible && todo.completed) || (!completedAreVisible && !todo.completed)"
                 >   
                     <div class="taskList--completeTask">
@@ -95,7 +95,6 @@
                                 'icon-star'"
                             ></div>
                         </Popper>
-
                     </div>
                 </li>
             </ul>
@@ -106,22 +105,28 @@
 
 <script setup lang="ts">
     import type { Ref } from 'vue';
-    import type { CAT, TASK } from '../api/apiSupabase';
+    import type { TASK, CAT } from '../api/apiSupabase';
 
     import Popper from "vue3-popper";
     import { reactive, ref } from 'vue';
     import { removeItem, S_saveData, updateCategory } from '../api/apiSupabase';
     import { sortByUrgencyAndCompletion } from '../pages/Home.vue'
+    import { computedColor } from '../utils/tasksArea.utils';
 
     import useAuthUser from "../composables/UseAuthUser"
 
     const { supabase } = useAuthUser();
-    
-    const props = defineProps(['categories', 'tasks' ])
+
+    const props = defineProps<{
+        index: number;
+        tasks: TASK[];
+        categories: CAT[];
+    }>();
     const emit = defineEmits(['taskUpdated'])
 
     let editableIndex2: Ref<number> = ref(-1)
-    let taskName: Ref<string>[] = reactive([])
+    //let taskName: Ref<string | null>[] = reactive([])
+        const taskName: Ref<string>[] = reactive(Array(props.tasks.length).fill(''));    
     let newTaskName: Ref<string> = ref('')
     let completedAreVisible: Ref<boolean> = ref(false)
 
@@ -148,22 +153,6 @@
         newTaskName.value = ''
     }
 
-
-    /**
-     * * Function that assign the category's color to a class for a todo.
-     * @param todo 
-     */
-     const computedColor = (todo: TASK): string | null => {
-        const foundCategory: CAT = props.categories !== null
-                            ? props.categories.find(category => category.name === todo.category)
-                            : props.categories
-        
-        console.log('found category', foundCategory)
-
-        return foundCategory?.color
-    };
-
-
     /**
      * * Function to set a task as urgent
      * @param S_id 
@@ -184,7 +173,7 @@
     const editTaskName = (index: number) => {
         editableIndex2.value = editableIndex2.value === index ? -1 : index;
         
-        taskName[index] = props.tasks[index].name
+        taskName[index] = ref(props.tasks[index].name || '');
     }
     const updateTaskName = async (index: number) => {
         let oldTask = props.tasks !== null ? props.tasks[index].name : ""

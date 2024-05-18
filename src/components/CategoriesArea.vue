@@ -151,9 +151,11 @@
     const saveNewCategory = async () => {
         let content: CAT = {
             name: newCategoryName.value,
-            id: null,
+            id: 0,
             icon: 'icon-star',
-            user: user?.value?.id ?? null
+            user: user?.value?.id ?? null,
+            color: null,
+            created_at: ''
         }
 
         try {
@@ -163,7 +165,7 @@
 
             await S_saveData('categories', content)
             await emit('categoryUpdated')
-        } catch(error) {
+        } catch(error: Error) {
             alert(error.message)
 
             return

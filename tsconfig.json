@@ -5,7 +5,7 @@
     "target": "esnext",
     "module": "esnext",
     "isolatedModules": true,
-    "strict": false,
+    "strict": true,
     "noImplicitThis": true,
     "importHelpers": true,
     "jsx": "preserve",
@@ -26,7 +26,7 @@
   },
   "include": [
     "src/*/.js",
-    // "src/**/*.ts",
+    "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.vue",
   ],
