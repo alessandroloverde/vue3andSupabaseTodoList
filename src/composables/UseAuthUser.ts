@@ -12,7 +12,8 @@ export default function useAuthUser() {
   /**
    * * Login
    */
-  const login = async ({email, password}) => {
+  
+  const login = async ({ email, password }: { email: string; password: string }) => {
     try {
       const { data: { user }, error } = await supabase.auth.signInWithPassword({ email, password })
       
@@ -21,7 +22,7 @@ export default function useAuthUser() {
       console.log('Login successful--USER', user);
 
       return user;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Login failed:', error.message);
       
       throw error;
@@ -40,7 +41,7 @@ export default function useAuthUser() {
   /**
    * * Register a new user with the provided email, password, and additional metadata.
    */
-  const register = async ({email, password, ...meta}) => {
+  const register = async ({email, password, ...meta}: { email: string; password: string }) => {
     const { data, error } = await supabase.auth.signUp({email, password, options: { data: meta }})
 
     console.log(user)
@@ -53,14 +54,17 @@ export default function useAuthUser() {
     return !!user.value
   };
 
-  const update = async (data) => {
+  /**
+   * TODO Check if disabling it causes breaks
+   */
+/*   const update = async (data) => {
     
-  };
+  }; */
 
   /**
    * * Password reset
    */
-  const sendPasswordResetEmail = async (email) => {
+  const sendPasswordResetEmail = async (email: string) => {
     const { data, error } = await supabase.auth.resetPasswordForEmail(email)
 
     return data
@@ -73,12 +77,8 @@ export default function useAuthUser() {
     logout,
     register,
     isLoggedIn,
-    update,
+    //update,
     sendPasswordResetEmail
   }
 
 }
-
-
-
-

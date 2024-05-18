@@ -13,16 +13,14 @@ describe('Task Area: computedColor', () => {
     user: null
   }
 
-  const categories: CAT[] = [
-      {
+  const categories: CAT[] = [{
         id: 404,
         created_at: "2024-05-10T23:35:18.230874+00:00",
         name: "Ale",
         color: "SlateBlue",
         icon: "icon-grin",
         user: "b9f5abe8-011d-4fa7-85cc-59a3b69733d3"
-    }
-  ]
+    }]
 
   const emptyArray: CAT[] = []
 

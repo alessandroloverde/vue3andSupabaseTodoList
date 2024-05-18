@@ -6,7 +6,7 @@ import type { CAT, TASK } from '../api/apiSupabase';
  */
 export const computedColor = (todo: TASK, categories: any): string | null | undefined => {
     const foundCategory: CAT = categories !== null
-                        ? categories.find(category => category.name === todo.category)
+                        ? categories.find((category: { name: string }) => category.name === todo.category)
                         : categories
     
     return foundCategory?.color
