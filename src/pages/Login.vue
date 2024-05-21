@@ -1,7 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import useAuthUser from "../composables/UseAuthUser";
 import { useRouter } from "vue-router";
+import { AuthError } from "@supabase/supabase-js";
 
 const router = useRouter();
 const { login } = useAuthUser();
@@ -16,8 +17,10 @@ const handleLogin = async () => {
     await login(form.value)
 
     router.push({ name: "Home" })
-  } catch (error) {
-    alert(error.message)
+  } catch (error: unknown) {
+    const typedError = error as AuthError;
+
+    alert(typedError.message)
   }
 };
 </script>

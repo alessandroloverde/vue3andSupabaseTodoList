@@ -1,7 +1,8 @@
-<script setup>
+<script setup lang="ts">
   import { ref } from "vue";
   import useAuthUser from "../composables/UseAuthUser";
   import { useRouter } from "vue-router";
+import { AuthError } from "@supabase/supabase-js";
 
   const router = useRouter();
   const { register } = useAuthUser();
@@ -16,12 +17,18 @@
     try {
       await register(form.value);
 
+      /**
+       * TODO - Push only if !error
+       */
+ 
       router.push({
         name: "EmailConfirmation",
         query: { email: form.value.email },
       });
-    } catch (error) {
-      alert(error.message);
+    } catch (error: unknown) {
+      const typedError = error as AuthError;
+
+      alert(typedError.message);
     }
   };
 </script>
