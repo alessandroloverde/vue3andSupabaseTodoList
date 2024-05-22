@@ -96,8 +96,8 @@ export const updateIcon = async (iconClass: string, S_id: number | null, $event:
  * @param prefix
  */
 export function detectCSSVariables(prefix: string) {
-    const documentRoot:  StyleSheetList = document.styleSheets;
-    let combinedRootStyles = {};
+    const documentRoot: StyleSheetList = document.styleSheets;
+    let combinedRootStyles: { [key: string]: string } = {};
 
     for (let sheet of documentRoot) {
         try {
@@ -105,7 +105,6 @@ export function detectCSSVariables(prefix: string) {
                 if (rule instanceof CSSStyleRule && rule.selectorText === ':root') {
                     for (let j = 0; j < rule.style.length; j++) {
                         const cssProperty = rule.style[j];
-                        let combinedRootStyles: { [key: string]: string } = {};
                         
                         combinedRootStyles[cssProperty] = rule.style.getPropertyValue(cssProperty);
                     }
@@ -114,7 +113,10 @@ export function detectCSSVariables(prefix: string) {
         } catch (e) { console.warn("Could not access cssRules of a stylesheet:", e) }
     }
 
-    return Object.keys(combinedRootStyles).filter(el => el.startsWith(prefix)).map(el => el.replace(prefix, ''))
+    return Object.keys(combinedRootStyles).filter(el => el.startsWith(prefix)).map(el => el.replace(prefix, ''));
+
+
+   
 }
 
 
