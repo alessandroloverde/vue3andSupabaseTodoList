@@ -2,12 +2,12 @@
   import useAuthUser from "../composables/UseAuthUser";
   import { ref } from "vue";
 
-  const { sendPasswordRestEmail } = useAuthUser();
+const { sendPasswordResetEmail } = useAuthUser();
 
   const email = ref("");
 
   const handlePasswordReset = async () => {
-    await sendPasswordRestEmail(email.value);
+    await sendPasswordResetEmail(email.value);
     alert(`Password reset email sent to: ${email.value}`);
   };
 </script>

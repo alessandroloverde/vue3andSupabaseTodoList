@@ -29,6 +29,7 @@
     import Popper from "vue3-popper";
     import useAuthUser from "../composables/UseAuthUser";
     import { useRouter } from "vue-router";
+    import { AuthError } from "@supabase/supabase-js";
 
     const router = useRouter()
     const { user } = useAuthUser()
@@ -38,8 +39,10 @@
             await logout()
 
             router.push({ name: "Login" })
-        } catch (error) {
-            alert(error.message)
+        } catch (error: unknown) {
+            const typedError = error as AuthError;
+            
+            alert(typedError.message)
         }
     };
 </script>

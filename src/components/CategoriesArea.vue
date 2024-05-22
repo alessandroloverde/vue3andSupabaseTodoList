@@ -102,6 +102,7 @@
     import { reactive, ref } from 'vue';
     import { removeItem, updateColor, updateIcon, detectCSSVariables, S_saveData } from '../api/apiSupabase';
     import useAuthUser from "../composables/UseAuthUser"
+    import { AuthError } from "@supabase/supabase-js";
 
     const { supabase } = useAuthUser();
     const { user } = useAuthUser()
@@ -165,8 +166,10 @@
 
             await S_saveData('categories', content)
             await emit('categoryUpdated')
-        } catch(error: Error) {
-            alert(error.message)
+        } catch(error: unknown) { 
+            const typedError = error as AuthError;
+            
+            alert(typedError.message);
 
             return
         } finally {

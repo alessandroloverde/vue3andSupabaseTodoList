@@ -1,64 +1,3 @@
-<script lang="ts">
-  export const tasks: Ref<TASK[] | null> = ref([]);
-  export const categories: Ref<CAT[] | null> = ref([]);
-
-
-  /**
-   * * Helper function for fetching Tasks or Categories.
-   * @param tableType 
-   */
-  export const onFetch = async (tableType: string) => {
-    const data: (TASK[] | CAT[]) = await fetchTable(tableType) as (TASK[] | CAT[]);
-
-    tableType === "tasks" ? tasks.value = data as TASK[] : categories.value = data as CAT[]
-  }
-
-
-  /**
-   * * Function for sorting according to completion and urgency
-   * @param tasks 
-   */
-  export const sortByUrgencyAndCompletion = (tasks: TASK[]) => {
-    return tasks.sort((a, b) => {
-      // Assuming `completed` is a boolean, invert its comparison to sort completed tasks last
-      if (a.completed === b.completed) {
-        // If completion is the same, sort by urgency (true comes before false)
-        return (b.is_urgent === a.is_urgent) ? 0 : b.is_urgent ? -1 : 1;
-      } else {
-        // If one is completed and the other isn't, the uncompleted one should come first
-        return a.completed ? 1 : -1;
-      }
-    })
-  }
-</script>
-
-<script setup lang="ts">
-  import type { Ref } from 'vue';
-  import type { TASK, CAT } from '../api/apiSupabase';
-
-  import { ref, onMounted } from 'vue';
-  import useAuthUser from "../composables/UseAuthUser";
-  import { fetchTable } from '../api/apiSupabase';
-
-  import CategoriesArea from '../components/CategoriesArea.vue';
-  import TasksArea from '../components/TasksArea.vue';
-  import Login from './Login.vue';
-  import Register from './Register.vue';
-  import AppFooter from '../components/AppFooter.vue';
-
-  const {isLoggedIn} = useAuthUser();
-
-
-  onMounted(async () => {
-    await onFetch('categories')
-    await onFetch('tasks')
-    
-    if(tasks.value) {
-      await sortByUrgencyAndCompletion(tasks.value)
-    }
-  }) 
-</script>
-
 <template>
   <div v-if="!isLoggedIn()" class="homePage">
     <section class="homePage--intro">
@@ -125,8 +64,69 @@
     </CategoriesArea>
     <TasksArea 
       :categories="categories" 
-      :tasks="tasks" 
+      :tasks="tasks"
+      :index="0"
       @taskUpdated="onFetch('tasks')">
     </TasksArea>
   </div>
 </template>
+
+<script lang="ts">
+  export const tasks: Ref<TASK[]> = ref([]);
+  export const categories: Ref<CAT[]> = ref([]);
+
+  /**
+   * * Helper function for fetching Tasks or Categories.
+   * @param tableType 
+   */
+  export const onFetch = async (tableType: string) => {
+    const data: (TASK[] | CAT[]) = await fetchTable(tableType) as (TASK[] | CAT[]);
+
+    tableType === "tasks" ? tasks.value = data as TASK[] : categories.value = data as CAT[]
+  }
+
+
+  /**
+   * * Function for sorting according to completion and urgency
+   * @param tasks 
+   */
+  export const sortByUrgencyAndCompletion = (tasks: TASK[]) => {
+    return tasks.sort((a, b) => {
+      // Assuming `completed` is a boolean, invert its comparison to sort completed tasks last
+      if (a.completed === b.completed) {
+        // If completion is the same, sort by urgency (true comes before false)
+        return (b.is_urgent === a.is_urgent) ? 0 : b.is_urgent ? -1 : 1;
+      } else {
+        // If one is completed and the other isn't, the uncompleted one should come first
+        return a.completed ? 1 : -1;
+      }
+    })
+  }
+</script>
+
+<script setup lang="ts">
+  import type { Ref } from 'vue';
+  import type { TASK, CAT } from '../api/apiSupabase';
+
+  import { ref, onMounted } from 'vue';
+  import useAuthUser from "../composables/UseAuthUser";
+  import { fetchTable } from '../api/apiSupabase';
+
+  import CategoriesArea from '../components/CategoriesArea.vue';
+  import TasksArea from '../components/TasksArea.vue';
+  import Login from './Login.vue';
+  import Register from './Register.vue';
+  import AppFooter from '../components/AppFooter.vue';
+
+  const {isLoggedIn} = useAuthUser();
+
+
+  onMounted(async () => {
+    await onFetch('categories')
+    await onFetch('tasks')
+    
+    if(tasks.value) {
+      await sortByUrgencyAndCompletion(tasks.value)
+    }
+  }) 
+</script>

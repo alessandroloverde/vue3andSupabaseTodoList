@@ -114,9 +114,6 @@ export function detectCSSVariables(prefix: string) {
     }
 
     return Object.keys(combinedRootStyles).filter(el => el.startsWith(prefix)).map(el => el.replace(prefix, ''));
-
-
-   
 }
 
 
