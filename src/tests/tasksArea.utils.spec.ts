@@ -3,6 +3,7 @@ import { computedColor } from '../utils/tasksArea.utils';
 import { TASK, CAT } from '../api/apiSupabase';
 
 describe('Task Area: computedColor', () => {
+
   const todo: TASK = {
     category: 'Ale',
     completed: false,
@@ -35,4 +36,12 @@ describe('Task Area: computedColor', () => {
   it('should return undefined if receive an empty array', () => {
     expect(computedColor(todo , emptyArray)).toBeUndefined()
   })
+
+  test('should return null or undefined when todo.category is null', () => {
+    todo.category = null;
+
+    const color = computedColor(todo, categories);
+
+    expect(color === undefined || color === null).toBe(true);
+  });
 })
