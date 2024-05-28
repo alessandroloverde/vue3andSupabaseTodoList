@@ -21,7 +21,7 @@ export const computedColor = (todo: TASK, categories: any): string | null | unde
  * * Function to set a task as urgent
  * @param S_id 
  * @param todo 
-     */
+*/
 export const setUrgency = async (S_id: number | null , todo: TASK, tasks: TASK[]) => {
     todo.is_urgent = !todo.is_urgent;
 
@@ -32,9 +32,9 @@ export const setUrgency = async (S_id: number | null , todo: TASK, tasks: TASK[]
 
 
 /**
-   * * Function for sorting according to completion and urgency
-   * @param tasks 
-   */
+ * * Function for sorting according to completion and urgency
+ * @param tasks 
+ */
 export const sortByUrgencyAndCompletion = (tasks: TASK[]) => {
     return tasks.sort((a, b) => {
       // Assuming `completed` is a boolean, invert its comparison to sort completed tasks last
