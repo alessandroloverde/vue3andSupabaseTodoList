@@ -86,22 +86,6 @@
   }
 
 
-  /**
-   * * Function for sorting according to completion and urgency
-   * @param tasks 
-   */
-  export const sortByUrgencyAndCompletion = (tasks: TASK[]) => {
-    return tasks.sort((a, b) => {
-      // Assuming `completed` is a boolean, invert its comparison to sort completed tasks last
-      if (a.completed === b.completed) {
-        // If completion is the same, sort by urgency (true comes before false)
-        return (b.is_urgent === a.is_urgent) ? 0 : b.is_urgent ? -1 : 1;
-      } else {
-        // If one is completed and the other isn't, the uncompleted one should come first
-        return a.completed ? 1 : -1;
-      }
-    })
-  }
 </script>
 
 <script setup lang="ts">
@@ -117,6 +101,7 @@
   import Login from './Login.vue';
   import Register from './Register.vue';
   import AppFooter from '../components/AppFooter.vue';
+  import { sortByUrgencyAndCompletion } from '../utils/tasksArea.utils';
 
   const {isLoggedIn} = useAuthUser();
 
