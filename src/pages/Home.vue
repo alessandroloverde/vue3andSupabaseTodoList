@@ -108,6 +108,17 @@
                 <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
               </div>
               <div class="homePage--cta--card--image flex-col-md-4">
+                <LottieAnimation
+                  ref="anim"
+                  :animation-data="WatermelonJSON"
+                  :loop="true"
+                  :auto-play="true"
+                  :speed="0.75"
+                  @loopComplete="loopComplete"
+                  @complete="complete"
+                  @enterFrame="enterFrame"
+                  @segmentStart="segmentStart"
+                  @stopped="stopped"/>
                 <!-- Import Lottie here -->  
                 <!-- <img src="../assets/images/templ-ill-1.png" class="responsiveImg" alt="Task List"> -->
               </div>
@@ -194,6 +205,36 @@
   import AppFooter from '../components/AppFooter.vue';
   import { sortByUrgencyAndCompletion } from '../utils/tasksArea.utils';
 
+  import { LottieAnimation } from "lottie-web-vue"
+  import WatermelonJSON from "../assets/images/lottie-list.json"
+
+  let anim = ref()
+  const loopComplete = () => {
+    //anim.value.stop()
+
+    console.log('Loop complete')
+  }
+
+    // called after first loop
+    const complete = () => {
+      console.log('First loop complete')
+    }
+
+    // called after first frame entered
+    const enterFrame = () => {
+      console.log('Entered first frame')
+    }
+
+    // called after segment started
+    const segmentStart = () => {
+      console.log('Segment started')
+    }
+
+    // called after animation stopped
+    const stopped = () => {
+      console.log('Stopped')
+    }
+
   const {isLoggedIn} = useAuthUser();
 
   onMounted(async () => {
@@ -203,6 +244,13 @@
     if(tasks.value) {
       await sortByUrgencyAndCompletion(tasks.value)
     }
+
+    setTimeout(() => {
+      console.log(anim.value.goToAndPlay(150, true))
+      anim.value
+    }, 500)
+
+    
 
     
 
@@ -215,8 +263,12 @@
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active')
+
+          anim.value.unfreeze()
         } else {
           entry.target.classList.remove('active')
+
+          anim.value.freeze()
         }
       })
     })
