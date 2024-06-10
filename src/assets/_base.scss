@@ -223,7 +223,7 @@ img {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  outline: 3px solid red;   // ** debug
+/*   outline: 3px solid red;   // ** debug
 
 
   position: relative;
@@ -237,19 +237,19 @@ img {
     background-color: red;
     padding: 10px;
     font-weight: bold;
-  }
+  } */
 
   @include responsiveProperty($breakpoints, max-width) using ($breakpoint, $value, $index) {  
     $hue: 0; // ** debug
   
     flex-direction: row;
     //z-index: $index; // ** debug
-    outline: 3px solid oklch(70% .2 ($hue + (50 * $index)));   // ** debug
+/*     outline: 3px solid oklch(70% .2 ($hue + (50 * $index)));  
 
     &::before { 
       content: "#{$breakpoint}";
       background-color: oklch(70% .2 ($hue + (50 * $index)));
-    }
+    } */
   }
   
 }
@@ -260,7 +260,7 @@ img {
   flex: 1 1 auto;
   flex-wrap: wrap;
 
-  outline: 1px solid lightblue;
+  //outline: 1px solid lightblue;
 }
 
 @for $i from 1 through 12 {
@@ -270,11 +270,11 @@ img {
       box-sizing: border-box;
       padding: calc($standardMargin * 2);
       width: 100%;
-      outline: 1px solid lime;
+/*       outline: 1px solid lime;
 
       & > * {
         background-color: rgba(127, 255, 212, 0.5);
-      }
+      } */
 
       @media (min-width: $value) {
         width: calc(100% * (#{$i} / 12));
