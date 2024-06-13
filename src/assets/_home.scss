@@ -37,6 +37,11 @@
 
       & > img { width: 100% }
     }
+    &--claim  {
+      width: 70% !important;
+      display: flex;
+      margin: auto;
+    }
     &--jumpTo {
       width: 100%;
       height: 200px;
