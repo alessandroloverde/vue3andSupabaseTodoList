@@ -120,11 +120,41 @@
       </div>
 
       <div class="homePage--intro--jumpTo">
-        <a href="#login&register">
+        <a href="#tempNewPage">
           <button class="iconOnly btn--icn--icon-chevron-circle-down" role="button" aria-label="Next Page"></button>
         </a>
       </div>
     </section>
+
+    <section id="tempNewPage" class="homePage--temp">
+      <div class="container">
+        <div class="flex-row">
+          <h2 class="flex-col-md-12">Why Wondertask?</h2>
+          <div class="flex-col-md-3 hexagon-1">
+            <svg id="Hex" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 622.38 539">
+                <polygon
+                    points="464.69 3.63 157.69 3.63 4.19 269.5 157.69 535.37 464.69 535.37 618.19 269.5 464.69 3.63"
+                    class="svg-hexagon" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" />
+            </svg>
+          </div>
+          <div class="flex-col-md-3 hexagon-2">
+            <svg id="Hex" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 622.38 539">
+                <polygon
+                    points="464.69 3.63 157.69 3.63 4.19 269.5 157.69 535.37 464.69 535.37 618.19 269.5 464.69 3.63"
+                    class="svg-hexagon" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" />
+            </svg>
+          </div>
+          <div class="flex-col-md-3 hexagon-3">
+            <svg id="Hex" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 622.38 539">
+                <polygon
+                    points="464.69 3.63 157.69 3.63 4.19 269.5 157.69 535.37 464.69 535.37 618.19 269.5 464.69 3.63"
+                    class="svg-hexagon" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="homePage--cta" id="login&register">
       <div class="container">
         <div class="flex-row">
@@ -154,7 +184,6 @@
                   @enterFrame="enterFrame"
                   @segmentStart="segmentStart"
                   @stopped="stopped"/>
-                <!-- <img src="../assets/images/templ-ill-1.png" class="responsiveImg" alt="Task List"> -->
               </div>
               <div class="homePage--cta--card--image flex-col-md-5">
                 <LottieAnimation
@@ -168,7 +197,6 @@
                   @enterFrame="enterFrame"
                   @segmentStart="segmentStart"
                   @stopped="stopped"/>
-                <!-- <img src="../assets/images/antigravity.svg" class="responsiveImg" alt="Task List"> -->
               </div>
               <div class="homePage--cta--card--text flex-col-md-7">
                 <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
@@ -304,7 +332,7 @@
     var btnDraw = document.querySelector('.btn-draw')
     var btnErase = document.querySelector('.btn-erase')
 
-    let hiddenElements = document.querySelectorAll('svg');
+    let hiddenElements = document.querySelectorAll('svg, .svg');
     let observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
