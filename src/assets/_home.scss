@@ -6,7 +6,7 @@
   background-color: $homePageBkg;
 
   h1 { color: $ctaColor }
-  p { font-size: 1.5rem }
+  p { font-size: 1.25rem }
 
   &--intro {
     width: 100%;
@@ -216,4 +216,42 @@
 	50% { transform: translatey(0) }
   75% { transform: translatey(-2vh) }
 	100% { transform: translatey(0) }
+}
+
+[class*="hexagon-"] {
+  position: relative;
+
+  article {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 10%; left: 25%; right: 25%; bottom: 10%;
+    text-align: center;
+
+    h3 {
+      @include Quicksand;
+
+      color: $ctaColor;
+      font-size: 2rem;
+      margin-bottom: $standardMargin;
+    }
+    p { hyphens: none }
+  }
+}
+
+@for $i from 1 through 3 {
+  $transformedColorMap: ();
+
+  @each $key, $value in $presentationColors {
+    $transformedColorMap: append($transformedColorMap, $value)
+  }
+
+  .hexagon-#{$i} article > svg {
+    min-height: 6.5rem;
+    max-height: 6.5rem;
+
+    max-width: 100%;
+    margin-bottom: $standardMargin * 2;
+    fill: nth($transformedColorMap, $i);
+  } 
 }
