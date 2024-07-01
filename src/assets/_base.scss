@@ -224,6 +224,13 @@ img {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+
+  &--full { 
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
 /*   outline: 3px solid red;   // ** debug
 
 

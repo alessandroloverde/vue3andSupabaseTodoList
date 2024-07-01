@@ -5,7 +5,10 @@
   height: 100%;
   background-color: $homePageBkg;
 
-  h1 { color: $ctaColor }
+  h1 { 
+    color: $ctaColor;
+    text-align: center; 
+  }
   p { font-size: 1.25rem }
 
   &--intro {
@@ -220,6 +223,8 @@
 
 [class*="hexagon-"] {
   position: relative;
+  background-color: $homePageBkg;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 99%, 25% 99%, 0% 50%);
 
   article {
     position: absolute;
@@ -249,9 +254,27 @@
   .hexagon-#{$i} article > svg {
     min-height: 6.5rem;
     max-height: 6.5rem;
-
     max-width: 100%;
     margin-bottom: $standardMargin * 2;
     fill: nth($transformedColorMap, $i);
   } 
+}
+
+.hexagon-1 { 
+  transform: translate(25%, 0);
+}
+.hexagon-2 { 
+  transform: translate(0, 50%);
+}
+.hexagon-3 { 
+  transform: translate(-25%, 0%);
+}
+
+#wave {
+  height: 420px;
+  background-image: url("../src/assets/images/wave.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+  margin-top: -10vh;
 }
