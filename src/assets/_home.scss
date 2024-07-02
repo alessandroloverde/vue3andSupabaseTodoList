@@ -10,6 +10,13 @@
     text-align: center; 
   }
   p { font-size: 1.25rem }
+  h3 {
+    @include Quicksand;
+
+    color: $ctaColor;
+    font-size: 2rem;
+    margin-bottom: $standardMargin;
+  }
 
   &--intro {
     width: 100%;
@@ -233,13 +240,6 @@
     top: 10%; left: 25%; right: 25%; bottom: 10%;
     text-align: center;
 
-    h3 {
-      @include Quicksand;
-
-      color: $ctaColor;
-      font-size: 2rem;
-      margin-bottom: $standardMargin;
-    }
     p { hyphens: none }
   }
 }
@@ -277,4 +277,36 @@
   background-size: 100% 100%;
   background-position: center center;
   margin-top: -10vh;
+}
+
+.card {
+  border-radius: 18px;
+  background-image: linear-gradient(90deg, map-get($presentationColors, azure) 0%, transparent 100% );
+  padding: 0;
+
+  & > .flex-row {
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    margin: 2px;
+    padding: calc($standardMargin * 2);
+    border-radius: 18px;
+    background-image: linear-gradient(90deg, rgba(34, 23, 78, 1) 40%, rgba(13, 12, 41, 1) 100%);
+  }
+  &--icon { 
+    width: auto;
+    height: 6em;
+    margin-bottom: calc($standardMargin * 2); 
+  }
+  &--divider {
+    border: none;
+    height: 0.25em;
+    width: 65%;
+    background-image: linear-gradient(
+      90deg, 
+      map-get($presentationColors, azure) 0%, 
+      map-get($presentationColors, blue) 50%, 
+      map-get($presentationColors, violet) 100% );
+    margin: calc($standardMargin * 2) 0;
+  }
+  &--description { font-size: 1.5rem !important }
 }

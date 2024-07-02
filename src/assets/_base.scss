@@ -268,7 +268,7 @@ img {
   flex: 1 1 auto;
   flex-wrap: wrap;
 
-  &-centered {
+  &--centered {
     @extend .flex-row;
     justify-content: center;
   }

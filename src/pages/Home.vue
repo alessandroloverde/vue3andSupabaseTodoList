@@ -128,7 +128,7 @@
 
     <section id="tempNewPage" class="homePage--temp">
       <div class="container">
-        <div class="flex-row-centered">
+        <div class="flex-row--centered">
           <h1 class="flex-col-md-12">Why Wondertask?</h1>
           <div class="flex-col-md-4">
             <div class="hexagon-1">
@@ -138,7 +138,7 @@
                     class="svg-hexagon" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" />
               </svg>
               <article>
-                <svg xmlns="http://www.w3.org/2000/svg" id="to-do-list-icon" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
+                <svg xmlns="http://www.w3.org/2000/svg" id="toDolist-icon" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
                   <path d="m21.5,0c-1.379,0-2.5,1.121-2.5,2.5v11.55c0,1.068.416,2.073,1.172,2.829l.975.975c.098.098.226.146.354.146s.256-.049.354-.146l.975-.975c.756-.756,1.172-1.761,1.172-2.829V2.5c0-1.379-1.121-2.5-2.5-2.5Zm1.5,14.05c0,.802-.313,1.556-.879,2.122l-.621.621-.621-.621c-.566-.566-.879-1.32-.879-2.122V2.5c0-.827.673-1.5,1.5-1.5s1.5.673,1.5,1.5v11.55ZM3.146,5.21c-.195-.195-.195-.512,0-.707s.512-.195.707,0l1.347,1.346c.098.098.227.151.364.151s.268-.054.365-.151l2.525-2.525c.195-.195.512-.195.707,0s.195.512,0,.707l-2.525,2.525c-.287.287-.667.444-1.072.444h0c-.404,0-.785-.158-1.07-.444l-1.347-1.346Zm3.49,7.346c-.287.287-.667.444-1.072.444h0c-.404,0-.785-.158-1.07-.444l-1.347-1.346c-.195-.195-.195-.512,0-.707s.512-.195.707,0l1.347,1.346c.098.098.227.151.364.151s.268-.054.365-.151l2.525-2.525c.195-.195.512-.195.707,0s.195.512,0,.707l-2.525,2.525Zm11.363,6.444h-1V4c0-2.206-1.794-4-4-4H4C1.794,0,0,1.794,0,4v17c0,1.654,1.346,3,3,3h14c1.654,0,3-1.346,3-3,0-1.103-.897-2-2-2Zm-15,4c-1.103,0-2-.897-2-2V4c0-1.654,1.346-3,3-3h9c1.654,0,3,1.346,3,3v15H7c-1.103,0-2,.897-2,2s-.897,2-2,2Zm14,0H5.234c.476-.531.766-1.232.766-2,0-.552.448-1,1-1h11c.552,0,1,.448,1,1,0,1.103-.897,2-2,2Z" />
                 </svg>
                 <h3>Is simple...</h3>
@@ -158,7 +158,7 @@
                   <path
                     d="m23.14,7.886l-3.169-3.15,1.883-1.883c.195-.195.195-.512,0-.707s-.512-.195-.707,0l-1.885,1.885-3.164-3.144c-.561-.569-1.31-.884-2.108-.887-.816.005-1.552.307-2.117.872-1.145,1.144-1.158,3.02-.025,4.185l3.185,3.205-6.764,6.763-3.146-3.146c-1.17-1.17-3.072-1.17-4.242,0-.566.566-.879,1.32-.879,2.121s.312,1.555.879,2.121l3.146,3.146-1.879,1.879c-.195.195-.195.512,0,.707.098.098.226.146.354.146s.256-.049.354-.146l1.879-1.879,3.147,3.147c.585.585,1.353.877,2.121.877s1.536-.292,2.121-.877c.566-.566.879-1.32.879-2.121s-.313-1.555-.879-2.121l-3.147-3.147,6.762-6.761,3.108,3.128c.561.576,1.312.896,2.115.901h.02c.796,0,1.542-.31,2.148-.916,1.152-1.152,1.159-3.034.012-4.199Zm-11.14,13.114c0,.534-.208,1.036-.586,1.414-.779.779-2.049.779-2.828,0L1.586,15.414c-.378-.378-.586-.88-.586-1.414s.208-1.036.586-1.414c.39-.39.902-.585,1.414-.585s1.024.195,1.414.585l3.496,3.496s.002.003.003.004.003.002.004.003l3.497,3.497c.378.378.586.88.586,1.414Zm10.377-9.579c-.374.374-.869.579-1.397.579h-.014c-.533-.003-1.032-.216-1.408-.603l-6.998-7.042c-.75-.771-.741-2.016.02-2.776.374-.374.87-.579,1.398-.579h.008c.53.002,1.027.211,1.403.593l7.042,6.999c.76.771.756,2.021-.054,2.83Z" />
                 </svg>
-                <h3>.. but powerful</h3>
+                <h3>...but powerful</h3>
                 <p>get your task done, hide them as completed, sort them in categories: you have everthing you need</p>
               </article>
             </div>
@@ -188,18 +188,40 @@
       <div class="container">
         <div class="flex-row">
           <div class="homePage--cta--card">
-            <div class="flex-row">
-
-              <div class="homePage--cta--card--text flex-col-md-8">
-                <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
-                <p>Second line with some instructions on how to use.</p>
-                <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
-                <br>
-                <br>
-                <p>Second line with some instructions on how to use.</p>
-                <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
+            <div class="flex-row--centered">
+              <div class="flex-col-md-8 card">
+                <div class="flex-row">
+                  <div class="flex-col-md-7">
+                    <svg xmlns="http://www.w3.org/2000/svg" id="multicolor-toDolist-icon" class="card--icon" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
+                      <defs>
+                        <linearGradient id="grad-1" x1="0%" x2="100%" y1="0%" y2="0%">
+                          <stop offset="0%" stop-color="#21b7ff" />
+                          <stop offset="50%" stop-color="#507fff" />
+                          <stop offset="100%" stop-color="#894dfe" />
+                        </linearGradient>
+                      </defs>
+                      <path fill="url(#grad-1)" d="m21.5,0c-1.379,0-2.5,1.121-2.5,2.5v11.55c0,1.068.416,2.073,1.172,2.829l.975.975c.098.098.226.146.354.146s.256-.049.354-.146l.975-.975c.756-.756,1.172-1.761,1.172-2.829V2.5c0-1.379-1.121-2.5-2.5-2.5Zm1.5,14.05c0,.802-.313,1.556-.879,2.122l-.621.621-.621-.621c-.566-.566-.879-1.32-.879-2.122V2.5c0-.827.673-1.5,1.5-1.5s1.5.673,1.5,1.5v11.55ZM3.146,5.21c-.195-.195-.195-.512,0-.707s.512-.195.707,0l1.347,1.346c.098.098.227.151.364.151s.268-.054.365-.151l2.525-2.525c.195-.195.512-.195.707,0s.195.512,0,.707l-2.525,2.525c-.287.287-.667.444-1.072.444h0c-.404,0-.785-.158-1.07-.444l-1.347-1.346Zm3.49,7.346c-.287.287-.667.444-1.072.444h0c-.404,0-.785-.158-1.07-.444l-1.347-1.346c-.195-.195-.195-.512,0-.707s.512-.195.707,0l1.347,1.346c.098.098.227.151.364.151s.268-.054.365-.151l2.525-2.525c.195-.195.512-.195.707,0s.195.512,0,.707l-2.525,2.525Zm11.363,6.444h-1V4c0-2.206-1.794-4-4-4H4C1.794,0,0,1.794,0,4v17c0,1.654,1.346,3,3,3h14c1.654,0,3-1.346,3-3,0-1.103-.897-2-2-2Zm-15,4c-1.103,0-2-.897-2-2V4c0-1.654,1.346-3,3-3h9c1.654,0,3,1.346,3,3v15H7c-1.103,0-2,.897-2,2s-.897,2-2,2Zm14,0H5.234c.476-.531.766-1.232.766-2,0-.552.448-1,1-1h11c.552,0,1,.448,1,1,0,1.103-.897,2-2,2Z" />
+                    </svg>
+                    <h3>You will love its intuitiveness</h3>
+                    <hr class="card--divider">
+                    <p class="card--description">easy-to-use Todo List that allows you to add tasks, set priorities, and colorful categories</p>
+                  </div>
+                  <div class="flex-col-md-5">
+                    <LottieAnimation
+                      ref="anim"
+                      :animation-data="castoroJSON"
+                      :loop="true"
+                      :auto-play="true"
+                      :speed="0.75"
+                      @loopComplete="loopComplete"
+                      @complete="complete"
+                      @enterFrame="enterFrame"
+                      @segmentStart="segmentStart"
+                      @stopped="stopped"/>
+                  </div>
+                </div>
               </div>
-              <div class="homePage--cta--card--image flex-col-md-4">
+
                 <LottieAnimation
                   ref="anim"
                   :animation-data="WatermelonJSON"
@@ -211,26 +233,6 @@
                   @enterFrame="enterFrame"
                   @segmentStart="segmentStart"
                   @stopped="stopped"/>
-              </div>
-              <div class="homePage--cta--card--image flex-col-md-5">
-                <LottieAnimation
-                  ref="anim"
-                  :animation-data="castoroJSON"
-                  :loop="true"
-                  :auto-play="true"
-                  :speed="0.75"
-                  @loopComplete="loopComplete"
-                  @complete="complete"
-                  @enterFrame="enterFrame"
-                  @segmentStart="segmentStart"
-                  @stopped="stopped"/>
-              </div>
-              <div class="homePage--cta--card--text flex-col-md-7">
-                <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
-                <p>Second line with some instructions on how to use.</p>
-                <p>Wondertask is a simple and easy-to-use Todo List that allows you to add tasks, set priorities, and mark tasks as completed.</p>
-                <p>Second line with some instructions on how to use.</p>
-              </div>
             </div>
           </div>
           
