@@ -1,5 +1,7 @@
 @use 'sass:color';
 
+$polygonHeight: 20vw;
+
 .homePage {
   width: 100%;
   height: 100%;
@@ -79,8 +81,31 @@
       }
     }
   }
+
+
+  &--temp { height: 100% }
+  #topo {
+    width: 100%;
+    height: 20vw;
+    background-image: linear-gradient(
+      90deg, 
+      map-get($presentationColors, azure) 0%, 
+      map-get($presentationColors, blue) 50%, 
+      map-get($presentationColors, violet) 100%);
+    clip-path: polygon(0 0, 50% calc(100% - ($polygonHeight/4)), 100% 0, 100% calc(100% - $polygonHeight), 50% 100%, 0% calc(100% - $polygonHeight));
+    position: absolute;
+    bottom: 0;
+  }
+
   &--cta {
+    position: relative;
     background-color: $homePageBkg;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - $polygonHeight), 50% 100%, 0% calc(100% - $polygonHeight));
+    background-image: url("../assets/images/colorful-bkg.png");
+    background-repeat: no-repeat;
+    background-position-y: calc(100% + 200px);
+    background-size: 100%;
+    //height: 100%;
 
     &--card {
       width: 100%;
@@ -150,8 +175,6 @@
   }
   &--footer {
     $footerHeight: 60px;
-
-    background-color: $homePageBkg;
 
     &--info {
       width: 100%;
@@ -281,8 +304,9 @@
 
 .card {
   border-radius: 18px;
-  background-image: linear-gradient(90deg, map-get($presentationColors, azure) 0%, transparent 100% );
+  background-image: linear-gradient(90deg, rgba(map-get($presentationColors, azure), 0.6) 0%, transparent 100% );
   padding: 0;
+  margin-bottom: calc($standardMargin * 4);
 
   & > .flex-row {
     width: calc(100% - 4px);
@@ -305,8 +329,22 @@
       90deg, 
       map-get($presentationColors, azure) 0%, 
       map-get($presentationColors, blue) 50%, 
-      map-get($presentationColors, violet) 100% );
+      map-get($presentationColors, violet) 100%);
     margin: calc($standardMargin * 2) 0;
   }
   &--description { font-size: 1.5rem !important }
+
+  & + & { 
+    background-image: linear-gradient(-90deg, rgba(map-get($presentationColors, azure), 0.6) 0%, transparent 100% );
+    margin-bottom: 15rem;
+    
+    & > .flex-row {
+      background-image: linear-gradient(-90deg, rgba(12, 55, 89, 0.5) 30%, rgba(13, 12, 41, 0.5) 100%);
+    }
+  }
+}
+
+#castoro {
+  background-color: brown;
+  margin-top: -($polygonHeight);
 }

@@ -81,7 +81,6 @@
           L64.2,99.2z" class="svg-elem-14"></path>
           </g>
         </svg>
-        <!-- <img src="../assets/images/claim-animated.svg" class="svg homePage--intro--claim" alt="Claim"> -->
         <svg version="1.1" id="Claim" class="homePage--intro--claim" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 598 146" width="598" height="146">
           <g id="Glaim-group">
               <path id="C-1-2" data-name="C-1" d="M30.43,61a24.5,24.5,0,0,1-12.57-3.07,20.49,20.49,0,0,1-8.1-8.64A28.52,28.52,0,0,1,6.93,36.17V34.7A28.6,28.6,0,0,1,9.69,21.88a21.14,21.14,0,0,1,7.91-8.8A22.77,22.77,0,0,1,29.88,9.87a29.18,29.18,0,0,1,9.35,1.45,23,23,0,0,1,7.64,4.25V27.3h-7l-1-7.61a13.18,13.18,0,0,0-2.47-1.4,14.51,14.51,0,0,0-2.93-.88,17.64,17.64,0,0,0-3.43-.31,12.69,12.69,0,0,0-7.47,2.17,13.65,13.65,0,0,0-4.76,6.08,23.86,23.86,0,0,0-1.65,9.28v1.54A23.2,23.2,0,0,0,18,45.55a13.67,13.67,0,0,0,5,6.08,13.55,13.55,0,0,0,7.69,2.14,19.86,19.86,0,0,0,4.4-.5A18.87,18.87,0,0,0,38.89,52l1-7H46.8V56.6a26.67,26.67,0,0,1-7.09,3.12A32.81,32.81,0,0,1,30.43,61Z" fill="#0071bc" stroke="#fff" stroke-miterlimit="10" class="svg-claim-1"></path>
@@ -166,9 +165,8 @@
           <div class="flex-col-md-4">
             <div class="hexagon-3">
               <svg id="Hex-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 622.38 539">
-                <polygon
-                    points="464.69 3.63 157.69 3.63 4.19 269.5 157.69 535.37 464.69 535.37 618.19 269.5 464.69 3.63"
-                    class="svg-hexagon" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" />
+                <polygon class="svg-hexagon" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4"
+                         points="464.69 3.63 157.69 3.63 4.19 269.5 157.69 535.37 464.69 535.37 618.19 269.5 464.69 3.63"/>
               </svg>
               <article>
                 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
@@ -181,51 +179,36 @@
           </div>
         </div>
       </div>
-      <div class="container--full" id="wave"></div>
+      <div class="container--full" id="wave"></div> <!-- *** Waves background *** -->
     </section>
 
-    <section class="homePage--cta" id="login&register">
-      <div class="container">
-        <div class="flex-row">
-          <div class="homePage--cta--card">
-            <div class="flex-row--centered">
-              <div class="flex-col-md-8 card">
-                <div class="flex-row">
-                  <div class="flex-col-md-7">
-                    <svg xmlns="http://www.w3.org/2000/svg" id="multicolor-toDolist-icon" class="card--icon" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
-                      <defs>
-                        <linearGradient id="grad-1" x1="0%" x2="100%" y1="0%" y2="0%">
-                          <stop offset="0%" stop-color="#21b7ff" />
-                          <stop offset="50%" stop-color="#507fff" />
-                          <stop offset="100%" stop-color="#894dfe" />
-                        </linearGradient>
-                      </defs>
-                      <path fill="url(#grad-1)" d="m21.5,0c-1.379,0-2.5,1.121-2.5,2.5v11.55c0,1.068.416,2.073,1.172,2.829l.975.975c.098.098.226.146.354.146s.256-.049.354-.146l.975-.975c.756-.756,1.172-1.761,1.172-2.829V2.5c0-1.379-1.121-2.5-2.5-2.5Zm1.5,14.05c0,.802-.313,1.556-.879,2.122l-.621.621-.621-.621c-.566-.566-.879-1.32-.879-2.122V2.5c0-.827.673-1.5,1.5-1.5s1.5.673,1.5,1.5v11.55ZM3.146,5.21c-.195-.195-.195-.512,0-.707s.512-.195.707,0l1.347,1.346c.098.098.227.151.364.151s.268-.054.365-.151l2.525-2.525c.195-.195.512-.195.707,0s.195.512,0,.707l-2.525,2.525c-.287.287-.667.444-1.072.444h0c-.404,0-.785-.158-1.07-.444l-1.347-1.346Zm3.49,7.346c-.287.287-.667.444-1.072.444h0c-.404,0-.785-.158-1.07-.444l-1.347-1.346c-.195-.195-.195-.512,0-.707s.512-.195.707,0l1.347,1.346c.098.098.227.151.364.151s.268-.054.365-.151l2.525-2.525c.195-.195.512-.195.707,0s.195.512,0,.707l-2.525,2.525Zm11.363,6.444h-1V4c0-2.206-1.794-4-4-4H4C1.794,0,0,1.794,0,4v17c0,1.654,1.346,3,3,3h14c1.654,0,3-1.346,3-3,0-1.103-.897-2-2-2Zm-15,4c-1.103,0-2-.897-2-2V4c0-1.654,1.346-3,3-3h9c1.654,0,3,1.346,3,3v15H7c-1.103,0-2,.897-2,2s-.897,2-2,2Zm14,0H5.234c.476-.531.766-1.232.766-2,0-.552.448-1,1-1h11c.552,0,1,.448,1,1,0,1.103-.897,2-2,2Z" />
-                    </svg>
-                    <h3>You will love its intuitiveness</h3>
-                    <hr class="card--divider">
-                    <p class="card--description">easy-to-use Todo List that allows you to add tasks, set priorities, and colorful categories</p>
-                  </div>
-                  <div class="flex-col-md-5">
-                    <LottieAnimation
-                      ref="anim"
-                      :animation-data="castoroJSON"
-                      :loop="true"
-                      :auto-play="true"
-                      :speed="0.75"
-                      @loopComplete="loopComplete"
-                      @complete="complete"
-                      @enterFrame="enterFrame"
-                      @segmentStart="segmentStart"
-                      @stopped="stopped"/>
-                  </div>
-                </div>
-              </div>
+    <section class="homePage--cta">
+      <aside id="topo"></aside>
 
+      <div class="container">
+        <div class="flex-row--centered">
+          <div class="flex-col-md-8 card"> <!-- *** Card 1 *** -->
+            <div class="flex-row">
+              <div class="flex-col-md-7">
+                <svg xmlns="http://www.w3.org/2000/svg" id="multicolor-toDolist-icon" class="card--icon" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
+                  <defs>
+                    <linearGradient id="grad-1" x1="0%" x2="100%" y1="0%" y2="0%">
+                      <stop offset="0%" stop-color="#21b7ff" />
+                      <stop offset="50%" stop-color="#507fff" />
+                      <stop offset="100%" stop-color="#894dfe" />
+                    </linearGradient>
+                  </defs>
+                  <path fill="url(#grad-1)" d="m21.5,0c-1.379,0-2.5,1.121-2.5,2.5v11.55c0,1.068.416,2.073,1.172,2.829l.975.975c.098.098.226.146.354.146s.256-.049.354-.146l.975-.975c.756-.756,1.172-1.761,1.172-2.829V2.5c0-1.379-1.121-2.5-2.5-2.5Zm1.5,14.05c0,.802-.313,1.556-.879,2.122l-.621.621-.621-.621c-.566-.566-.879-1.32-.879-2.122V2.5c0-.827.673-1.5,1.5-1.5s1.5.673,1.5,1.5v11.55ZM3.146,5.21c-.195-.195-.195-.512,0-.707s.512-.195.707,0l1.347,1.346c.098.098.227.151.364.151s.268-.054.365-.151l2.525-2.525c.195-.195.512-.195.707,0s.195.512,0,.707l-2.525,2.525c-.287.287-.667.444-1.072.444h0c-.404,0-.785-.158-1.07-.444l-1.347-1.346Zm3.49,7.346c-.287.287-.667.444-1.072.444h0c-.404,0-.785-.158-1.07-.444l-1.347-1.346c-.195-.195-.195-.512,0-.707s.512-.195.707,0l1.347,1.346c.098.098.227.151.364.151s.268-.054.365-.151l2.525-2.525c.195-.195.512-.195.707,0s.195.512,0,.707l-2.525,2.525Zm11.363,6.444h-1V4c0-2.206-1.794-4-4-4H4C1.794,0,0,1.794,0,4v17c0,1.654,1.346,3,3,3h14c1.654,0,3-1.346,3-3,0-1.103-.897-2-2-2Zm-15,4c-1.103,0-2-.897-2-2V4c0-1.654,1.346-3,3-3h9c1.654,0,3,1.346,3,3v15H7c-1.103,0-2,.897-2,2s-.897,2-2,2Zm14,0H5.234c.476-.531.766-1.232.766-2,0-.552.448-1,1-1h11c.552,0,1,.448,1,1,0,1.103-.897,2-2,2Z" />
+                </svg>
+                <h3>You will love its intuitiveness</h3>
+                <hr class="card--divider">
+                <p class="card--description">easy-to-use Todo List that allows you to add tasks, set priorities, and colorful categories</p>
+              </div>
+              <div class="flex-col-md-5">
                 <LottieAnimation
                   ref="anim"
-                  :animation-data="WatermelonJSON"
-                  :loop="4"
+                  :animation-data="castoroJSON"
+                  :loop="true"
                   :auto-play="true"
                   :speed="0.75"
                   @loopComplete="loopComplete"
@@ -233,9 +216,50 @@
                   @enterFrame="enterFrame"
                   @segmentStart="segmentStart"
                   @stopped="stopped"/>
+              </div>
             </div>
           </div>
-          
+
+          <div class="flex-col-md-8 card"> <!-- *** Card 2 *** -->
+            <div class="flex-row">
+              <div class="flex-col-md-5">
+                <LottieAnimation
+                  ref="anim"
+                  :animation-data="WatermelonJSON"
+                  :loop="true"
+                  :auto-play="true"
+                  :speed="0.75"
+                  @loopComplete="loopComplete"
+                  @complete="complete"
+                  @enterFrame="enterFrame"
+                  @segmentStart="segmentStart"
+                  @stopped="stopped"/>
+              </div>
+              <div class="flex-col-md-7">
+                <svg xmlns="http://www.w3.org/2000/svg" id="multicolor-toDolist-icon" class="card--icon" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
+                  <defs>
+                    <linearGradient id="grad-1" x1="0%" x2="100%" y1="0%" y2="0%">
+                      <stop offset="0%" stop-color="#21b7ff" />
+                      <stop offset="50%" stop-color="#507fff" />
+                      <stop offset="100%" stop-color="#894dfe" />
+                    </linearGradient>
+                  </defs>
+                  <path fill="url(#grad-1)" d="m21.5,0c-1.379,0-2.5,1.121-2.5,2.5v11.55c0,1.068.416,2.073,1.172,2.829l.975.975c.098.098.226.146.354.146s.256-.049.354-.146l.975-.975c.756-.756,1.172-1.761,1.172-2.829V2.5c0-1.379-1.121-2.5-2.5-2.5Zm1.5,14.05c0,.802-.313,1.556-.879,2.122l-.621.621-.621-.621c-.566-.566-.879-1.32-.879-2.122V2.5c0-.827.673-1.5,1.5-1.5s1.5.673,1.5,1.5v11.55ZM3.146,5.21c-.195-.195-.195-.512,0-.707s.512-.195.707,0l1.347,1.346c.098.098.227.151.364.151s.268-.054.365-.151l2.525-2.525c.195-.195.512-.195.707,0s.195.512,0,.707l-2.525,2.525c-.287.287-.667.444-1.072.444h0c-.404,0-.785-.158-1.07-.444l-1.347-1.346Zm3.49,7.346c-.287.287-.667.444-1.072.444h0c-.404,0-.785-.158-1.07-.444l-1.347-1.346c-.195-.195-.195-.512,0-.707s.512-.195.707,0l1.347,1.346c.098.098.227.151.364.151s.268-.054.365-.151l2.525-2.525c.195-.195.512-.195.707,0s.195.512,0,.707l-2.525,2.525Zm11.363,6.444h-1V4c0-2.206-1.794-4-4-4H4C1.794,0,0,1.794,0,4v17c0,1.654,1.346,3,3,3h14c1.654,0,3-1.346,3-3,0-1.103-.897-2-2-2Zm-15,4c-1.103,0-2-.897-2-2V4c0-1.654,1.346-3,3-3h9c1.654,0,3,1.346,3,3v15H7c-1.103,0-2,.897-2,2s-.897,2-2,2Zm14,0H5.234c.476-.531.766-1.232.766-2,0-.552.448-1,1-1h11c.552,0,1,.448,1,1,0,1.103-.897,2-2,2Z" />
+                </svg>
+                <h3>You will love its intuitiveness</h3>
+                <hr class="card--divider">
+                <p class="card--description">easy-to-use Todo List that allows you to add tasks, set priorities, and colorful categories</p>
+              </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </section>
+
+    <aside id="castoro">
+    <section class="x6-Padding-top" id="login&register">
+      <div class="container">
+        <div class="flex-row">
           <div class="homePage--cta--authentication">
             <div class="flex-row">
               <div class="flex-col-md-4 x0-Padding">
@@ -260,6 +284,7 @@
 
     </section>
     <AppFooter></AppFooter>
+  </aside>
   </div>
   <div v-else class="todoListApp">
     <CategoriesArea 

@@ -189,7 +189,7 @@ img {
               padding-#{$dir}: $standardMargin * $i !important
           }
           .x#{$i}-Margin-#{$dir} {
-            padding-#{$dir}: $standardMargin * $i !important
+            margin-#{$dir}: $standardMargin * $i !important
         }
       }
   }
