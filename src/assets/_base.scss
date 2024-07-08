@@ -53,25 +53,22 @@ h1 {
   line-height: lineHeight();
 }
 h2 {
-  @include RobotoSlab(400);
+  @include Quicksand();
 
   @include responsiveProperty($h2, font-size);
   line-height: lineHeight();
 }
 h3 {
-  font-family: $robotoSlab;
-  font-size: 1.5rem;
-  font-weight: 500;
+  @include Quicksand();
 
+  @include responsiveProperty($h3, font-size);
   line-height: lineHeight();
 }
 h4 {
-  font-family: $atkinson;
-  font-size: 1.5rem;
-  font-weight: 600;
+  @include Quicksand();
 
+  @include responsiveProperty($h4, font-size);
   line-height: lineHeight();
-
 }
 h5 {
   line-height: lineHeight();

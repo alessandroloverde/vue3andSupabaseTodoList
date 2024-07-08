@@ -7,18 +7,14 @@ $polygonHeight: 20vw;
   height: 100%;
   background-color: $homePageBkg;
 
-  h1 { 
-    color: $ctaColor;
-    text-align: center; 
-  }
-  p { font-size: 1.25rem }
+  h1 { text-align: center }
+  h1, h2, h3, h4 { color: $ctaColor }
   h3 {
     @include Quicksand;
 
-    color: $ctaColor;
-    font-size: 2rem;
     margin-bottom: $standardMargin;
   }
+  p { font-size: 1.25rem }
 
   &--intro {
     width: 100%;
@@ -83,7 +79,6 @@ $polygonHeight: 20vw;
   }
 
 
-  &--temp { height: 100% }
   #topo {
     width: 100%;
     height: 20vw;
@@ -92,7 +87,7 @@ $polygonHeight: 20vw;
       map-get($presentationColors, azure) 0%, 
       map-get($presentationColors, blue) 50%, 
       map-get($presentationColors, violet) 100%);
-    clip-path: polygon(0 0, 50% calc(100% - ($polygonHeight/4)), 100% 0, 100% calc(100% - $polygonHeight), 50% 100%, 0% calc(100% - $polygonHeight));
+    clip-path: polygon(0 0, 50% calc(100% - ($polygonHeight/10)), 100% 0, 100% calc(100% - $polygonHeight), 50% 100%, 0% calc(100% - $polygonHeight));
     position: absolute;
     bottom: 0;
   }
@@ -118,20 +113,7 @@ $polygonHeight: 20vw;
 
     }
     &--authentication {
-      width: 100%;
-      display: flex;
-      background-color: #2c2638;
-      border-radius: calc($border-radius * 2);
-      border: 1px solid $ctaColor;
-
       h1, h2 { margin-bottom: calc($standardMargin * 2) }
-
-      #toBeDefined {
-        border-top-left-radius: calc($border-radius * 2);
-        border-bottom-left-radius: calc($border-radius * 2);
-        background-image: url("../assets/images/3587568.jpg");
-        background-size: cover;
-      }
 
       .login,
       .register {
@@ -158,6 +140,7 @@ $polygonHeight: 20vw;
           }
           fieldset { 
             & + fieldset { margin-top: $standardMargin }
+            & + button.btn--cta { margin-top: calc($standardMargin * 3) }
             & > label {
               display: flex;
               align-items: center;
@@ -283,15 +266,9 @@ $polygonHeight: 20vw;
   } 
 }
 
-.hexagon-1 { 
-  transform: translate(25%, 0);
-}
-.hexagon-2 { 
-  transform: translate(0, 50%);
-}
-.hexagon-3 { 
-  transform: translate(-25%, 0%);
-}
+.hexagon-1 { transform: translate(25%, 0) }
+.hexagon-2 { transform: translate(0, 50%) }
+.hexagon-3 { transform: translate(-25%, 0%) }
 
 #wave {
   height: 420px;
@@ -345,6 +322,37 @@ $polygonHeight: 20vw;
 }
 
 #castoro {
-  background-color: brown;
+  background-image: url("../assets/images/starBkg.jpg");
+  background-repeat: no-repeat;
+  background-position-y: bottom;
+  background-size: cover;
   margin-top: -($polygonHeight);
+}
+#loginAndRegister { padding-top: $polygonHeight }
+
+#Login, 
+#Register, 
+#toBeDefined {
+  border-radius: 18px;
+  border: 2px solid;
+  padding: calc($standardMargin * 4);
+
+  fieldset > label > .icon {
+    &-envelope { color: map-get($presentationColors, azure) }
+    &-bookmark { color: map-get($presentationColors, violet) }
+    &-user { color: map-get($presentationColors, blue) }
+  }
+}
+#Login, #Register { transform: translateY(-20%) }
+#Login {
+  border-color: map-get($presentationColors, azure);
+  background: rgba(map-get($presentationColors, azure), 0.25);
+}
+#Register {
+  border-color: map-get($presentationColors, blue);
+  background: rgba(map-get($presentationColors, blue), 0.25);
+}
+#toBeDefined {
+  border-color: map-get($presentationColors, violet);
+  background: rgba(map-get($presentationColors, violet), 0.25);
 }

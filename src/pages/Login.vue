@@ -27,7 +27,7 @@ const handleLogin = async () => {
 
 <template>
   <div id="Login" class="h100-md">
-    <h1>Login</h1>
+    <h2>Login</h2>
     <div class="flex-row">
 <!--       <section class="login--illustration flex-col-lg-4 noPadding">
         <img src="../assets/images/Login-bkg.jpg" class="fitImg" alt="Illustration">

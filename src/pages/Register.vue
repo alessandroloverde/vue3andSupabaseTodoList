@@ -35,7 +35,7 @@ import { AuthError } from "@supabase/supabase-js";
 
 <template>
   <div id="Register" class="h100-md">
-    <h1>Register</h1>
+    <h2>Register</h2>
     <div class="flex-row">
       <section class="register--formContent flex-col-lg-12 noPadding">
         <form @submit.prevent="handleSubmit">
