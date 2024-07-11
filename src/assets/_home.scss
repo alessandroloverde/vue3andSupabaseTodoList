@@ -32,6 +32,7 @@ $polygonHeight: 20vw;
     & > .container { height: 100% }
     &--logo {
       width: 80%;
+      height: auto;
       margin: 5vh auto;
 
       @each $breakpoint, $value in $logoSizes {
@@ -47,8 +48,11 @@ $polygonHeight: 20vw;
     }
     &--claim  {
       width: 70% !important;
+      height: auto;
       display: flex;
-      margin: auto;
+      margin: $standardMargin auto;
+
+      @media screen and (max-width: map-get($breakpoints, sm)) { width: 100% !important }
     }
     &--jumpTo {
       width: 100%;
@@ -234,10 +238,12 @@ $polygonHeight: 20vw;
 	100% { transform: translatey(0) }
 }
 
-[class*="hexagon-"] {
+[class^="hexagon-"] {
   position: relative;
   background-color: $homePageBkg;
   clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 99%, 25% 99%, 0% 50%);
+
+  @media screen and (max-width: map-get($breakpoints, md)) { transform: none !important }
 
   article {
     position: absolute;
@@ -246,6 +252,10 @@ $polygonHeight: 20vw;
     top: 10%; left: 25%; right: 25%; bottom: 10%;
     text-align: center;
 
+    h3 { 
+      margin-left: -15%;
+      margin-right: -15%;
+    }
     p { hyphens: none }
   }
 }
@@ -258,14 +268,12 @@ $polygonHeight: 20vw;
   }
 
   .hexagon-#{$i} article > svg {
-    min-height: 6.5rem;
-    max-height: 6.5rem;
+    //max-height: 6.5rem;
     max-width: 100%;
     margin-bottom: $standardMargin * 2;
     fill: nth($transformedColorMap, $i);
   } 
 }
-
 .hexagon-1 { transform: translate(25%, 0) }
 .hexagon-2 { transform: translate(0, 50%) }
 .hexagon-3 { transform: translate(-25%, 0%) }
@@ -298,6 +306,7 @@ $polygonHeight: 20vw;
     height: 6em;
     margin-bottom: calc($standardMargin * 2); 
   }
+  &--headline { hyphens: none }
   &--divider {
     border: none;
     height: 0.25em;
@@ -310,6 +319,7 @@ $polygonHeight: 20vw;
     margin: calc($standardMargin * 2) 0;
   }
   &--description { font-size: 1.5rem !important }
+  &--image { display: flex }
 
   & + & { 
     background-image: linear-gradient(-90deg, rgba(map-get($presentationColors, azure), 0.6) 0%, transparent 100% );
