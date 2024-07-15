@@ -229,33 +229,36 @@ img {
     flex-wrap: wrap;
     flex-direction: column;
   }
-  //outline: 3px solid red;   // ** debug
 
-/* 
-  position: relative;
+  .debug & {
+    outline: 3px solid red;
+    position: relative;
 
-  &::before {
-    content: 'XS';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: red;
-    padding: 10px;
-    font-weight: bold;
-  } */
+    &::before {
+      content: 'standard';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: red;
+      padding: 10px;
+      font-weight: bold;
+    }
+  }
 
   @include responsiveProperty($breakpoints, max-width) using ($breakpoint, $value, $index) {  
-    $hue: 0; // ** debug
-  
     flex-direction: row;
-    //z-index: $index; // ** debug
-/*     outline: 3px solid oklch(70% .2 ($hue + (50 * $index)));  
 
-    &::before { 
-      content: "#{$breakpoint}";
-      background-color: oklch(70% .2 ($hue + (50 * $index)));
-    } */
+    .debug & {
+      $hue: 0;
+
+      outline: 3px solid oklch(70% .2 ($hue + (50 * $index)));
+
+      &::before { 
+        content: "#{$breakpoint}";
+        background-color: oklch(70% .2 ($hue + (50 * $index)));
+      }
+    }
   }
   
 }

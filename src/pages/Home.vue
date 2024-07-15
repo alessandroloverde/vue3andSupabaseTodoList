@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isLoggedIn()" class="homePage">
+  <div v-if="!isLoggedIn()" class="homePage debug">
     <section class="homePage--intro">
       <div class="homePage--intro--logo wrapper">
         <!-- *** Logo *** -->
