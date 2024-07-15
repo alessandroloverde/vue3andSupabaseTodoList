@@ -27,7 +27,10 @@
         & > button[class*=icon-] { color: color.scale($name, $lightness: -25%, $saturation: -25%) }
       }
       .taskList--title {
-        & > h4 { text-shadow: 0 1px color-mix(in srgb, black 70%, #{$name}) }
+        & > h4 { 
+          text-shadow: 0 1px color-mix(in srgb, black 70%, #{$name});
+          font-size: 1.5rem; 
+        }
       }
       .taskList--category {
         div[class*=icon-] { 

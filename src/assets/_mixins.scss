@@ -19,10 +19,19 @@ $mainBkgSizes: (
 );
 
 $breakpoints: (
+    default: 375px,
     sm: 640px,
     md: 980px,
     lg: 1280px,
     xl: 1440px,
+);
+
+$cardMulticoloriconSizes: (
+  default: 60px,
+  sm: 60px,
+  md: 70px,
+  lg: 86px,
+  xl: 100px,
 );
 
 $footerMenuMargins: (
