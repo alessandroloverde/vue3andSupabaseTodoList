@@ -19,8 +19,8 @@ $mainBkgSizes: (
 );
 
 $breakpoints: (
-    default: 375px,
-    sm: 640px,
+   // default: 375px,
+    sm: 480px,
     md: 980px,
     lg: 1280px,
     xl: 1440px,
@@ -48,7 +48,8 @@ $font-sizes: (
   xl: 16px,
 );
 $h1: (
-  default: 3rem,
+  default: 2.75rem,
+  sm: 3rem,
   md: 3.25rem,
   lg: 3.815rem,
   xl: 3.815rem,
@@ -128,6 +129,19 @@ $h6: (
     @if $unit {
       @media (min-width: $value) {
         #{$property}: $unit;
+
+        .debug &:before {
+          content: string.quote(#{$unit});
+          font-size: clamp(14px, 50%, 20px);
+          padding: 3px;
+          margin-right: 10px;
+          background-color: #776c6c;
+          color: white;
+          display: inline-block;
+          white-space: nowrap;
+          position: absolute;
+          outline: 1px solid lime;
+        }
 
         @content ($breakpoint, $value, $index);
       }
