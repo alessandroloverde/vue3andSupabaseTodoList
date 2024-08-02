@@ -1,0 +1,54 @@
+@use "sass:map";
+@use "sass:list";
+@use "sass:string";
+
+/** 
+* * Sets a CSS property throughout the media queries, based on a map with breakpoints as keys. With Debug fxn.
+*/
+@mixin responsiveProperty($map, $property) {
+   $unit: map-get($map, 'default');
+
+   #{$property}: $unit;
+
+   $keys: map-keys($map);
+
+   @each $breakpoint, $value in $breakpoints {
+      $unit: map-get($map, $breakpoint);
+      $index: index($keys, $breakpoint);
+
+      @if $unit {
+         @media (min-width: $value) {
+            #{$property}: $unit;
+
+            .debug &:before {
+               content: string.quote(#{$unit});
+               font-size: clamp(14px, 50%, 20px);
+               padding: 3px;
+               margin-right: 10px;
+               background-color: #776c6c;
+               color: white;
+               display: inline-block;
+               white-space: nowrap;
+               position: absolute;
+               outline: 1px solid lime;
+            }
+
+            @content ($breakpoint, $value, $index);
+         }
+      }
+   }
+}
+
+
+
+/** 
+* * Returns a line-height based on the headline index. 
+*/
+@function lineHeight() {
+   $selector: #{&};
+   $headlineIndex: string.slice($selector, 2, 2);
+
+   @return calc(1 + (0.05 * #{$headlineIndex}));
+}
+
+

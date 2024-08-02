@@ -1,0 +1,140 @@
+@use "sass:map";
+
+/** ––– Color palette ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+$deepDarkBlue: #04081a;
+$coral: #ff6262;
+$whitesmoke: #cacaca;
+$lightGold: #f2d6be;
+$presentationColors: (
+    azure: #21b7ff,
+    violet: #894dfe, 
+    blue: #507fff
+);
+$mediumGrey: #6d6d6d;
+/* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+
+/** ––– Color ??????? ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+$website-Bkg: $deepDarkBlue;
+$website-plainText: $whitesmoke;
+$website-accentedText: $lightGold;
+/* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+
+/** ––– Structure ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+$website-margin: 1rem;
+$website-borderRadius: calc(1rem/2);
+
+$website-fontSize: 16px;
+/* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+
+/** ––– Maps –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+$breakpoints: (
+    default: 480px,
+    tablet: 768px,
+    desktop: 1280px,
+    wide: 1440px
+);
+
+$h1: (
+    default: 2.75rem,
+    tablet: 3rem,
+    desktop: 3.25rem,
+    wide: 3.815rem,
+);
+$h2: (
+    default: 2.25rem,
+    tablet: 2.5rem,
+    desktop: 3.052rem,
+    wide: 3.052rem,
+);
+$h3: (
+    default: 1.75rem,
+    tablet: 2rem,
+    desktop: 2.441rem,
+    wide: 2.441rem,
+);
+$h4: (
+    default: 1.25rem,
+    tablet: 1.5rem,
+    desktop: 1.953rem,
+    wide: 1.953rem,
+);
+$h5: (
+    default: 1.25rem,
+    tablet: 1.25rem,
+    desktop: 1.563rem,
+    wide: 1.563rem,
+);
+$h6: (
+    default: 1.15rem,
+    tablet: 1.25rem,
+    desktop: 1.25rem,
+    wide: 1.25rem,
+);
+
+$mainBkgSize: (
+    default: cover,
+    tablet: cover,
+    desktop: contain,
+    wide: contain,
+);
+
+$containerMaxWidth: (
+    default: 100%,
+    tablet: 100%,
+    desktop: 1280px,
+    wide: 1440px
+);
+/* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+
+
+
+
+
+$hue: 100; // *** debug ***
+
+/** 
+* * User can add any custom colors into the $colors variable. 
+* * The color must be in SCSS map format, with a key as left-assigment and a correspondent HTML color name as right-assigment.
+*/
+$colors: (
+    DesignRed: rgb(197, 84, 104),
+    DesignGreen: rgb(132, 152, 149),
+    DesignViolet: rgb(137, 117, 170),
+    DesignBlue: rgb(98, 134, 168),
+    Chartreuse: rgb(120, 209, 32),
+    Crimson: rgb(220, 20, 60),
+    Kakhi: rgb(199, 186, 69),
+    PaleVioletRed: rgb(219, 112, 147),
+    SlateBlue: rgb(106, 90, 205),
+    YellowGreen: rgb(154, 205, 50),
+    MediumAquamarine: rgb(102, 205, 170),
+    MetallicSilver: rgb(188, 198, 204),
+    Coral: rgb(255, 127, 80),
+    Thistle: rgb(216, 191, 216),
+    DarkSeaGreen: rgb(143, 188, 139),
+);
+$iconsSelected: (
+    icon-times-circle: "\f057",
+    icon-check-circle: "\f058",
+    icon-question-circle: "\f059",
+    icon-info-circle: "\f05a",
+    icon-envelope-o: "\f003",
+    icon-heart: "\f004",
+    icon-star: "\f005",
+    icon-star-o: "\f006",
+    icon-bubbles: "\e96c",
+    icon-binoculars: "\e985",
+    icon-bug: "\e999",
+    icon-tongue: "\e9e3",
+    icon-sad: "\e9e5",
+    icon-grin: "\e9e9",
+);
+
+
+$icomoon-font-family: "icomoon" !default;
+$icomoon-font-path: "fonts" !default;
+
