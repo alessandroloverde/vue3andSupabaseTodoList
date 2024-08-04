@@ -192,7 +192,7 @@ template { display: none }
 
 
 /** ––– Structure ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
-.wrapper {
+.WTK-wrapper {
     width: 100%;
     padding-left: $website-margin;
     padding-right: $website-margin;
@@ -204,7 +204,7 @@ template { display: none }
         max-width: none;
     }
     &--medium {
-        @extend .wrapper;
+        @extend .WTK-wrapper;
         @include responsiveProperty($containerMaxWidth, max-width) using ($breakpoint, $value, $index) {  
             flex-direction: row;
         
@@ -215,12 +215,46 @@ template { display: none }
         
               &::before { 
                 content: "#{$breakpoint} – #{$index}";
-                background-color: red;
                 background-color: oklch(70% .2 ($hue + (50 * $index)));
               }
             }
           }
     }
 }
+.WTK-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc($website-margin/2 * -1);
+    margin-right: calc($website-margin/2 * -1);
+
+    &--jCenter {
+        @extend .WTK-row;
+        justify-content: center; 
+    }
+    &--jBetween { justify-content: space-between }
+    &--jEnd { justify-content: flex-end }
+    &--jAround { justify-content: space-around }
+
+    &--aCenter { align-items: center }
+    &--aEnd { align-items: flex-end }
+    &--aStart { align-items: flex-start }
+    &--aStretch { align-items: stretch }
+}
+.WTK-col {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    flex-basis: 100%;
+    flex-grow: 1;
+    max-width: 100%;
+}
+[class*="WTK-col"] {
+   // outline: 1px solid magenta
+}
+
+@include generateColumnClasses($breakpoints);
+
+@include generate-offsets($breakpoints);
+
+
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 

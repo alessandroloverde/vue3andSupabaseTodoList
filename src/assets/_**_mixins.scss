@@ -3,6 +3,17 @@
 @use "sass:string";
 
 /** 
+* * Returns a line-height based on the headline index. 
+*/
+@function lineHeight() {
+   $selector: #{&};
+   $headlineIndex: string.slice($selector, 2, 2);
+
+   @return calc(1 + (0.05 * #{$headlineIndex}));
+}
+
+
+/** 
 * * Sets a CSS property throughout the media queries, based on a map with breakpoints as keys. With Debug fxn.
 */
 @mixin responsiveProperty($map, $property) {
@@ -25,7 +36,7 @@
                font-size: clamp(14px, 50%, 20px);
                padding: 3px;
                margin-right: 10px;
-               background-color: #776c6c;
+               background-color: oklch(70% .2 ($hue + (50 * $index)));
                color: white;
                display: inline-block;
                white-space: nowrap;
@@ -40,15 +51,78 @@
 }
 
 
-
 /** 
-* * Returns a line-height based on the headline index. 
+* * Responsive columns generator.
 */
-@function lineHeight() {
-   $selector: #{&};
-   $headlineIndex: string.slice($selector, 2, 2);
+@mixin generateColumnClasses($breakpoints) {
+   @for $i from 1 through 12 {
+     .WTK-col-#{$i} {
+       flex: 0 0 calc(100% / 12 * #{$i});
+       max-width: calc(100% / 12 * #{$i});
 
-   @return calc(1 + (0.05 * #{$headlineIndex}));
-}
+       .debug &:before {
+        content: string.quote('col-' + #{$i});
+        font-size: clamp(14px, 50%, 20px);
+        padding: 3px;
+        margin-right: 10px;
+        background-color: oklch(70% .2 ($hue + (50 * $i)));
+        color: white;
+        display: inline-block;
+        white-space: nowrap;
+        position: absolute;
+        outline: 1px solid lime;
+    }
+     }
+   }
+ 
+   @each $breakpoint, $value in $breakpoints {
+     @for $i from 1 through 12 {
+       .WTK-col-#{$breakpoint}-#{$i} {
+         @media (min-width: $value) {
+           flex: 0 0 calc(100% / 12 * #{$i});
+           max-width: calc(100% / 12 * #{$i});
+
+          .debug &:before {
+              content: string.quote('res-col-' + #{$breakpoint} + '-' + #{$i});
+              font-size: clamp(14px, 50%, 20px);
+              padding: 3px;
+              margin-right: 10px;
+              background-color: oklch(70% .2 ($hue + (50 * $i)));
+              color: white;
+              display: inline-block;
+              white-space: nowrap;
+              position: absolute;
+              outline: 1px solid lime;
+          }
+         }
+       }
+     }
+   }
+ }
+@include generateColumnClasses($breakpoints);
+
+
+@mixin generate-offsets($breakpoints) {
+   @each $breakpoint, $value in $breakpoints {
+     @for $i from 1 through 12 {
+       .WTK-offset-#{$i} {
+         margin-left: calc(100% / 12 * #{$i});
+ 
+         @media (min-width: $value) {
+           .WTK-offset-#{$breakpoint}-#{$i} {
+             margin-left: calc(100% / 12 * #{$i});
+           }
+         }
+       }
+     }
+   }
+ }
+ 
+ 
+ 
+ 
+
+
+
 
 

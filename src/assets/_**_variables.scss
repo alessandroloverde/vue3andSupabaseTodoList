@@ -33,6 +33,7 @@ $website-fontSize: 16px;
 $breakpoints: (
     default: 480px,
     tablet: 768px,
+    laptop: 1024px,
     desktop: 1280px,
     wide: 1440px
 );
@@ -84,6 +85,7 @@ $mainBkgSize: (
 $containerMaxWidth: (
     default: 100%,
     tablet: 100%,
+    laptop: 100%,
     desktop: 1280px,
     wide: 1440px
 );
