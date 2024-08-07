@@ -18,6 +18,7 @@ $mediumGrey: #6d6d6d;
 $website-Bkg: $deepDarkBlue;
 $website-plainText: $whitesmoke;
 $website-accentedText: $lightGold;
+$website-mainHeadings: $coral;
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 
@@ -32,45 +33,51 @@ $website-fontSize: 16px;
 /** ––– Maps –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 $breakpoints: (
     default: 480px,
-    tablet: 768px,
-    laptop: 1024px,
+    tablet: 720px,
+    laptop: 860px,
     desktop: 1280px,
     wide: 1440px
 );
 
 $h1: (
-    default: 2.75rem,
-    tablet: 3rem,
+    default: 2.5rem,
+    tablet: 2.75rem,
+    laptop: 3rem,
     desktop: 3.25rem,
     wide: 3.815rem,
 );
 $h2: (
-    default: 2.25rem,
-    tablet: 2.5rem,
+    default: 2rem,
+    tablet: 2.25rem,
+    laptop: 2.5rem,
     desktop: 3.052rem,
     wide: 3.052rem,
 );
 $h3: (
-    default: 1.75rem,
-    tablet: 2rem,
+    default: 1.5rem,
+    tablet: 1.75rem,
+    laptop: 2rem,
     desktop: 2.441rem,
     wide: 2.441rem,
 );
 $h4: (
-    default: 1.25rem,
-    tablet: 1.5rem,
+    default: 1rem,
+    tablet: 1.25rem,
+    laptop: 1.5rem,
     desktop: 1.953rem,
     wide: 1.953rem,
 );
 $h5: (
-    default: 1.25rem,
+    default: 1rem,
     tablet: 1.25rem,
+    laptop: 1.25rem,
     desktop: 1.563rem,
     wide: 1.563rem,
 );
 $h6: (
-    default: 1.15rem,
-    tablet: 1.25rem,
+    default: 1rem,
+    tablet: 1.15rem,
+    laptop: 1.25rem,
     desktop: 1.25rem,
     wide: 1.25rem,
 );
@@ -88,6 +95,14 @@ $containerMaxWidth: (
     laptop: 100%,
     desktop: 1280px,
     wide: 1440px
+);
+
+$cardMulticoloriconSizes: (
+  default: 60px,
+  tablet: 60px,
+  laptop: 70px,
+  desktop: 86px,
+  wide: 100px,
 );
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 

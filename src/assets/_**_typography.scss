@@ -5,71 +5,84 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
 @mixin Quicksand($weight: 500) {
-    font-family: "Quicksand", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: $weight;
-    font-style: normal;
-    letter-spacing: 0.25px;
+   font-family: "Quicksand", sans-serif;
+   font-optical-sizing: auto;
+   font-weight: $weight;
+   font-style: normal;
+   letter-spacing: 0.25px;
 }
 
 @mixin RobotoSlab($weight: 500) {
-    font-family: "Roboto Slab", serif;;
-    font-optical-sizing: auto;
-    font-weight: $weight;
-    font-style: normal;
+   font-family: "Roboto Slab", serif;
+   font-optical-sizing: auto;
+   font-weight: $weight;
+   font-style: normal;
 
-    @if ($weight <= 500) {
-        letter-spacing: normal;
-    } @else {
-        letter-spacing: 0.5px;
-    }
+   @if ($weight <500) {
+      letter-spacing: normal;
+   }
+   @else {
+      letter-spacing: 0.5px;
+   }
 }
 
 
 h1 {
-    @include Quicksand();
-    @include responsiveProperty($h1, font-size);
+   @include RobotoSlab();
+   @include responsiveProperty($h1, font-size);
 
-    line-height: lineHeight();
-  }
-  h2 {
-    @include Quicksand();
-    @include responsiveProperty($h2, font-size);
+   line-height: lineHeight();
+}
 
-    line-height: lineHeight();
-  }
-  h3 {
-    @include Quicksand();
-    @include responsiveProperty($h3, font-size);
+h2 {
+   @include Quicksand();
+   @include responsiveProperty($h2, font-size);
 
-    line-height: lineHeight();
-  }
-  h4 {
-    @include RobotoSlab(500);
-    @include responsiveProperty($h4, font-size);
+   line-height: lineHeight();
+}
 
-    line-height: lineHeight();
-  }
-  h5 {
-    @include responsiveProperty($h5, font-size);
+h3 {
+   @include Quicksand();
+   @include responsiveProperty($h3, font-size);
 
-    line-height: lineHeight();
-  
-  }
-  h6 {
-    @include responsiveProperty($h6, font-size);
+   line-height: lineHeight();
+}
 
-    line-height: lineHeight();
-  }
-  
-  h1, h2, h3, h4, h5, h6 { margin: 0 }
-  
-  p {
-    @include Quicksand();
-  
-    font-size: 1rem;
-    margin: 0;
-  
-    & + p { margin-top: $website-margin }
-  }
+h4 {
+   @include RobotoSlab(500);
+   @include responsiveProperty($h4, font-size);
+
+   line-height: lineHeight();
+}
+
+h5 {
+   @include responsiveProperty($h5, font-size);
+
+   line-height: lineHeight();
+
+}
+
+h6 {
+   @include responsiveProperty($h6, font-size);
+
+   line-height: lineHeight();
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 { margin: 0 }
+
+p {
+   @include Quicksand();
+
+   font-size: 1.25rem;
+   line-height: 1.25;
+   margin: 0;
+
+   & + p { margin-top: $website-margin }
+}
+
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */

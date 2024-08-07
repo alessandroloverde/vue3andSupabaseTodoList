@@ -1,12 +1,17 @@
 <template>
-   <div v-if="!isLoggedIn()" class="homePage debug">
+   <div v-if="!isLoggedIn()" class="homePage">
       <div class="WTK-wrapper--medium introBkg">
          <div class="WTK-row--jCenter">
             <section class="homePage--intro WTK-col-10 WTK-col-laptop-8 WTK-col-desktop-6">
-               <div class="homePage--intro--logo WTK-row--jCenter">
-                  <svg version="1.1" id="WondertaskLogo" xmlns="http://www.w3.org/2000/svg"
-                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 797.5 149.6"
-                     style="enable-background:new 0 0 797.5 149.6;" xml:space="preserve" width="100%" height="auto">
+               <div class="homePage--intro--heading WTK-row--jCenter">
+                  <svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                       id="WondertaskLogo"
+                       class="homePage--intro--heading--logo"
+                       x="0px" y="0px" viewBox="0 0 797.5 149.6"
+                       style="enable-background:new 0 0 797.5 149.6;" 
+                       xml:space="preserve" 
+                       width="100%" height="auto"
+                     >
                      <g id="NAME">
                         <g class="st0">
                            <path fill="rgb(255, 255, 255);" stroke="rgb(255, 255, 255);" d="M158.4,110.3l0.1-0.1c-0.5,1.7-1.5,2.8-3,3.3c-1.5,0.5-3,0.8-4.4,0.8c-1.4,0-2.9-0.3-4.4-0.8
@@ -89,8 +94,11 @@
             L64.2,99.2z" class="svg-elem-14"></path>
                      </g>
                   </svg>
-                  <svg version="1.1" id="Claim" class="homePage--intro--claim" xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 598 146" width="598" height="146">
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                       id="Claim" 
+                       class="homePage--intro--heading--claim" 
+                       viewBox="0 0 598 146" 
+                     >
                      <g id="Glaim-group">
                         <path id="C-1-2" data-name="C-1"
                            d="M30.43,61a24.5,24.5,0,0,1-12.57-3.07,20.49,20.49,0,0,1-8.1-8.64A28.52,28.52,0,0,1,6.93,36.17V34.7A28.6,28.6,0,0,1,9.69,21.88a21.14,21.14,0,0,1,7.91-8.8A22.77,22.77,0,0,1,29.88,9.87a29.18,29.18,0,0,1,9.35,1.45,23,23,0,0,1,7.64,4.25V27.3h-7l-1-7.61a13.18,13.18,0,0,0-2.47-1.4,14.51,14.51,0,0,0-2.93-.88,17.64,17.64,0,0,0-3.43-.31,12.69,12.69,0,0,0-7.47,2.17,13.65,13.65,0,0,0-4.76,6.08,23.86,23.86,0,0,0-1.65,9.28v1.54A23.2,23.2,0,0,0,18,45.55a13.67,13.67,0,0,0,5,6.08,13.55,13.55,0,0,0,7.69,2.14,19.86,19.86,0,0,0,4.4-.5A18.87,18.87,0,0,0,38.89,52l1-7H46.8V56.6a26.67,26.67,0,0,1-7.09,3.12A32.81,32.81,0,0,1,30.43,61Z"
@@ -186,71 +194,88 @@
                      </g>
                   </svg>
                </div>
-
                <div class="homePage--intro--jumpTo WTK-col-12">
                   <a href="#tempNewPage">
-                     <button class="iconOnly btn--icn--icon-chevron-circle-down" role="button"
-                        aria-label="Next Page"></button>
+                     <button class="iconOnly btn--icn--icon-chevron-circle-down" role="button" aria-label="Next Page"></button>
                   </a>
                </div>
             </section>            
          </div>
-
       </div>
 
       <section id="tempNewPage" class="homePage--temp">
-         <div class="container">
-            <div class="flex-row--centered">
-               <h1 class="flex-col-md-12">Why Wondertask?</h1>
-               <div class="flex-col-md-4">
+         <div class="WTK-wrapper--medium">
+            <div class="WTK-row--jCenter">
+               <h1 class="WTK-col-12">Why Wondertask?</h1>
+               <div class="WTK-col-12 WTK-col-laptop-4">
                   <div class="hexagon-1">
                      <svg id="Hex-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 622.38 539">
                         <polygon
                            points="464.69 3.63 157.69 3.63 4.19 269.5 157.69 535.37 464.69 535.37 618.19 269.5 464.69 3.63"
-                           class="svg-hexagon" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" />
+                           class="svg-hexagon" 
+                           fill="none" 
+                           stroke="#fff"
+                           stroke-miterlimit="10" 
+                           stroke-width="4" />
                      </svg>
                      <article>
-                        <svg xmlns="http://www.w3.org/2000/svg" id="toDolist-icon" data-name="Layer 1"
-                           viewBox="0 0 24 24" width="512" height="512">
-                           <path
-                              d="m21.5,0c-1.379,0-2.5,1.121-2.5,2.5v11.55c0,1.068.416,2.073,1.172,2.829l.975.975c.098.098.226.146.354.146s.256-.049.354-.146l.975-.975c.756-.756,1.172-1.761,1.172-2.829V2.5c0-1.379-1.121-2.5-2.5-2.5Zm1.5,14.05c0,.802-.313,1.556-.879,2.122l-.621.621-.621-.621c-.566-.566-.879-1.32-.879-2.122V2.5c0-.827.673-1.5,1.5-1.5s1.5.673,1.5,1.5v11.55ZM3.146,5.21c-.195-.195-.195-.512,0-.707s.512-.195.707,0l1.347,1.346c.098.098.227.151.364.151s.268-.054.365-.151l2.525-2.525c.195-.195.512-.195.707,0s.195.512,0,.707l-2.525,2.525c-.287.287-.667.444-1.072.444h0c-.404,0-.785-.158-1.07-.444l-1.347-1.346Zm3.49,7.346c-.287.287-.667.444-1.072.444h0c-.404,0-.785-.158-1.07-.444l-1.347-1.346c-.195-.195-.195-.512,0-.707s.512-.195.707,0l1.347,1.346c.098.098.227.151.364.151s.268-.054.365-.151l2.525-2.525c.195-.195.512-.195.707,0s.195.512,0,.707l-2.525,2.525Zm11.363,6.444h-1V4c0-2.206-1.794-4-4-4H4C1.794,0,0,1.794,0,4v17c0,1.654,1.346,3,3,3h14c1.654,0,3-1.346,3-3,0-1.103-.897-2-2-2Zm-15,4c-1.103,0-2-.897-2-2V4c0-1.654,1.346-3,3-3h9c1.654,0,3,1.346,3,3v15H7c-1.103,0-2,.897-2,2s-.897,2-2,2Zm14,0H5.234c.476-.531.766-1.232.766-2,0-.552.448-1,1-1h11c.552,0,1,.448,1,1,0,1.103-.897,2-2,2Z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                             id="toDolist-icon" 
+                             data-name="Layer 1"
+                             viewBox="0 0 24 24" 
+                             width="512" height="512"
+                           >
+                           <path d="m21.5,0c-1.379,0-2.5,1.121-2.5,2.5v11.55c0,1.068.416,2.073,1.172,2.829l.975.975c.098.098.226.146.354.146s.256-.049.354-.146l.975-.975c.756-.756,1.172-1.761,1.172-2.829V2.5c0-1.379-1.121-2.5-2.5-2.5Zm1.5,14.05c0,.802-.313,1.556-.879,2.122l-.621.621-.621-.621c-.566-.566-.879-1.32-.879-2.122V2.5c0-.827.673-1.5,1.5-1.5s1.5.673,1.5,1.5v11.55ZM3.146,5.21c-.195-.195-.195-.512,0-.707s.512-.195.707,0l1.347,1.346c.098.098.227.151.364.151s.268-.054.365-.151l2.525-2.525c.195-.195.512-.195.707,0s.195.512,0,.707l-2.525,2.525c-.287.287-.667.444-1.072.444h0c-.404,0-.785-.158-1.07-.444l-1.347-1.346Zm3.49,7.346c-.287.287-.667.444-1.072.444h0c-.404,0-.785-.158-1.07-.444l-1.347-1.346c-.195-.195-.195-.512,0-.707s.512-.195.707,0l1.347,1.346c.098.098.227.151.364.151s.268-.054.365-.151l2.525-2.525c.195-.195.512-.195.707,0s.195.512,0,.707l-2.525,2.525Zm11.363,6.444h-1V4c0-2.206-1.794-4-4-4H4C1.794,0,0,1.794,0,4v17c0,1.654,1.346,3,3,3h14c1.654,0,3-1.346,3-3,0-1.103-.897-2-2-2Zm-15,4c-1.103,0-2-.897-2-2V4c0-1.654,1.346-3,3-3h9c1.654,0,3,1.346,3,3v15H7c-1.103,0-2,.897-2,2s-.897,2-2,2Zm14,0H5.234c.476-.531.766-1.232.766-2,0-.552.448-1,1-1h11c.552,0,1,.448,1,1,0,1.103-.897,2-2,2Z" />
                         </svg>
                         <h3>Is simple...</h3>
-                        <p>off with apps packed with tons of stuff you’ll never use: Wondertask goes straight to the
-                           point</p>
+                        <p>off with apps packed with tons of stuff you’ll never use: Wondertask goes straight to the point</p>
                      </article>
                   </div>
                </div>
-               <div class="flex-col-md-4">
+               <div class="WTK-col-12 WTK-col-laptop-4">
                   <div class="hexagon-2">
                      <svg id="Hex-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 622.38 539">
                         <polygon
+                           class="svg-hexagon"
                            points="464.69 3.63 157.69 3.63 4.19 269.5 157.69 535.37 464.69 535.37 618.19 269.5 464.69 3.63"
-                           class="svg-hexagon" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" />
+                           fill="none" 
+                           stroke="#fff" 
+                           stroke-miterlimit="10" 
+                           stroke-width="4" />
                      </svg>
                      <article>
-                        <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"
-                           width="512" height="512">
-                           <path
-                              d="m23.14,7.886l-3.169-3.15,1.883-1.883c.195-.195.195-.512,0-.707s-.512-.195-.707,0l-1.885,1.885-3.164-3.144c-.561-.569-1.31-.884-2.108-.887-.816.005-1.552.307-2.117.872-1.145,1.144-1.158,3.02-.025,4.185l3.185,3.205-6.764,6.763-3.146-3.146c-1.17-1.17-3.072-1.17-4.242,0-.566.566-.879,1.32-.879,2.121s.312,1.555.879,2.121l3.146,3.146-1.879,1.879c-.195.195-.195.512,0,.707.098.098.226.146.354.146s.256-.049.354-.146l1.879-1.879,3.147,3.147c.585.585,1.353.877,2.121.877s1.536-.292,2.121-.877c.566-.566.879-1.32.879-2.121s-.313-1.555-.879-2.121l-3.147-3.147,6.762-6.761,3.108,3.128c.561.576,1.312.896,2.115.901h.02c.796,0,1.542-.31,2.148-.916,1.152-1.152,1.159-3.034.012-4.199Zm-11.14,13.114c0,.534-.208,1.036-.586,1.414-.779.779-2.049.779-2.828,0L1.586,15.414c-.378-.378-.586-.88-.586-1.414s.208-1.036.586-1.414c.39-.39.902-.585,1.414-.585s1.024.195,1.414.585l3.496,3.496s.002.003.003.004.003.002.004.003l3.497,3.497c.378.378.586.88.586,1.414Zm10.377-9.579c-.374.374-.869.579-1.397.579h-.014c-.533-.003-1.032-.216-1.408-.603l-6.998-7.042c-.75-.771-.741-2.016.02-2.776.374-.374.87-.579,1.398-.579h.008c.53.002,1.027.211,1.403.593l7.042,6.999c.76.771.756,2.021-.054,2.83Z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                             id="Layer_1" 
+                             data-name="Layer 1" 
+                             viewBox="0 0 24 24"
+                             width="512" height="512"
+                           >
+                           <path d="m23.14,7.886l-3.169-3.15,1.883-1.883c.195-.195.195-.512,0-.707s-.512-.195-.707,0l-1.885,1.885-3.164-3.144c-.561-.569-1.31-.884-2.108-.887-.816.005-1.552.307-2.117.872-1.145,1.144-1.158,3.02-.025,4.185l3.185,3.205-6.764,6.763-3.146-3.146c-1.17-1.17-3.072-1.17-4.242,0-.566.566-.879,1.32-.879,2.121s.312,1.555.879,2.121l3.146,3.146-1.879,1.879c-.195.195-.195.512,0,.707.098.098.226.146.354.146s.256-.049.354-.146l1.879-1.879,3.147,3.147c.585.585,1.353.877,2.121.877s1.536-.292,2.121-.877c.566-.566.879-1.32.879-2.121s-.313-1.555-.879-2.121l-3.147-3.147,6.762-6.761,3.108,3.128c.561.576,1.312.896,2.115.901h.02c.796,0,1.542-.31,2.148-.916,1.152-1.152,1.159-3.034.012-4.199Zm-11.14,13.114c0,.534-.208,1.036-.586,1.414-.779.779-2.049.779-2.828,0L1.586,15.414c-.378-.378-.586-.88-.586-1.414s.208-1.036.586-1.414c.39-.39.902-.585,1.414-.585s1.024.195,1.414.585l3.496,3.496s.002.003.003.004.003.002.004.003l3.497,3.497c.378.378.586.88.586,1.414Zm10.377-9.579c-.374.374-.869.579-1.397.579h-.014c-.533-.003-1.032-.216-1.408-.603l-6.998-7.042c-.75-.771-.741-2.016.02-2.776.374-.374.87-.579,1.398-.579h.008c.53.002,1.027.211,1.403.593l7.042,6.999c.76.771.756,2.021-.054,2.83Z" />
                         </svg>
                         <h3>...but powerful</h3>
-                        <p>get your task done, hide them as completed, sort them in categories: you've everthing you
-                           need</p>
+                        <p>get your task done, hide them as completed, sort them in categories: you've everthing you need</p>
                      </article>
                   </div>
                </div>
-               <div class="flex-col-md-4">
+               <div class="WTK-col-12 WTK-col-laptop-4">
                   <div class="hexagon-3">
                      <svg id="Hex-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 622.38 539">
-                        <polygon class="svg-hexagon" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4"
+                        <polygon 
+                           class="svg-hexagon" 
+                           fill="none" 
+                           stroke="#fff" 
+                           stroke-miterlimit="10" 
+                           stroke-width="4"
                            points="464.69 3.63 157.69 3.63 4.19 269.5 157.69 535.37 464.69 535.37 618.19 269.5 464.69 3.63" />
                      </svg>
                      <article>
-                        <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"
-                           width="512" height="512">
-                           <path
-                              d="M.243,7.444l10.31,6.186c.447,.268,.947,.401,1.448,.401s1.001-.134,1.448-.401l10.31-6.186c.15-.09,.243-.253,.243-.429s-.092-.339-.243-.429L13.448,.401c-.893-.537-2.003-.537-2.896,0L.243,6.587c-.15,.09-.243,.253-.243,.429s.092,.339,.243,.429ZM11.067,1.259c.576-.346,1.291-.346,1.866,0l9.595,5.757-9.595,5.757c-.575,.346-1.291,.346-1.866,0L1.472,7.016,11.067,1.259Zm12.933,18.241c0,.276-.224,.5-.5,.5h-3.5v3.5c0,.276-.224,.5-.5,.5s-.5-.224-.5-.5v-3.5h-3.5c-.276,0-.5-.224-.5-.5s.224-.5,.5-.5h3.5v-3.5c0-.276,.224-.5,.5-.5s.5,.224,.5,.5v3.5h3.5c.276,0,.5,.224,.5,.5Zm-.071-9.157c.142,.236,.065,.544-.171,.686l-11.5,6.9c-.079,.048-.168,.071-.257,.071s-.178-.023-.257-.071L.243,11.028c-.237-.142-.313-.449-.171-.686s.449-.316,.686-.172l11.243,6.746,11.243-6.746c.237-.145,.544-.064,.686,.172Zm-11.5,10.914c-.094,.156-.259,.243-.429,.243-.087,0-.176-.022-.257-.071L.243,14.528c-.237-.142-.313-.449-.171-.686s.449-.315,.686-.172l11.5,6.9c.237,.142,.313,.449,.171,.686Z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                             id="Layer_1" 
+                             data-name="Layer 1" 
+                             viewBox="0 0 24 24"
+                             width="512" height="512"
+                           >
+                           <path d="M.243,7.444l10.31,6.186c.447,.268,.947,.401,1.448,.401s1.001-.134,1.448-.401l10.31-6.186c.15-.09,.243-.253,.243-.429s-.092-.339-.243-.429L13.448,.401c-.893-.537-2.003-.537-2.896,0L.243,6.587c-.15,.09-.243,.253-.243,.429s.092,.339,.243,.429ZM11.067,1.259c.576-.346,1.291-.346,1.866,0l9.595,5.757-9.595,5.757c-.575,.346-1.291,.346-1.866,0L1.472,7.016,11.067,1.259Zm12.933,18.241c0,.276-.224,.5-.5,.5h-3.5v3.5c0,.276-.224,.5-.5,.5s-.5-.224-.5-.5v-3.5h-3.5c-.276,0-.5-.224-.5-.5s.224-.5,.5-.5h3.5v-3.5c0-.276,.224-.5,.5-.5s.5,.224,.5,.5v3.5h3.5c.276,0,.5,.224,.5,.5Zm-.071-9.157c.142,.236,.065,.544-.171,.686l-11.5,6.9c-.079,.048-.168,.071-.257,.071s-.178-.023-.257-.071L.243,11.028c-.237-.142-.313-.449-.171-.686s.449-.316,.686-.172l11.243,6.746,11.243-6.746c.237-.145,.544-.064,.686,.172Zm-11.5,10.914c-.094,.156-.259,.243-.429,.243-.087,0-.176-.022-.257-.071L.243,14.528c-.237-.142-.313-.449-.171-.686s.449-.315,.686-.172l11.5,6.9c.237,.142,.313,.449,.171,.686Z" />
                         </svg>
                         <h3>...and flexible!</h3>
                         <p>assign a category its own color or a meaningful icon, or both if that fits you.</p>
@@ -259,70 +284,95 @@
                </div>
             </div>
          </div>
-         <div class="container--full" id="wave"></div> <!-- *** Waves background *** -->
+         <div class="WTK-wrapper--full" id="wave"></div> <!-- *** Waves background *** -->
       </section>
 
       <section class="homePage--cta">
          <aside id="topo"></aside>
 
-         <div class="container">
-            <div class="flex-row--centered">
-               <div class="flex-col-md-8 card"> <!-- *** Card 1 *** -->
-                  <div class="flex-row">
-                     <div class="flex-col-md-7">
-                        <svg xmlns="http://www.w3.org/2000/svg" id="multicolor-toDolist-icon" class="card--icon"
-                           data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
-                           <defs>
-                              <linearGradient id="grad-1" x1="0%" x2="100%" y1="0%" y2="0%">
-                                 <stop offset="0%" stop-color="#21b7ff" />
-                                 <stop offset="50%" stop-color="#507fff" />
-                                 <stop offset="100%" stop-color="#894dfe" />
-                              </linearGradient>
-                           </defs>
-                           <path fill="url(#grad-1)"
-                              d="M15,4.43c0,.2,.12,.39,.31,.47l2.66,1.12,1.07,2.66c.08,.19,.26,.31,.46,.31s.39-.12,.46-.31l1.06-2.66,2.66-1.06c.19-.08,.31-.26,.31-.46s-.12-.39-.31-.46l-2.66-1.06-1.06-2.66c-.15-.38-.78-.38-.93,0l-1.06,2.65-2.65,1c-.19,.07-.32,.25-.32,.46Zm3.53-.6c.13-.05,.23-.15,.29-.28l.68-1.7,.68,1.7c.05,.13,.15,.23,.28,.28l1.7,.68-1.7,.68c-.13,.05-.23,.15-.28,.28l-.68,1.7-.68-1.7c-.05-.12-.15-.22-.27-.28l-1.71-.72,1.69-.64Zm-4.02,5.66l-.53-2.11c-.06-.22-.26-.38-.48-.38s-.43,.16-.48,.38l-.53,2.1-2.1,.48c-.22,.05-.38,.25-.39,.48,0,.23,.15,.43,.37,.49l2.12,.57,.53,2.11c.06,.22,.26,.38,.48,.38s.43-.16,.48-.38l.53-2.11,2.11-.53c.22-.06,.38-.26,.38-.48s-.16-.43-.38-.48l-2.11-.53Zm-.53,1.13c-.18,.04-.32,.18-.36,.36l-.12,.46-.12-.46c-.04-.18-.18-.31-.35-.36l-.47-.13,.41-.09c.18-.04,.38-.23,.42-.42l.1-.42,.12,.46c.04,.18,.18,.32,.36,.36l.46,.12-.46,.12Zm9.52-2.62c-.28,0-.5,.22-.5,.5v11c0,.09,0,.19-.01,.28l-2.9-2.9c-1.15-1.15-3.02-1.15-4.17,0l-.58,.58c-.74,.74-1.94,.74-2.68,0l-5.58-5.58c-1.15-1.15-3.02-1.15-4.17,0l-1.92,1.92V4.5c0-1.93,1.57-3.5,3.5-3.5H15.5c.28,0,.5-.22,.5-.5s-.22-.5-.5-.5H4.5C2.02,0,0,2.02,0,4.5v15c0,2.48,2.02,4.5,4.5,4.5h15c2.48,0,4.5-2.02,4.5-4.5V8.5c0-.28-.22-.5-.5-.5Zm-4,15H4.5c-1.93,0-3.5-1.57-3.5-3.5v-4.29l2.62-2.62c.76-.76,2-.76,2.75,0l5.58,5.58c1.13,1.13,2.96,1.13,4.09,0l.58-.58c.76-.76,2-.76,2.75,0l3.33,3.33c-.54,1.23-1.77,2.09-3.2,2.09ZM7,5c.55,0,1,.45,1,1s-.45,1-1,1-1-.45-1-1,.45-1,1-1Z" />
-                        </svg>
-                        <h3 class="card--headline">A colorful Task Management</h3>
-                        <hr class="card--divider">
-                        <p class="card--description">
-                           Personalize your to-do list by creating unique categories that fit your style.
-                           <br>
-                           <br>
-                           Assign categories, colors, and icons to each task and enjoy the sparkle.
-                        </p>
-                     </div>
-                     <div class="flex-col-md-5 card--image">
-                        <LottieAnimation ref="anim" :animation-data="castoroJSON" :loop="true" :auto-play="true"
-                           :speed="0.75" @loopComplete="loopComplete" @complete="complete" @enterFrame="enterFrame"
-                           @segmentStart="segmentStart" @stopped="stopped" />
+         <div class="WTK-wrapper--medium">
+            <div class="WTK-row--jCenter">
+               <div class="fWTK-col-12 WTK-col-laptop-8 card"> <!-- *** Card 1 *** -->
+                  <div class="card--bkg">
+                     <div class="WTK-row">
+                        <div class="card--content WTK-col-8">
+                           <svg xmlns="http://www.w3.org/2000/svg" 
+                           id="multicolor-toDolist-icon" 
+                           class="card--icon"
+                           data-name="Layer 1" 
+                           viewBox="0 0 24 24" 
+                           width="512" height="512"
+                           >
+                              <defs>
+                                 <linearGradient id="grad-1" x1="0%" x2="100%" y1="0%" y2="0%">
+                                    <stop offset="0%" stop-color="#21b7ff" />
+                                    <stop offset="50%" stop-color="#507fff" />
+                                    <stop offset="100%" stop-color="#894dfe" />
+                                 </linearGradient>
+                              </defs>
+                              <path fill="url(#grad-1)" d="M15,4.43c0,.2,.12,.39,.31,.47l2.66,1.12,1.07,2.66c.08,.19,.26,.31,.46,.31s.39-.12,.46-.31l1.06-2.66,2.66-1.06c.19-.08,.31-.26,.31-.46s-.12-.39-.31-.46l-2.66-1.06-1.06-2.66c-.15-.38-.78-.38-.93,0l-1.06,2.65-2.65,1c-.19,.07-.32,.25-.32,.46Zm3.53-.6c.13-.05,.23-.15,.29-.28l.68-1.7,.68,1.7c.05,.13,.15,.23,.28,.28l1.7,.68-1.7,.68c-.13,.05-.23,.15-.28,.28l-.68,1.7-.68-1.7c-.05-.12-.15-.22-.27-.28l-1.71-.72,1.69-.64Zm-4.02,5.66l-.53-2.11c-.06-.22-.26-.38-.48-.38s-.43,.16-.48,.38l-.53,2.1-2.1,.48c-.22,.05-.38,.25-.39,.48,0,.23,.15,.43,.37,.49l2.12,.57,.53,2.11c.06,.22,.26,.38,.48,.38s.43-.16,.48-.38l.53-2.11,2.11-.53c.22-.06,.38-.26,.38-.48s-.16-.43-.38-.48l-2.11-.53Zm-.53,1.13c-.18,.04-.32,.18-.36,.36l-.12,.46-.12-.46c-.04-.18-.18-.31-.35-.36l-.47-.13,.41-.09c.18-.04,.38-.23,.42-.42l.1-.42,.12,.46c.04,.18,.18,.32,.36,.36l.46,.12-.46,.12Zm9.52-2.62c-.28,0-.5,.22-.5,.5v11c0,.09,0,.19-.01,.28l-2.9-2.9c-1.15-1.15-3.02-1.15-4.17,0l-.58,.58c-.74,.74-1.94,.74-2.68,0l-5.58-5.58c-1.15-1.15-3.02-1.15-4.17,0l-1.92,1.92V4.5c0-1.93,1.57-3.5,3.5-3.5H15.5c.28,0,.5-.22,.5-.5s-.22-.5-.5-.5H4.5C2.02,0,0,2.02,0,4.5v15c0,2.48,2.02,4.5,4.5,4.5h15c2.48,0,4.5-2.02,4.5-4.5V8.5c0-.28-.22-.5-.5-.5Zm-4,15H4.5c-1.93,0-3.5-1.57-3.5-3.5v-4.29l2.62-2.62c.76-.76,2-.76,2.75,0l5.58,5.58c1.13,1.13,2.96,1.13,4.09,0l.58-.58c.76-.76,2-.76,2.75,0l3.33,3.33c-.54,1.23-1.77,2.09-3.2,2.09ZM7,5c.55,0,1,.45,1,1s-.45,1-1,1-1-.45-1-1,.45-1,1-1Z" />
+                           </svg>
+                           <h3 class="card--headline">A colorful Task Management</h3>
+                           <hr class="card--divider">
+                           <p class="card--description">
+                              Personalize your to-do list by creating unique categories that fit your style.
+                              <br>
+                              <br>
+                              Assign categories, colors, and icons to each task and enjoy the sparkle.
+                           </p>
+                        </div>
+                        <div class="card--image WTK-col-4">
+                           <LottieAnimation ref="anim" 
+                              :animation-data="castoroJSON" 
+                              :loop="true" 
+                              :auto-play="true"
+                              :speed="0.75" 
+                              @loopComplete="loopComplete" 
+                              @complete="complete" 
+                              @enterFrame="enterFrame"
+                              @segmentStart="segmentStart" 
+                              @stopped="stopped" />
+                        </div>
                      </div>
                   </div>
                </div>
 
-               <div class="flex-col-md-8 card"> <!-- *** Card 2 *** -->
-                  <div class="flex-row">
-                     <div class="flex-col-md-5 card--image">
-                        <LottieAnimation ref="anim" :animation-data="WatermelonJSON" :loop="true" :auto-play="true"
-                           :speed="0.75" @loopComplete="loopComplete" @complete="complete" @enterFrame="enterFrame"
-                           @segmentStart="segmentStart" @stopped="stopped" />
-                     </div>
-                     <div class="flex-col-md-7">
-                        <svg xmlns="http://www.w3.org/2000/svg" id="multicolor-toDolist-icon" class="card--icon"
-                           data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
-                           <defs>
-                              <linearGradient id="grad-1" x1="0%" x2="100%" y1="0%" y2="0%">
-                                 <stop offset="0%" stop-color="#21b7ff" />
-                                 <stop offset="50%" stop-color="#507fff" />
-                                 <stop offset="100%" stop-color="#894dfe" />
-                              </linearGradient>
-                           </defs>
-                           <path fill="url(#grad-1)"
-                              d="m19.5,6h-.5v-3.5c0-1.379-1.121-2.5-2.5-2.5H4.5C2.019,0,0,2.019,0,4.5v9c0,2.481,2.019,4.5,4.5,4.5h.5v1.5c0,2.481,2.019,4.5,4.5,4.5h10c2.481,0,4.5-2.019,4.5-4.5v-9c0-2.481-2.019-4.5-4.5-4.5Zm-1.5,0H7.776L17.59,1.471c.254.269.41.631.41,1.029v3.5Zm-13.5,11c-1.93,0-3.5-1.57-3.5-3.5V4.5c0-1.93,1.57-3.5,3.5-3.5h11.723L7.033,5.241c-1.235.57-2.033,1.817-2.033,3.179v8.58h-.5Zm18.5,2.5c0,1.93-1.57,3.5-3.5,3.5h-10c-1.93,0-3.5-1.57-3.5-3.5v-11.08c0-.518.161-1.012.445-1.423.019.002.036.003.055.003h13c1.93,0,3.5,1.57,3.5,3.5v9Zm-3-7.5c0,.276-.224.5-.5.5h-4c-.276,0-.5-.224-.5-.5s.224-.5.5-.5h4c.276,0,.5.224.5.5Zm-8.5-2h-1c-.827,0-1.5.673-1.5,1.5v1c0,.827.673,1.5,1.5,1.5h1c.827,0,1.5-.673,1.5-1.5v-1c0-.827-.673-1.5-1.5-1.5Zm.5,2.5c0,.275-.225.5-.5.5h-1c-.275,0-.5-.225-.5-.5v-1c0-.275.225-.5.5-.5h1c.275,0,.5.225.5.5v1Zm8,5.5c0,.276-.224.5-.5.5h-4c-.276,0-.5-.224-.5-.5s.224-.5.5-.5h4c.276,0,.5.224.5.5Zm-8.5-2h-1c-.827,0-1.5.673-1.5,1.5v1c0,.827.673,1.5,1.5,1.5h1c.827,0,1.5-.673,1.5-1.5v-1c0-.827-.673-1.5-1.5-1.5Zm.5,2.5c0,.275-.225.5-.5.5h-1c-.275,0-.5-.225-.5-.5v-1c0-.275.225-.5.5-.5h1c.275,0,.5.225.5.5v1Z" />
-                        </svg>
-                        <h3 class="card--headline">You will love its intuitiveness</h3>
-                        <hr class="card--divider">
-                        <p class="card--description">Wondertask's intuitive design makes it simple to manage your tasks,
-                           helping you stay focused and productive.</p>
+               <div class="WTK-col-12 WTK-col-laptop-8 card"> <!-- *** Card 2 *** -->
+                  <div class="card--bkg">
+                     <div class="WTK-row">
+                        <div class="card--image WTK-col-4">
+                           <LottieAnimation ref="anim" 
+                              :animation-data="WatermelonJSON" 
+                              :loop="true" 
+                              :auto-play="true"
+                              :speed="0.75" 
+                              @loopComplete="loopComplete" 
+                              @complete="complete" 
+                              @enterFrame="enterFrame"
+                              @segmentStart="segmentStart" 
+                              @stopped="stopped" />
+                        </div>
+                        <div class="card--content WTK-col-8">
+                           <svg xmlns="http://www.w3.org/2000/svg" 
+                              id="multicolor-toDolist-icon" 
+                              class="card--icon"
+                              data-name="Layer 1" 
+                              viewBox="0 0 24 24" 
+                              width="512" height="512"
+                           >
+                              <defs>
+                                 <linearGradient id="grad-1" x1="0%" x2="100%" y1="0%" y2="0%">
+                                    <stop offset="0%" stop-color="#21b7ff" />
+                                    <stop offset="50%" stop-color="#507fff" />
+                                    <stop offset="100%" stop-color="#894dfe" />
+                                 </linearGradient>
+                              </defs>
+                              <path fill="url(#grad-1)" d="m19.5,6h-.5v-3.5c0-1.379-1.121-2.5-2.5-2.5H4.5C2.019,0,0,2.019,0,4.5v9c0,2.481,2.019,4.5,4.5,4.5h.5v1.5c0,2.481,2.019,4.5,4.5,4.5h10c2.481,0,4.5-2.019,4.5-4.5v-9c0-2.481-2.019-4.5-4.5-4.5Zm-1.5,0H7.776L17.59,1.471c.254.269.41.631.41,1.029v3.5Zm-13.5,11c-1.93,0-3.5-1.57-3.5-3.5V4.5c0-1.93,1.57-3.5,3.5-3.5h11.723L7.033,5.241c-1.235.57-2.033,1.817-2.033,3.179v8.58h-.5Zm18.5,2.5c0,1.93-1.57,3.5-3.5,3.5h-10c-1.93,0-3.5-1.57-3.5-3.5v-11.08c0-.518.161-1.012.445-1.423.019.002.036.003.055.003h13c1.93,0,3.5,1.57,3.5,3.5v9Zm-3-7.5c0,.276-.224.5-.5.5h-4c-.276,0-.5-.224-.5-.5s.224-.5.5-.5h4c.276,0,.5.224.5.5Zm-8.5-2h-1c-.827,0-1.5.673-1.5,1.5v1c0,.827.673,1.5,1.5,1.5h1c.827,0,1.5-.673,1.5-1.5v-1c0-.827-.673-1.5-1.5-1.5Zm.5,2.5c0,.275-.225.5-.5.5h-1c-.275,0-.5-.225-.5-.5v-1c0-.275.225-.5.5-.5h1c.275,0,.5.225.5.5v1Zm8,5.5c0,.276-.224.5-.5.5h-4c-.276,0-.5-.224-.5-.5s.224-.5.5-.5h4c.276,0,.5.224.5.5Zm-8.5-2h-1c-.827,0-1.5.673-1.5,1.5v1c0,.827.673,1.5,1.5,1.5h1c.827,0,1.5-.673,1.5-1.5v-1c0-.827-.673-1.5-1.5-1.5Zm.5,2.5c0,.275-.225.5-.5.5h-1c-.275,0-.5-.225-.5-.5v-1c0-.275.225-.5.5-.5h1c.275,0,.5.225.5.5v1Z" />
+                           </svg>
+                           <h3 class="card--headline">You will love its intuitiveness</h3>
+                           <hr class="card--divider">
+                           <p class="card--description">Wondertask's intuitive design makes it simple to manage your tasks, helping you stay focused and productive.</p>
+                        </div>
                      </div>
                   </div>
                </div>

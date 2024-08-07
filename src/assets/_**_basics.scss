@@ -200,9 +200,7 @@ template { display: none }
     margin-right: auto;
     max-width: map-get($breakpoints, wide);
 
-    &--full {
-        max-width: none;
-    }
+    &--full { max-width: none }
     &--medium {
         @extend .WTK-wrapper;
         @include responsiveProperty($containerMaxWidth, max-width) using ($breakpoint, $value, $index) {  

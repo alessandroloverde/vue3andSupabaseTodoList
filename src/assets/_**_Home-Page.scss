@@ -3,52 +3,199 @@
 $polygonHeight: 20vw;
 
 .introBkg {
-  background-image: url("../src/assets/images/mainBkg.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
+	background-image: url("../src/assets/images/mainBkg.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
 }
 
 .homePage {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 
-  &--intro {
-    position: relative;
-    height: 100vh;
+	h1,
+	h2,
+	h3 { color: $website-mainHeadings }
 
+	h1 { 
+		text-align: center;
+		margin: calc($website-margin * 4) auto calc($website-margin * 2);
+	}
 
-    &--logo {
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    &--jumpTo {
-      //background-color: rgba(255, 228, 196, 0.4);
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+	&--intro {
+		position: relative;
+		height: 100vh;
 
-      a { color: transparent }
-      & button { 
-        height: 100%;
-        width: 100%;
-        font-size: 7.5rem !important;
-        color: rgba(255, 255, 255, 0.5);
-        margin: auto;
-        transition: color 0.2s ease-in-out;
-        transform: translatey(0px);
-        animation: float 5s linear infinite;
+		&--heading {
+			margin-top: $website-margin;
 
-        &:hover {
-          color: rgba(255, 255, 255, 0.9);
-          transition: color 0.3s ease-in-out;
-        }
-      }
-    }
-  }
+			&--logo {
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+			&--claim { max-width: 75% }
+		}
+
+		&--jumpTo {
+			//background-color: rgba(255, 228, 196, 0.4);
+			height: 200px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+
+			a { color: transparent }
+
+			& button {
+				height: 100%;
+				width: 100%;
+				font-size: 7.5rem !important;
+				color: rgba(255, 255, 255, 0.5);
+				margin: auto;
+				transition: color 0.2s ease-in-out;
+				transform: translatey(0px);
+				animation: float 5s linear infinite;
+
+				&:hover {
+					color: rgba(255, 255, 255, 0.9);
+					transition: color 0.3s ease-in-out;
+				}
+			}
+		}
+	}
+
+	[class^="hexagon-"] {
+		position: relative;
+		background-color: $website-Bkg;
+		clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 99%, 25% 99%, 0% 50%);
+	 
+		@media screen and (max-width: map-get($breakpoints, laptop)) { 
+			transform: none !important;
+			margin: calc($website-margin * 2) calc($website-margin * 4); 
+		}
+	 
+		article {
+		  position: absolute;
+		  display: flex;
+		  flex-direction: column;
+		  top: 10%; left: 25%; right: 25%; bottom: 10%;
+		  text-align: center;
+	 
+		  h3 { 
+			 margin-left: -20%;
+			 margin-right: -20%;
+		  }
+		}
+	 }
+
+	@for $i from 1 through 3 {
+		$transformedColorMap: ();
+	 
+		@each $key, $value in $presentationColors {
+			$transformedColorMap: append($transformedColorMap, $value)
+		}
+	 
+		.hexagon-#{$i} article > svg {
+			max-width: 100%;
+			min-height: 65px;
+			max-height: 260px;
+			margin-bottom: $website-margin * 2;
+			fill: nth($transformedColorMap, $i);
+		}
+	}
+	.hexagon-1 { transform: translate(20%, 0) }
+	.hexagon-2 { transform: translate(0, 50%) }
+	.hexagon-3 { transform: translate(-20%, 0%) }
 }
+
+#wave {
+	height: 420px;
+	background-image: url("../src/assets/images/wave.png");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center center;
+	margin-top: -10vh;
+}
+
+.card {
+	display: flex;
+	border-radius: 18px;
+	background-image: linear-gradient(90deg, rgba(map-get($presentationColors, azure), 0.75) 0%, transparent 100% );
+	
+	margin-left: calc($website-margin * 2);
+	margin-right: calc($website-margin * 2);
+	margin-bottom: calc($website-margin * 4);
+ 
+	& > .flex-row {
+	  width: calc(100% - 4px);
+	  height: calc(100% - 4px);
+	  margin: 2px;
+	  padding: calc($website-margin * 2);
+	  border-radius: 18px;
+	  background-image: linear-gradient(90deg, rgba(34, 23, 78, 1) 40%, rgba(13, 12, 41, 1) 100%);
+	}
+ 
+	&--bkg {
+		border-radius: 18px;
+		width: calc(100% - 4px);
+		height: calc(100% - 4px);
+		padding: calc($website-margin * 4);
+		background-image: linear-gradient(-90deg, rgba(12, 55, 89, 0.25) 30%, rgba(13, 12, 41, 0.75) 100%);
+		margin: 2px;
+	}
+	&--icon { 
+	  @include responsiveProperty($cardMulticoloriconSizes, width);
+	  height: auto;
+	  position: absolute;
+	  margin-bottom: calc($website-margin * 2); 
+	}
+	&--headline { 
+	  hyphens: none;
+
+	  @include responsiveProperty($cardMulticoloriconSizes, margin-left);
+
+	  padding-left: 1em;
+ 
+/* 	  @each $breakpoint, $value in $breakpoints {
+		 @include respond-to($breakpoint) { 
+			margin-left: calc(map-get($cardMulticoloriconSizes, $breakpoint) + $website-margin * 2); 
+		 };
+	  } */
+	}
+	&--divider {
+	  border: none;
+	  height: 0.25em;
+ 
+/* 	  @each $breakpoint, $value in $breakpoints {
+		 @include respond-to($breakpoint) { 
+			width: calc(100% - (map-get($cardMulticoloriconSizes, $breakpoint)));
+			margin-left: calc(map-get($cardMulticoloriconSizes, $breakpoint) + $website-margin * 2); 
+		 };
+	  } */
+ 
+	  background-image: linear-gradient(
+		 90deg, 
+		 map-get($presentationColors, azure) 0%, 
+		 map-get($presentationColors, blue) 50%, 
+		 map-get($presentationColors, violet) 100%);
+	  margin: calc($website-margin * 2) 0;
+	}
+	&--description { 
+		font-size: 1.5rem !important;
+		font-weight: 600; 
+	}
+	&--image { display: flex }
+ 
+	& + & { 
+		background-image: linear-gradient(-90deg, rgba(map-get($presentationColors, violet), 0.6) 0%, transparent 100% );
+		margin-bottom: 15rem;
+
+		& .card--bkg { 
+			background-image: linear-gradient(90deg, rgba(12, 55, 89, 0.25) 30%, rgba(13, 12, 41, 0.75) 100%);
+			background-color: rgba(0,0,0, 0.2);
+		}
+	}
+ }
