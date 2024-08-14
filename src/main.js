@@ -1,5 +1,6 @@
 //import './assets/main.scss'
 import './assets/compiledSass.scss'
+import './assets/uicons-regular-rounded.css'
 
 
 import { createApp } from 'vue'

@@ -206,7 +206,7 @@
       <section id="tempNewPage" class="homePage--temp">
          <div class="WTK-wrapper--medium">
             <div class="WTK-row--jCenter">
-               <h1 class="WTK-col-12">Why Wondertask?</h1>
+               <h1 class="WTK-col-12 fi fi-rr-camera">Why Wondertask?</h1>
                <div class="WTK-col-12 WTK-col-laptop-6 WTK-col-desktop-4">
                   <div class="hexagon-1">
                      <svg id="Hex-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 622.38 539">
