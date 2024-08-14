@@ -220,9 +220,7 @@ $polygonHeight: 20vw;
 	border-radius: 18px;
 	background-image: linear-gradient(90deg, rgba(map-get($presentationColors, azure), 0.75) 0%, transparent 100% );
 	
-	margin-left: calc($website-margin * 2);
-	margin-right: calc($website-margin * 2);
-	margin-bottom: calc($website-margin * 4);
+	margin: auto calc($website-margin * 2) calc($website-margin * 2);
  
 	& > .flex-row {
 	  width: calc(100% - 4px);
@@ -286,7 +284,7 @@ $polygonHeight: 20vw;
  
 	& + & { 
 		background-image: linear-gradient(-90deg, rgba(map-get($presentationColors, violet), 0.6) 0%, transparent 100% );
-		margin-bottom: 20vw;
+		margin-bottom: 16vw;
 
 		& .card--bkg { 
 			background-image: linear-gradient(90deg, rgba(12, 55, 89, 0.25) 30%, rgba(13, 12, 41, 0.75) 100%);
