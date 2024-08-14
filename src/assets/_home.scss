@@ -12,7 +12,7 @@ $polygonHeight: 20vw;
   h3 {
     @include Quicksand;
 
-    margin-bottom: $standardMargin;
+    margin-bottom: $website-margin;
   }
   p { font-size: 1.25rem }
 
@@ -50,7 +50,7 @@ $polygonHeight: 20vw;
       width: 70% !important;
       height: auto;
       display: flex;
-      margin: $standardMargin auto;
+      margin: $website-margin auto;
 
       @media screen and (max-width: map-get($breakpoints, sm)) { width: 100% !important }
     }
@@ -117,7 +117,7 @@ $polygonHeight: 20vw;
 
     }
     &--authentication {
-      h1, h2 { margin-bottom: calc($standardMargin * 2) }
+      h1, h2 { margin-bottom: calc($website-margin * 2) }
 
       .login,
       .register {
@@ -136,15 +136,15 @@ $polygonHeight: 20vw;
           }
           .btn { 
             width: 100%;
-            margin-top: calc($standardMargin * 2);
+            margin-top: calc($website-margin * 2);
 
             @media screen and (min-width: map-get($breakpoints, md)) {
               margin-top: auto;
             }
           }
           fieldset { 
-            & + fieldset { margin-top: $standardMargin }
-            & + button.btn--cta { margin-top: calc($standardMargin * 3) }
+            & + fieldset { margin-top: $website-margin }
+            & + button.btn--cta { margin-top: calc($website-margin * 3) }
             & > label {
               display: flex;
               align-items: center;
@@ -152,7 +152,7 @@ $polygonHeight: 20vw;
     
               & > [class^="icon-"] {
                 color: $ctaColor;
-                margin-right: calc($standardMargin / 2);
+                margin-right: calc($website-margin / 2);
               }
             }
           }
@@ -217,7 +217,7 @@ $polygonHeight: 20vw;
       color: $textWhite;
       flex: 1 1 100%;
       text-align: center;
-      margin-top: calc($standardMargin * 2);
+      margin-top: calc($website-margin * 2);
     }
   }
 }
@@ -269,7 +269,7 @@ $polygonHeight: 20vw;
   .hexagon-#{$i} article > svg {
     //max-height: 6.5rem;
     max-width: 100%;
-    margin-bottom: $standardMargin * 2;
+    margin-bottom: $website-margin * 2;
     fill: nth($transformedColorMap, $i);
   } 
 }
@@ -290,15 +290,15 @@ $polygonHeight: 20vw;
   border-radius: 18px;
   background-image: linear-gradient(90deg, rgba(map-get($presentationColors, azure), 0.6) 0%, transparent 100% );
   padding: 0;
-  margin-left: calc($standardMargin * 2);
-  margin-right: calc($standardMargin * 2);
-  margin-bottom: calc($standardMargin * 4);
+  margin-left: calc($website-margin * 2);
+  margin-right: calc($website-margin * 2);
+  margin-bottom: calc($website-margin * 4);
 
   & > .flex-row {
     width: calc(100% - 4px);
     height: calc(100% - 4px);
     margin: 2px;
-    padding: calc($standardMargin * 2);
+    padding: calc($website-margin * 2);
     border-radius: 18px;
     background-image: linear-gradient(90deg, rgba(34, 23, 78, 1) 40%, rgba(13, 12, 41, 1) 100%);
   }
@@ -308,7 +308,7 @@ $polygonHeight: 20vw;
     @include responsiveProperty($cardMulticoloriconSizes, width);
     height: auto;
     position: absolute;
-    margin-bottom: calc($standardMargin * 2); 
+    margin-bottom: calc($website-margin * 2); 
   }
   &--headline { 
     hyphens: none;
@@ -317,11 +317,11 @@ $polygonHeight: 20vw;
 
     @each $breakpoint, $value in $breakpoints {
       @include respond-to($breakpoint) { 
-        margin-left: calc(map-get($cardMulticoloriconSizes, $breakpoint) + $standardMargin * 2); 
+        margin-left: calc(map-get($cardMulticoloriconSizes, $breakpoint) + $website-margin * 2); 
       };
     }
 
-    //margin-left: calc($standardMargin * 2);
+    //margin-left: calc($website-margin * 2);
   }
   &--divider {
     border: none;
@@ -330,7 +330,7 @@ $polygonHeight: 20vw;
     @each $breakpoint, $value in $breakpoints {
       @include respond-to($breakpoint) { 
         width: calc(100% - (map-get($cardMulticoloriconSizes, $breakpoint)));
-        margin-left: calc(map-get($cardMulticoloriconSizes, $breakpoint) + $standardMargin * 2); 
+        margin-left: calc(map-get($cardMulticoloriconSizes, $breakpoint) + $website-margin * 2); 
       };
     }
 
@@ -339,7 +339,7 @@ $polygonHeight: 20vw;
       map-get($presentationColors, azure) 0%, 
       map-get($presentationColors, blue) 50%, 
       map-get($presentationColors, violet) 100%);
-    margin: calc($standardMargin * 2) 0;
+    margin: calc($website-margin * 2) 0;
   }
   &--description { font-size: 1.5rem !important }
   &--image { display: flex }
@@ -366,7 +366,7 @@ $polygonHeight: 20vw;
 #toBeDefined {
   border-radius: 18px;
   border: 2px solid;
-  padding: calc($standardMargin * 4);
+  padding: calc($website-margin * 4);
 
   fieldset > label > .icon {
     &-envelope { color: map-get($presentationColors, azure) }

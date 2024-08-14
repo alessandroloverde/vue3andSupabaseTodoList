@@ -26,12 +26,9 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <div id="Login" class="h100-md">
-    <h2>Login</h2>
-    <div class="flex-row">
-<!--       <section class="login--illustration flex-col-lg-4 noPadding">
-        <img src="../assets/images/Login-bkg.jpg" class="fitImg" alt="Illustration">
-      </section> -->
+  <div id="Login" class="">
+    <h2 class="WTK-MB-2">Login</h2>
+    <div class="">
       <section class="login--formContent flex-col-lg-12 noPadding">
         <form @submit.prevent="handleLogin()">
           <fieldset>
@@ -44,11 +41,6 @@ const handleLogin = async () => {
           </fieldset>
           <router-link to="/forgotPassword" class="login-link">Forgot Password?</router-link>
           <button class="btn btn--cta">Login</button>
-
-          <!-- <p>You don't have an account yet?</p>
-          <router-link to="Register">
-            <h3>Register</h3>
-          </router-link> -->
         </form>
       </section>
     </div>

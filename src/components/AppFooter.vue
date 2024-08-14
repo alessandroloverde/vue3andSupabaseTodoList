@@ -1,12 +1,12 @@
 <template>
     <footer class="homePage--footer">
-        <div class="container">
-            <div class="homePage--footer--info x4-Margin-top">
-                <div class="flex-row">
-                    <section class="homePage--footer--info--logo flex-col-md-4">
+        <div class="WTK-wrapper--medium">
+            <div class="WTK-row">
+                <div class="homePage--footer--info WTK-col-12">
+                    <section class="homePage--footer--info--logo WTK-col-4">
                         <img src="../assets/images/Logo.png" alt="logo">
                     </section>
-                    <section class="homePage--footer--info--privacy flex-col-md-8">
+                    <section class="homePage--footer--info--privacy WTK-col-8">
                         <nav>
                             <ul>
                                 <li>
@@ -24,9 +24,9 @@
                             </ul>
                         </nav>
                     </section>
-                </div>
-            </div> 
-            <section class="homePage--footer--copyright x2-Margin-bottom">&copy; 2024 Alessandro Lo Verde</section>
+                </div> 
+                <section class="homePage--footer--copyright x2-Margin-bottom">&copy; 2024 Alessandro Lo Verde</section>
+            </div>
         </div>
     </footer>
 </template>

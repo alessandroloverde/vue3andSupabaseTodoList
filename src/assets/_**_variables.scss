@@ -39,6 +39,13 @@ $breakpoints: (
     wide: 1440px
 );
 
+$directions: (
+    T: "top",
+    B: "bottom",
+    L: "left",
+    R: "right"
+);
+
 $h1: (
     default: 2.5rem,
     tablet: 2.75rem,
@@ -103,6 +110,14 @@ $cardMulticoloriconSizes: (
   laptop: 70px,
   desktop: 86px,
   wide: 100px,
+);
+
+$hexagonMargins: (
+  default: calc($website-margin),
+  tablet: calc($website-margin * 2) calc($website-margin * 4),
+  laptop: auto auto,
+  desktop: auto auto,
+  wide: auto auto,
 );
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 

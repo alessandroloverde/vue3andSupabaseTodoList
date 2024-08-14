@@ -35,7 +35,7 @@ h1 {
 }
 
 h2 {
-   @include Quicksand();
+   @include RobotoSlab();
    @include responsiveProperty($h2, font-size);
 
    line-height: lineHeight();
@@ -84,5 +84,4 @@ p {
 
    & + p { margin-top: $website-margin }
 }
-
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */

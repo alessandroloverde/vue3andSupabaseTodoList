@@ -34,9 +34,9 @@ import { AuthError } from "@supabase/supabase-js";
 </script>
 
 <template>
-  <div id="Register" class="h100-md">
-    <h2>Register</h2>
-    <div class="flex-row">
+  <div id="Register" class="">
+    <h2 class="WTK-MB-2">Register</h2>
+    <div class="">
       <section class="register--formContent flex-col-lg-12 noPadding">
         <form @submit.prevent="handleSubmit">
           <fieldset>
@@ -54,9 +54,6 @@ import { AuthError } from "@supabase/supabase-js";
           <button class="btn btn--cta">Register</button>
         </form>
       </section>
-<!--       <section class="register--illustration flex-col-lg-4">
-        <img src="../assets/images/Register-bkg.jpg" class="fitImg" alt="Illustration">
-      </section> -->
     </div>
   </div>
 </template>

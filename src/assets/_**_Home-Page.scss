@@ -21,19 +21,26 @@ $polygonHeight: 20vw;
 		text-align: center;
 		margin: calc($website-margin * 4) auto calc($website-margin * 2);
 	}
+	h2 {
+		width: 100%;
+		text-align: center;
+	}
 
 	&--intro {
 		position: relative;
 		height: 100vh;
 
 		&--heading {
-			margin-top: $website-margin;
+			margin-top: 3vw;
 
 			&--logo {
 				flex-wrap: wrap;
 				justify-content: center;
 			}
-			&--claim { max-width: 75% }
+			&--claim { 
+				width: min(100%, 500px);
+				margin-top: 1vh;
+			}
 		}
 
 		&--jumpTo {
@@ -66,16 +73,93 @@ $polygonHeight: 20vw;
 			}
 		}
 	}
+	&--cta {
+		position: relative;
+		background-color: $website-Bkg;
+		clip-path: polygon(0 0, 100% 0, 100% calc(100% - $polygonHeight), 50% 100%, 0% calc(100% - $polygonHeight));
+		background-image: url("../assets/images/colorful-bkg.png");
+		background-repeat: no-repeat;
+		background-size: 100%;
+		background-position-y: calc(100% + 10vw);
+	}
+	&--footer {
+		$footerHeight: 60px;
+  
+		&--info {
+		  width: 100%;
+		  display: flex;
+		  justify-content: space-between;
+	 
+		  &--logo {
+			 display: flex;
+			 align-items: center;
+		
+			 & > img { max-width: 100% }
+		  }
+		  &--privacy {
+			 color: $website-plainText;
+			 display: flex;
+			 align-items: center;
+  
+			 & > nav { width: 100% }
+			 & > nav > ul { 
+				display: flex;
+				justify-content: space-between;
+				line-height: 1;
+  
+				@media screen and (max-width: map-get($breakpoints, md)) {
+				  display: inline-block;
+				}
+				
+				li {
+					display: flex;
+					align-items: center;
+
+					//@include responsiveProperty($footerMenuMargins, "margin");
+
+					& > a {
+						@include Quicksand();
+
+						&:link {
+							display: block;
+							color: $website-accentedText;
+							text-decoration: none;
+						}
+						&:visited { color: $website-accentedText }
+						&:hover { color: $website-mainHeadings }
+						&:active { color: $website-mainHeadings }
+
+						text-transform: uppercase;
+						display: flex;
+						font-size: 1.25em;
+						color: $website-accentedText;
+						transition: color 0.3s ease-in-out;
+
+						& > i[class^="icon-"] {
+							color: $website-mainHeadings;
+							margin-right: 0.25em;
+						}
+					}
+				}
+			 }
+		  }
+		}
+		&--copyright {
+		  font-size: 0.875rem;
+		  color: $website-plainText;
+		  flex: 1 1 100%;
+		  text-align: center;
+		  margin-top: calc($website-margin * 2);
+		}
+	 }
 
 	[class^="hexagon-"] {
 		position: relative;
 		background-color: $website-Bkg;
 		clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 99%, 25% 99%, 0% 50%);
-	 
-		@media screen and (max-width: map-get($breakpoints, laptop)) { 
-			transform: none !important;
-			margin: calc($website-margin * 2) calc($website-margin * 4); 
-		}
+
+		@media screen and (max-width: map-get($breakpoints, laptop)) { transform: none !important }
+		@include responsiveProperty($hexagonMargins, margin);
 	 
 		article {
 		  position: absolute;
@@ -106,9 +190,20 @@ $polygonHeight: 20vw;
 			fill: nth($transformedColorMap, $i);
 		}
 	}
-	.hexagon-1 { transform: translate(20%, 0) }
-	.hexagon-2 { transform: translate(0, 50%) }
-	.hexagon-3 { transform: translate(-20%, 0%) }
+	.hexagon-1 { 
+		transform: translate(20%, 0);
+ 
+	}
+	.hexagon-2 { 
+		transform: translate(0, 50%);
+
+		@media screen and (max-width: map-get($breakpoints, desktop)) { transform: translate(0, 52.5%) }
+	}
+	.hexagon-3 { 
+		transform: translate(-20%, 0%);
+
+		@media screen and (max-width: map-get($breakpoints, desktop)) { transform: translate(-30%, 5%) }
+	}
 }
 
 #wave {
@@ -148,18 +243,18 @@ $polygonHeight: 20vw;
 	}
 	&--icon { 
 	  @include responsiveProperty($cardMulticoloriconSizes, width);
+
 	  height: auto;
 	  position: absolute;
 	  margin-bottom: calc($website-margin * 2); 
 	}
 	&--headline { 
 	  hyphens: none;
+	  padding-left: 1em;
 
 	  @include responsiveProperty($cardMulticoloriconSizes, margin-left);
 
-	  padding-left: 1em;
- 
-/* 	  @each $breakpoint, $value in $breakpoints {
+	/* @each $breakpoint, $value in $breakpoints {
 		 @include respond-to($breakpoint) { 
 			margin-left: calc(map-get($cardMulticoloriconSizes, $breakpoint) + $website-margin * 2); 
 		 };
@@ -169,7 +264,7 @@ $polygonHeight: 20vw;
 	  border: none;
 	  height: 0.25em;
  
-/* 	  @each $breakpoint, $value in $breakpoints {
+	/* @each $breakpoint, $value in $breakpoints {
 		 @include respond-to($breakpoint) { 
 			width: calc(100% - (map-get($cardMulticoloriconSizes, $breakpoint)));
 			margin-left: calc(map-get($cardMulticoloriconSizes, $breakpoint) + $website-margin * 2); 
@@ -191,7 +286,7 @@ $polygonHeight: 20vw;
  
 	& + & { 
 		background-image: linear-gradient(-90deg, rgba(map-get($presentationColors, violet), 0.6) 0%, transparent 100% );
-		margin-bottom: 15rem;
+		margin-bottom: 20vw;
 
 		& .card--bkg { 
 			background-image: linear-gradient(90deg, rgba(12, 55, 89, 0.25) 30%, rgba(13, 12, 41, 0.75) 100%);
@@ -199,3 +294,63 @@ $polygonHeight: 20vw;
 		}
 	}
  }
+
+ #castoro {
+	background-image: url("../assets/images/starBkg.jpg");
+	background-repeat: no-repeat;
+	background-position-y: bottom;
+	background-size: cover;
+	margin-top: -($polygonHeight);
+ }
+
+ #topo {
+	width: 100%;
+	height: 20vw;
+	background-image: linear-gradient(
+	  90deg, 
+	  map-get($presentationColors, azure) 0%, 
+	  map-get($presentationColors, blue) 50%, 
+	  map-get($presentationColors, violet) 100%);
+	clip-path: polygon(0 0, 50% calc(100% - ($polygonHeight/10)), 100% 0, 100% calc(100% - $polygonHeight), 50% 100%, 0% calc(100% - $polygonHeight));
+	position: absolute;
+	bottom: 0;
+ }
+
+#loginAndRegister { padding-top: $polygonHeight }
+
+#Login, 
+#Register, 
+#toBeDefined {
+  border-radius: 18px;
+  border: 2px solid;
+  padding: calc($website-margin * 4);
+  margin-top: calc($website-margin * 4);
+  margin-bottom: calc($website-margin * 4);
+
+  @media screen and (max-width: map-get($breakpoints, tablet)) {
+	 margin: 1rem;
+  }
+
+  fieldset > label > .icon {
+    &-envelope { color: map-get($presentationColors, azure) }
+    &-bookmark { color: map-get($presentationColors, violet) }
+    &-user { color: map-get($presentationColors, blue) }
+  }
+}
+#Login, #Register { 
+	transform: translateY(-20%);
+	
+	@media screen and (max-width: map-get($breakpoints, laptop)) { transform: none }
+}
+#Login {
+  border-color: map-get($presentationColors, azure);
+  background: rgba(map-get($presentationColors, azure), 0.25);
+}
+#Register {
+  border-color: map-get($presentationColors, blue);
+  background: rgba(map-get($presentationColors, blue), 0.25);
+}
+#toBeDefined {
+  border-color: map-get($presentationColors, violet);
+  background: rgba(map-get($presentationColors, violet), 0.25);
+}

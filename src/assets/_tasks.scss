@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: space-between;
   border-radius: $border-radius * 2;
-  margin: $standardMargin * 1.5 auto;
+  margin: $website-margin * 1.5 auto;
   border: 1px solid grey;
   overflow: hidden;
 
@@ -80,7 +80,7 @@
       width: auto;
       height: auto;
       font-size: 2.5rem;
-      margin: auto $standardMargin;
+      margin: auto $website-margin;
       color: grey;
 
       &:hover::before { 
@@ -99,7 +99,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: auto $standardMargin;
+      margin: auto $website-margin;
       color: $textBeige;
   
       &::before {
@@ -117,7 +117,7 @@
   &--title { 
 		flex: 1 1 auto;
 		color: $textBeige;
-		margin-left: $standardMargin;
+		margin-left: $website-margin;
     pointer-events: none;
 
     .completed & { text-decoration: line-through }
@@ -126,12 +126,12 @@
 		flex: 1 1 auto;
 		display: flex;
 		justify-content: flex-end;
-		margin-right: $standardMargin;
+		margin-right: $website-margin;
 
 		button.iconOnly {
 			font-size: 1.5rem; // Uniform to H3
 			width: auto;
-			margin: auto $standardMargin/2;
+			margin: auto $website-margin/2;
       color: gray;
 
 			&:hover {
@@ -141,7 +141,7 @@
 		}
 		.urgentSwitch input[type=checkbox] { 
       color: gray;
-      margin: auto $standardMargin/2;
+      margin: auto $website-margin/2;
 
       
 

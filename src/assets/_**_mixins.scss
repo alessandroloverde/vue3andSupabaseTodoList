@@ -57,7 +57,7 @@
 @mixin generateColumnClasses($breakpoints) {
    @for $i from 1 through 12 {
      .WTK-col-#{$i} {
-       flex: 0 0 calc(100% / 12 * #{$i});
+       flex: 1 1 calc(100% / 12 * #{$i});
        max-width: calc(100% / 12 * #{$i});
 
        .debug &:before {
@@ -79,7 +79,7 @@
      @for $i from 1 through 12 {
        .WTK-col-#{$breakpoint}-#{$i} {
          @media (min-width: $value) {
-           flex: 0 0 calc(100% / 12 * #{$i});
+           flex: 1 1 calc(100% / 12 * #{$i});
            max-width: calc(100% / 12 * #{$i});
 
           .debug &:before {
@@ -103,22 +103,58 @@
 
 
 @mixin generate-offsets($breakpoints) {
-   @each $breakpoint, $value in $breakpoints {
-     @for $i from 1 through 12 {
-       .WTK-offset-#{$i} {
-         margin-left: calc(100% / 12 * #{$i});
+  @each $breakpoint, $value in $breakpoints {
+    @for $i from 1 through 12 {
+      .WTK-offset-#{$i} {
+        margin-left: calc(100% / 12 * #{$i});
+
+        @media (min-width: $value) {
+          .WTK-offset-#{$breakpoint}-#{$i} {
+            margin-left: calc(100% / 12 * #{$i});
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin generate-offsets($breakpoints) {
+  @each $breakpoint, $value in $breakpoints {
+    @for $i from 1 through 12 {
+      .WTK-offset-#{$i} {
+        margin-left: calc(100% / 12 * #{$i});
+
+        @media (min-width: $value) {
+          .WTK-offset-#{$breakpoint}-#{$i} {
+            margin-left: calc(100% / 12 * #{$i});
+          }
+        }
+      }
+    }
+  }
+}
  
-         @media (min-width: $value) {
-           .WTK-offset-#{$breakpoint}-#{$i} {
-             margin-left: calc(100% / 12 * #{$i});
-           }
-         }
-       }
-     }
-   }
- }
- 
- 
+@mixin generate-margins($directions) {
+  @each $key, $value in $directions {
+    @for $i from 1 through 6 {
+      .WTK-M#{$key}-#{$i} {
+        margin-#{$value}: calc($website-margin * $i);
+      }
+    }
+  }
+}
+@include generate-margins($directions);
+
+@mixin generate-paddings($directions) {
+  @each $key, $value in $directions {
+    @for $i from 1 through 6 {
+      .WTK-P#{$key}-#{$i} {
+        padding-#{$value}: calc($website-margin * $i);
+      }
+    }
+  }
+}
+@include generate-paddings($directions);
  
  
 

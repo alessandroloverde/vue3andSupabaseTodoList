@@ -87,7 +87,7 @@ p {
   font-size: 1rem;
   margin: 0;
 
-  & + p { margin-top: $standardMargin }
+  & + p { margin-top: $website-margin }
 }
 
 a {
@@ -154,7 +154,7 @@ ul {
     &:checked + .toggle--switch::before { left: 26px }
   }
   &--label {
-    margin: auto $standardMargin;
+    margin: auto $website-margin;
     font-family: $titillium;
   }
 }
@@ -175,19 +175,19 @@ img {
 
 // --- Utilities -------------------------------------------------------------------------------------------- //
 .noPadding { padding: 0 !important }
-.x2Padding { padding: $standardMargin * 2 !important }
+.x2Padding { padding: $website-margin * 2 !important }
 
 @for $i from 0 through 6 {
-  .x#{$i}-Padding { padding: $standardMargin * $i !important }
-  .x#{$i}-Margin { margin: $standardMargin * $i !important }
+  .x#{$i}-Padding { padding: $website-margin * $i !important }
+  .x#{$i}-Margin { margin: $website-margin * $i !important }
   
   @if $i !=0 {
       @each $dir in $directions {
           .x#{$i}-Padding-#{$dir} {
-              padding-#{$dir}: $standardMargin * $i !important
+              padding-#{$dir}: $website-margin * $i !important
           }
           .x#{$i}-Margin-#{$dir} {
-            margin-#{$dir}: $standardMargin * $i !important
+            margin-#{$dir}: $website-margin * $i !important
         }
       }
   }
@@ -282,7 +282,7 @@ img {
 
     .flex-col-#{$breakPoint}-#{$i} {
       box-sizing: border-box;
-      padding: calc($standardMargin * 2);
+      padding: calc($website-margin * 2);
       width: 100%;
 /*       outline: 1px solid lime;
 
@@ -309,7 +309,7 @@ img {
     $popperBkgColor: $textWhite;
 
     //background-color: $popperBkgColor;
-    padding: $standardMargin * 2;
+    padding: $website-margin * 2;
     border-radius: 20px;
     color: $darkBkg;
 
