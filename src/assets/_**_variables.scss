@@ -24,6 +24,7 @@ $website-mainHeadings: $coral;
 
 /** ––– Structure ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 $website-margin: 1rem;
+$website-global-margin: calc($website-margin * 2);
 $website-borderRadius: calc(1rem/2);
 
 $website-fontSize: 16px;

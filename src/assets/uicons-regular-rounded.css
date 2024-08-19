@@ -1,4 +1,4 @@
-/*!
+/*
 *   _____       _             __                 _____                               ______ _       _   _
 *  |_   _|     | |           / _|               |_   _|                             |  ____| |     | | (_)
 *    | |  _ __ | |_ ___ _ __| |_ __ _  ___ ___    | |  ___ ___  _ __  ___   ______  | |__  | | __ _| |_ _  ___ ___  _ __
@@ -26,6 +26,7 @@ span[class*="fi-rr-"]:before {
     font-variant: normal;
     text-transform: none;
     line-height: 1;
+    vertical-align: top;
     -moz-osx-font-smoothing: grayscale;
      -webkit-font-smoothing: antialiased;
 }

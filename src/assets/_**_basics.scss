@@ -127,7 +127,11 @@ select { text-transform: none }
 button,
 [type="button"],
 [type="reset"],
-[type="submit"] { -webkit-appearance: button }
+[type="submit"] { 
+    -webkit-appearance: button;
+    font: inherit;
+    color: inherit; 
+}
 
 button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
@@ -194,8 +198,6 @@ template { display: none }
 /** ––– Structure ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 .WTK-wrapper {
     width: 100%;
-    padding-left: $website-margin;
-    padding-right: $website-margin;
     margin-left: auto;
     margin-right: auto;
     max-width: map-get($breakpoints, wide);
@@ -223,11 +225,13 @@ template { display: none }
     display: flex;
     flex-wrap: wrap;
     flex: 1 1 auto;
-    margin-left: calc($website-margin/2 * -1);
-    margin-right: calc($website-margin/2 * -1);
 
+    @media screen and (max-width: map-get($breakpoints, tablet)) { padding: 0 calc($website-margin * 2) }
+
+    &.wPadding { padding: 0 $website-global-margin }
     &--jCenter {
         @extend .WTK-row;
+
         justify-content: center; 
     }
     &--jBetween { justify-content: space-between }
@@ -240,19 +244,13 @@ template { display: none }
     &--aStretch { align-items: stretch }
 }
 .WTK-col {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
     flex: 1 1 100%;
     max-width: 100%;
 }
-[class*="WTK-col"] {
-   // outline: 1px solid magenta
-}
+[class*="WTK-col"] { }
 
 @include generateColumnClasses($breakpoints);
 
 @include generate-offsets($breakpoints);
-
-
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 

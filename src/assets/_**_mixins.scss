@@ -55,12 +55,16 @@
 * * Responsive columns generator.
 */
 @mixin generateColumnClasses($breakpoints) {
-   @for $i from 1 through 12 {
-     .WTK-col-#{$i} {
-       flex: 1 1 calc(100% / 12 * #{$i});
-       max-width: calc(100% / 12 * #{$i});
+  @for $i from 1 through 12 {
+    .WTK-col-#{$i} {
+      flex: 1 1 calc(100% / 12 * #{$i});
+      max-width: calc(100% / 12 * #{$i});
 
-       .debug &:before {
+      @media screen and (max-width: 600px) {
+        
+      }
+
+      .debug &:before {
         content: string.quote('col-' + #{$i});
         font-size: clamp(14px, 50%, 20px);
         padding: 3px;
@@ -71,34 +75,35 @@
         white-space: nowrap;
         position: absolute;
         outline: 1px solid lime;
+      }
     }
-     }
-   }
- 
-   @each $breakpoint, $value in $breakpoints {
-     @for $i from 1 through 12 {
-       .WTK-col-#{$breakpoint}-#{$i} {
-         @media (min-width: $value) {
-           flex: 1 1 calc(100% / 12 * #{$i});
-           max-width: calc(100% / 12 * #{$i});
+  }
+
+  @each $breakpoint, $value in $breakpoints {
+    @for $i from 1 through 12 {
+      .WTK-col-#{$breakpoint}-#{$i} {
+        @media (min-width: $value) {
+          flex: 1 1 calc(100% / 12 * #{$i});
+          max-width: calc(100% / 12 * #{$i});
 
           .debug &:before {
-              content: string.quote('res-col-' + #{$breakpoint} + '-' + #{$i});
-              font-size: clamp(14px, 50%, 20px);
-              padding: 3px;
-              margin-right: 10px;
-              background-color: oklch(70% .2 ($hue + (50 * $i)));
-              color: white;
-              display: inline-block;
-              white-space: nowrap;
-              position: absolute;
-              outline: 1px solid lime;
+            content: string.quote('res-col-' + #{$breakpoint} + '-' + #{$i});
+            font-size: clamp(14px, 50%, 20px);
+            padding: 3px;
+            margin-right: 10px;
+            background-color: oklch(70% .2 ($hue + (50 * $i)));
+            color: white;
+            display: inline-block;
+            white-space: nowrap;
+            position: absolute;
+            outline: 1px solid lime;
           }
-         }
-       }
-     }
-   }
- }
+        }
+      }
+    }
+  }
+}
+
 @include generateColumnClasses($breakpoints);
 
 
@@ -117,39 +122,53 @@
     }
   }
 }
+@include generate-offsets($breakpoints);
+ 
 
-@mixin generate-offsets($breakpoints) {
-  @each $breakpoint, $value in $breakpoints {
-    @for $i from 1 through 12 {
-      .WTK-offset-#{$i} {
-        margin-left: calc(100% / 12 * #{$i});
+@mixin generate-margins($directions) {
+  @each $key, $value in $directions {
+    @for $i from 0 through 6 {
+      .WTK-M#{$key}-#{$i} {
+        margin-#{$value}: calc($website-margin * $i);
 
-        @media (min-width: $value) {
-          .WTK-offset-#{$breakpoint}-#{$i} {
-            margin-left: calc(100% / 12 * #{$i});
+        @each $bKey, $bValue in $breakpoints {
+          @for $ci from 0 through 6 {
+            &--#{$ci}-#{$bKey} {
+              margin-#{$value}: 0;
+
+              @media (min-width: $bValue) {
+                margin-#{$value}: calc($website-margin * $i);
+              }
+            }
           }
         }
       }
     }
   }
 }
- 
-@mixin generate-margins($directions) {
-  @each $key, $value in $directions {
-    @for $i from 1 through 6 {
-      .WTK-M#{$key}-#{$i} {
-        margin-#{$value}: calc($website-margin * $i);
-      }
-    }
-  }
-}
 @include generate-margins($directions);
 
+
+/** 
+* * Generate responsive classes for individual paddings.
+*/
 @mixin generate-paddings($directions) {
   @each $key, $value in $directions {
-    @for $i from 1 through 6 {
+    @for $i from 0 through 6 {
       .WTK-P#{$key}-#{$i} {
         padding-#{$value}: calc($website-margin * $i);
+
+        @each $bKey, $bValue in $breakpoints {
+          @for $ci from 0 through 6 {
+            &--#{$ci}-#{$bKey} {
+              padding-#{$value}: 0;
+
+              @media (min-width: $bValue) {
+                padding-#{$value}: calc($website-margin * $i);
+              }
+            }
+          }
+        }
       }
     }
   }

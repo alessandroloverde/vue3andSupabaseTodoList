@@ -196,7 +196,9 @@
                </div>
                <div class="homePage--intro--jumpTo WTK-col-12">
                   <a href="#tempNewPage">
-                     <button class="iconOnly btn--icn--icon-chevron-circle-down" role="button" aria-label="Next Page"></button>
+                     <button role="button" aria-label="Next Page">
+                        <span class="fi-rr-arrow-alt-circle-down"></span>
+                     </button>
                   </a>
                </div>
             </section>            
@@ -205,8 +207,8 @@
 
       <section id="tempNewPage" class="homePage--temp">
          <div class="WTK-wrapper--medium">
-            <div class="WTK-row--jCenter">
-               <h1 class="WTK-col-12 fi fi-rr-camera">Why Wondertask?</h1>
+            <div class="WTK-row--jCenter wPadding">
+               <h1 class="WTK-col-12"><i class="fi fi-rr-camera"></i>Why Wondertask?</h1>
                <div class="WTK-col-12 WTK-col-laptop-6 WTK-col-desktop-4">
                   <div class="hexagon-1">
                      <svg id="Hex-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 622.38 539">
@@ -291,7 +293,7 @@
          <aside id="topo"></aside>
 
          <div class="WTK-wrapper--medium">
-            <div class="WTK-row--jCenter">
+            <div class="WTK-row--jCenter wPadding">
                <h2 class="WTK-MT-1 WTK-MB-2">Possible headline</h2>
 
                <div class="WTK-col-12 WTK-col-desktop-8 card"> <!-- *** Card 1 *** -->
@@ -385,8 +387,8 @@
       <aside id="castoro">
          <section id="loginAndRegister">
             <div class="WTK-wrapper--medium">
-               <div class="WTK-row">
-                  <div class="WTK-col-12 WTK-col-laptop-4 WTK-PR-2">
+               <div class="WTK-row wPadding">
+                  <div class="WTK-col-12 WTK-col-laptop-4">
                      <Login></Login>
                   </div>
                   <div class="WTK-col-12 WTK-col-laptop-4">
@@ -398,7 +400,7 @@
                            you're up to go!</p>
                      </div>
                   </div>
-                  <div class="WTK-col-12 WTK-col-laptop-4 WTK-PL-2">
+                  <div class="WTK-col-12 WTK-col-laptop-4">
                      <Register></Register>
                   </div>
                </div>
