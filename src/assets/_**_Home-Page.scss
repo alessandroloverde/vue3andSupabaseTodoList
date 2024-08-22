@@ -105,6 +105,8 @@ $polygonHeight: 20vw;
 			 color: $website-plainText;
 			 display: flex;
 			 align-items: center;
+			 margin: auto;
+			 padding-left: 3rem;
   
 			 & > nav { width: 100% }
 			 & > nav > ul { 
@@ -203,8 +205,8 @@ $polygonHeight: 20vw;
 	 
 		.hexagon-#{$i} article > svg {
 			max-width: 100%;
-			min-height: 65px;
-			max-height: 260px;
+			min-height: 66px;
+			max-height: 160px;
 			margin-bottom: $website-margin * 2;
 			fill: nth($transformedColorMap, $i);
 		}
@@ -269,23 +271,10 @@ $polygonHeight: 20vw;
 	  padding-left: 1em;
 
 	  @include responsiveProperty($cardMulticoloriconSizes, margin-left);
-
-	/* @each $breakpoint, $value in $breakpoints {
-		 @include respond-to($breakpoint) { 
-			margin-left: calc(map-get($cardMulticoloriconSizes, $breakpoint) + $website-margin * 2); 
-		 };
-	  } */
 	}
 	&--divider {
 	  border: none;
 	  height: 0.25em;
- 
-	/* @each $breakpoint, $value in $breakpoints {
-		 @include respond-to($breakpoint) { 
-			width: calc(100% - (map-get($cardMulticoloriconSizes, $breakpoint)));
-			margin-left: calc(map-get($cardMulticoloriconSizes, $breakpoint) + $website-margin * 2); 
-		 };
-	  } */
  
 	  background-image: linear-gradient(
 		 90deg, 
@@ -298,7 +287,11 @@ $polygonHeight: 20vw;
 		font-size: 1.5rem !important;
 		font-weight: 600; 
 	}
-	&--image { display: flex }
+	&--image { 
+		display: flex;
+		
+		& > div { margin: auto }
+	}
  
 	& + & { 
 		background-image: linear-gradient(-90deg, rgba(map-get($presentationColors, violet), 0.6) 0%, transparent 100% );

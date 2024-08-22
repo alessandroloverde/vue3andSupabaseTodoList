@@ -1,5 +1,5 @@
 <template>
-   <div v-if="!isLoggedIn()" class="homePage">
+   <div v-if="!isLoggedIn()" class="homePage debug">
       <div class="WTK-wrapper--medium introBkg">
          <div class="WTK-row--jCenter">
             <section class="homePage--intro WTK-col-10 WTK-col-laptop-8 WTK-col-desktop-6">
@@ -209,7 +209,7 @@
          <div class="WTK-wrapper--medium">
             <div class="WTK-row--jCenter wPadding">
                <h1 class="WTK-col-12"><i class="fi fi-rr-camera"></i>Why Wondertask?</h1>
-               <div class="WTK-col-12 WTK-col-laptop-6 WTK-col-desktop-4">
+               <div class="WTK-col-12 WTK-col-tablet-6 WTK-col-laptop-4">
                   <div class="hexagon-1">
                      <svg id="Hex-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 622.38 539">
                         <polygon
@@ -234,7 +234,7 @@
                      </article>
                   </div>
                </div>
-               <div class="WTK-col-12 WTK-col-laptop-6 WTK-col-desktop-4">
+               <div class="WTK-col-12 WTK-col-tablet-6 WTK-col-laptop-4">
                   <div class="hexagon-2">
                      <svg id="Hex-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 622.38 539">
                         <polygon
@@ -259,7 +259,7 @@
                      </article>
                   </div>
                </div>
-               <div class="WTK-col-12 WTK-col-laptop-6 WTK-col-desktop-4">
+               <div class="WTK-col-12 WTK-col-tablet-6 WTK-col-laptop-4">
                   <div class="hexagon-3">
                      <svg id="Hex-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 622.38 539">
                         <polygon 
@@ -299,7 +299,7 @@
                <div class="WTK-col-12 WTK-col-desktop-8 card"> <!-- *** Card 1 *** -->
                   <div class="card--bkg">
                      <div class="WTK-row">
-                        <div class="card--content WTK-col-8">
+                        <div class="card--content WTK-col-12 WTK-col-tablet-8">
                            <svg xmlns="http://www.w3.org/2000/svg" 
                               id="multicolor-toDolist-icon" 
                               class="card--icon"
@@ -325,7 +325,7 @@
                               Assign categories, colors, and icons to each task and enjoy the sparkle.
                            </p>
                         </div>
-                        <div class="card--image WTK-col-4">
+                        <div class="card--image WTK-col-12 WTK-col-tablet-4">
                            <LottieAnimation ref="anim" 
                               :animation-data="castoroJSON" 
                               :loop="true" 
@@ -344,7 +344,7 @@
                <div class="WTK-col-12 WTK-col-desktop-8 card"> <!-- *** Card 2 *** -->
                   <div class="card--bkg">
                      <div class="WTK-row">
-                        <div class="card--image WTK-col-4">
+                        <div class="card--image WTK-col-12 WTK-col-tablet-4">
                            <LottieAnimation ref="anim" 
                               :animation-data="WatermelonJSON" 
                               :loop="true" 
@@ -356,7 +356,7 @@
                               @segmentStart="segmentStart" 
                               @stopped="stopped" />
                         </div>
-                        <div class="card--content WTK-col-8">
+                        <div class="card--content WTK-col-12 WTK-col-tablet-8">
                            <svg xmlns="http://www.w3.org/2000/svg" 
                               id="multicolor-toDolist-icon" 
                               class="card--icon"

@@ -60,10 +60,6 @@
       flex: 1 1 calc(100% / 12 * #{$i});
       max-width: calc(100% / 12 * #{$i});
 
-      @media screen and (max-width: 600px) {
-        
-      }
-
       .debug &:before {
         content: string.quote('col-' + #{$i});
         font-size: clamp(14px, 50%, 20px);
@@ -129,15 +125,15 @@
   @each $key, $value in $directions {
     @for $i from 0 through 6 {
       .WTK-M#{$key}-#{$i} {
-        margin-#{$value}: calc($website-margin * $i);
+        margin-#{$value}: calc($website-margin * $i) !important;
 
         @each $bKey, $bValue in $breakpoints {
           @for $ci from 0 through 6 {
             &--#{$ci}-#{$bKey} {
-              margin-#{$value}: 0;
+              margin-#{$value}: 0 !important;
 
               @media (min-width: $bValue) {
-                margin-#{$value}: calc($website-margin * $i);
+                margin-#{$value}: calc($website-margin * $i) !important;
               }
             }
           }
@@ -156,15 +152,15 @@
   @each $key, $value in $directions {
     @for $i from 0 through 6 {
       .WTK-P#{$key}-#{$i} {
-        padding-#{$value}: calc($website-margin * $i);
+        padding-#{$value}: calc($website-margin * $i) !important;
 
         @each $bKey, $bValue in $breakpoints {
           @for $ci from 0 through 6 {
             &--#{$ci}-#{$bKey} {
-              padding-#{$value}: 0;
+              padding-#{$value}: 0 !important;
 
               @media (min-width: $bValue) {
-                padding-#{$value}: calc($website-margin * $i);
+                padding-#{$value}: calc($website-margin * $i) !important;
               }
             }
           }

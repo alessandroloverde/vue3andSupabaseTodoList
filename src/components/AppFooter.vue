@@ -6,8 +6,8 @@
                     <section class="homePage--footer--info--logo WTK-col-12 WTK-col-tablet-4">
                         <img src="../assets/images/Logo.png" alt="logo">
                     </section>
-                    <section class="homePage--footer--info--privacy WTK-col-12 WTK-col-tablet-8">
-                        <nav class="WTK-ML-3--0-tablet">
+                    <section class="homePage--footer--info--privacy WTK-col-12 WTK-col-tablet-8 WTK-PL-3--0-tablet">
+                        <nav class="">
                             <ul>
                                 <li>
                                     <a class="topo" href="#">How it works</a>
