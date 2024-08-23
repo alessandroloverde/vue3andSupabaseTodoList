@@ -4,7 +4,9 @@
 /** ––– ?????? –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 *,
 *:before,
-*:after { box-sizing: border-box }
+*:after {
+    box-sizing: border-box
+}
 
 html {
     height: 100%;
@@ -24,15 +26,17 @@ body {
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto;
-    -webkit-hyphenate-limit-before: 3; /* For Safari */
-    -webkit-hyphenate-limit-after: 3; /* For Safari */
-        -ms-hyphenate-limit-chars: 6 3 3;
-            hyphenate-limit-chars: 6 3 3;
+    -webkit-hyphenate-limit-before: 3;
+    /* For Safari */
+    -webkit-hyphenate-limit-after: 3;
+    /* For Safari */
+    -ms-hyphenate-limit-chars: 6 3 3;
+    hyphenate-limit-chars: 6 3 3;
     word-wrap: break-word;
     overflow-wrap: break-word;
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
-     -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
 }
 
 img {
@@ -41,6 +45,7 @@ img {
         height: auto;
         display: block;
     }
+
     &.fitImg {
         width: 100%;
         height: 100%;
@@ -52,7 +57,9 @@ img {
 
 
 /** ––– Reset ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
-main { display: block }
+main {
+    display: block
+}
 
 h1 {
     font-size: 2em;
@@ -82,7 +89,9 @@ abbr[title] {
 }
 
 b,
-strong { font-weight: bolder }
+strong {
+    font-weight: bolder
+}
 
 code,
 kbd,
@@ -91,7 +100,9 @@ samp {
     font-size: 1em;
 }
 
-small { font-size: 80% }
+small {
+    font-size: 80%
+}
 
 sub,
 sup {
@@ -101,11 +112,17 @@ sup {
     vertical-align: baseline;
 }
 
-sub { bottom: -0.25em }
+sub {
+    bottom: -0.25em
+}
 
-sup { top: -0.5em }
+sup {
+    top: -0.5em
+}
 
-img { border-style: none }
+img {
+    border-style: none
+}
 
 button,
 input,
@@ -119,18 +136,22 @@ textarea {
 }
 
 button,
-input { overflow: visible }
+input {
+    overflow: visible
+}
 
 button,
-select { text-transform: none }
+select {
+    text-transform: none
+}
 
 button,
 [type="button"],
 [type="reset"],
-[type="submit"] { 
+[type="submit"] {
     -webkit-appearance: button;
     font: inherit;
-    color: inherit; 
+    color: inherit;
 }
 
 button::-moz-focus-inner,
@@ -144,15 +165,19 @@ button::-moz-focus-inner,
 button:-moz-focusring,
 [type="button"]:-moz-focusring,
 [type="reset"]:-moz-focusring,
-[type="submit"]:-moz-focusring { outline: 1px dotted ButtonText }
+[type="submit"]:-moz-focusring {
+    outline: 1px dotted ButtonText
+}
 
-fieldset { padding: 0.35em 0.75em 0.625em }
+fieldset {
+    padding: 0.35em 0.75em 0.625em
+}
 
 legend {
     box-sizing: border-box;
     color: inherit;
     display: table;
-    max-width: 100%; 
+    max-width: 100%;
     padding: 0;
     white-space: normal;
 }
@@ -161,9 +186,11 @@ progress {
     display: inline-block;
     vertical-align: baseline;
 }
-  
-textarea { overflow: auto }
-  
+
+textarea {
+    overflow: auto
+}
+
 [type="checkbox"],
 [type="radio"] {
     box-sizing: border-box;
@@ -171,86 +198,105 @@ textarea { overflow: auto }
 }
 
 [type="number"]::-webkit-inner-spin-button,
-[type="number"]::-webkit-outer-spin-button { height: auto }
+[type="number"]::-webkit-outer-spin-button {
+    height: auto
+}
 
 [type="search"] {
     -webkit-appearance: textfield;
     outline-offset: -2px;
 }
 
-[type="search"]::-webkit-search-decoration { -webkit-appearance: none }
+[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none
+}
 
 ::-webkit-file-upload-button {
     -webkit-appearance: button;
     font: inherit;
 }
-  
-details { display: block }
 
-summary { display: list-item }
+details {
+    display: block
+}
 
-template { display: none }
+summary {
+    display: list-item
+}
 
-[hidden] { display: none }
+template {
+    display: none
+}
+
+[hidden] {
+    display: none
+}
+
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 
 /** ––– Structure ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
-.WTK-wrapper {
+.W-Wrapper {
     width: 100%;
+    max-width: 1440px;
     margin-left: auto;
     margin-right: auto;
-    max-width: map-get($breakpoints, wide);
+    padding: 0;
+    outline: 1px solid rgb(210, 29, 204);
 
-    &--full { max-width: none }
-    &--medium {
-        @extend .WTK-wrapper;
-        @include responsiveProperty($containerMaxWidth, max-width) using ($breakpoint, $value, $index) {  
-            flex-direction: row;
-        
-            .debug & {
-              $hue: 0;
-        
-              outline: 3px solid oklch(70% .2 ($hue + (50 * $index)));
-        
-              &::before { 
-                content: "#{$breakpoint} – #{$index}";
-                background-color: oklch(70% .2 ($hue + (50 * $index)));
-              }
-            }
-          }
+    &--full {
+        max-width: none
     }
 }
-.WTK-row {
+
+.W-Row {
     display: flex;
     flex-wrap: wrap;
     flex: 1 1 auto;
 
-    @media screen and (max-width: map-get($breakpoints, tablet)) { padding: 0 calc($website-margin * 2) }
-
-    &.wPadding { padding: 0 $website-global-margin }
     &--jCenter {
-        @extend .WTK-row;
+        @extend .W-Row;
 
-        justify-content: center; 
+        justify-content: center;
     }
-    &--jBetween { justify-content: space-between }
-    &--jEnd { justify-content: flex-end }
-    &--jAround { justify-content: space-around }
 
-    &--aCenter { align-items: center }
-    &--aEnd { align-items: flex-end }
-    &--aStart { align-items: flex-start }
-    &--aStretch { align-items: stretch }
+    &--jBetween {
+        justify-content: space-between
+    }
+
+    &--jEnd {
+        justify-content: flex-end
+    }
+
+    &--jAround {
+        justify-content: space-around
+    }
+
+    &--aCenter {
+        align-items: center
+    }
+
+    &--aEnd {
+        align-items: flex-end
+    }
+
+    &--aStart {
+        align-items: flex-start
+    }
+
+    &--aStretch {
+        align-items: stretch
+    }
 }
+
 .WTK-col {
     flex: 1 1 100%;
     max-width: 100%;
 }
-[class*="WTK-col"] { }
+
+[class*="WTK-col"] {}
 
 @include generateColumnClasses($breakpoints);
 
 @include generate-offsets($breakpoints);
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
-
