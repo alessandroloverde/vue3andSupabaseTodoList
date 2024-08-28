@@ -236,63 +236,94 @@ template {
 
 
 /** ––– Structure ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
-.W-Wrapper {
-    width: 100%;
-    max-width: 1440px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0;
-    outline: 1px solid rgb(210, 29, 204);
+$max-container-width: 1440px;
+$container-padding: 2rem;
+$gutter-width: 20px;
 
-    &--full {
-        max-width: none
-    }
+%⭐-Wrapper {
+    width: 100%;
+    max-width: $max-container-width;
+    margin: 0 auto;
+    @include responsiveProperty($wrapperMargins, padding);
+    display: flex;
+    flex-wrap: wrap;
+
+    //outline: 2px solid salmon;
+}
+.⭐-Wrapper--full { 
+    @extend %⭐-Wrapper;
+    max-width: none;
+}
+.⭐-Wrapper { 
+    @extend %⭐-Wrapper;
 }
 
-.W-Row {
+%⭐-Row {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     flex: 1 1 auto;
 
-    &--jCenter {
-        @extend .W-Row;
+    //outline: 1px solid lime;
+}
+.⭐-Row {
+    @extend %⭐-Row;
 
+    &--jCenter {
+        @extend %⭐-Row;
         justify-content: center;
     }
-
     &--jBetween {
+        @extend %⭐-Row;
         justify-content: space-between
     }
-
     &--jEnd {
+        @extend %⭐-Row;
         justify-content: flex-end
     }
-
     &--jAround {
+        @extend %⭐-Row;
         justify-content: space-around
     }
-
     &--aCenter {
+        @extend %⭐-Row;
         align-items: center
     }
-
     &--aEnd {
+        @extend %⭐-Row;
         align-items: flex-end
     }
-
     &--aStart {
+        @extend %⭐-Row;
         align-items: flex-start
     }
-
     &--aStretch {
+        @extend %⭐-Row;
         align-items: stretch
     }
 }
 
-.WTK-col {
+.⭐-Col {
     flex: 1 1 100%;
     max-width: 100%;
+
+    //outline: 1px solid rgb(81, 108, 189);
+
+    &--centered {
+        @extend .⭐-Col;
+        margin: auto;
+    }
 }
+@for $i from 1 to 13 {
+    .⭐-col-#{$i} {
+        flex: 0 1 calc(100% * (#{$i} / 12));
+
+        @media (orientation: portrait) and (max-width: map-get($breakpoints, laptop)) {
+            flex: 1 1 100%;
+        }
+    }
+}
+
 
 [class*="WTK-col"] {}
 

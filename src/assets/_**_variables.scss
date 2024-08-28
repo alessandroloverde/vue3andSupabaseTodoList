@@ -40,6 +40,14 @@ $breakpoints: (
     wide: 1440px
 );
 
+$wrapperMargins: (
+    default: 0 2rem,
+    tablet: 0 4rem,
+    laptop: 0 2rem,
+    desktop: 0 2rem,
+    wide: 0 2rem
+);
+
 $directions: (
     T: "top",
     B: "bottom",

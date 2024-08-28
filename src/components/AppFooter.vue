@@ -1,12 +1,12 @@
 <template>
     <footer class="homePage--footer">
-        <div class="W-Wrapper">
-            <div class="">
+        <div class="⭐-Wrapper">
+            <div class="⭐-Row">
                 <div class="homePage--footer--info">
-                    <section class="homePage--footer--info--logo">
+                    <section class="homePage--footer--info--logo ⭐-Col ⭐-col-4">
                         <img src="../assets/images/Logo.png" alt="logo">
                     </section>
-                    <section class="homePage--footer--info--privacy">
+                    <section class="homePage--footer--info--privacy ⭐-Col ⭐-col-8">
                         <nav class="">
                             <ul>
                                 <li>

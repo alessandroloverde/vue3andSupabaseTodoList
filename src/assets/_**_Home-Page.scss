@@ -31,7 +31,7 @@ $polygonHeight: 20vw;
 		height: 100vh;
 
 		&--heading {
-			margin-top: 3vw;
+			margin-top: 4vh;
 
 			&--logo {
 				flex-wrap: wrap;
@@ -39,7 +39,8 @@ $polygonHeight: 20vw;
 			}
 			&--claim { 
 				width: min(100%, 500px);
-				margin-top: 1vh;
+				display: block;
+				margin: 1vh auto auto auto;
 			}
 		}
 
@@ -81,6 +82,8 @@ $polygonHeight: 20vw;
 		background-repeat: no-repeat;
 		background-size: 100%;
 		background-position-y: calc(100% + 10vw);
+
+		& h2 { margin-bottom: calc($website-margin * 2) }
 	}
 	&--footer {
 		$footerHeight: 60px;
@@ -125,11 +128,6 @@ $polygonHeight: 20vw;
 					align-items: center;
 					justify-content: center;
 					margin: calc($website-margin / 2);
-
-					@media (min-width: map-get($breakpoints, laptop)) and (max-width: map-get($breakpoints, desktop)) {
-						width: 50%;
-						margin: 0.5rem 0;
-					}
 
 					& > a {
 						@include Quicksand();
