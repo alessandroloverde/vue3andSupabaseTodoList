@@ -43,9 +43,14 @@ h2 {
 
 h3 {
    @include Quicksand();
-   @include responsiveProperty($h3, font-size);
+   //@include responsiveProperty($h3, font-size);
 
+   font-size: 32px;
    line-height: lineHeight();
+
+   @media screen and (min-width: 667px) {
+      font-size: clamp(26px, 2.75vw, 40px);
+   }
 }
 
 h4 {
@@ -63,9 +68,15 @@ h5 {
 }
 
 h6 {
-   @include responsiveProperty($h6, font-size);
+   @include Quicksand();
+   //@include responsiveProperty($h6, font-size);
 
+   font-size: 16px;
    line-height: lineHeight();
+
+   @media screen and (min-width: 667px) {
+      font-size: clamp(16px, 1.65vw, 20px);
+   }
 }
 
 h1,
@@ -79,6 +90,7 @@ p {
    @include Quicksand();
 
    font-size: 1.25rem;
+   font-size: clamp(16px, 1.75vw, 22px);
    line-height: 1.25;
    margin: 0;
 

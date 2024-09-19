@@ -109,18 +109,20 @@ $polygonHeight: 20vw;
 			 display: flex;
 			 align-items: center;
 			 margin: auto;
-			 padding-left: 3rem;
+			 
   
 			 & > nav { width: 100% }
 			 & > nav > ul { 
 				display: flex;
-				flex-wrap: wrap;
+				flex-wrap: nowrap;
 				justify-content: space-between;
 				line-height: 1;
 				padding: 0;
+				padding-left: 3rem;
   
 				@media screen and (max-width: map-get($breakpoints, tablet)) {
 				  display: block;
+				  padding: 0;
 				}
 				
 				li {
@@ -177,8 +179,10 @@ $polygonHeight: 20vw;
 		background-color: $website-Bkg;
 		clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 99%, 25% 99%, 0% 50%);
 
-		@media screen and (max-width: map-get($breakpoints, laptop)) { transform: none !important }
-		@include responsiveProperty($hexagonMargins, margin);
+		@media screen and (max-width: 667px) {
+			transform: none !important;
+			margin-bottom: 1rem;
+		}
 	 
 		article {
 		  position: absolute;
@@ -190,6 +194,10 @@ $polygonHeight: 20vw;
 		  h3 { 
 			 margin-left: -20%;
 			 margin-right: -20%;
+			 margin-bottom: 0.5rem;
+		  }
+		  @media screen and (max-width: map-get($breakpoints, desktop)) {
+			.additionalText { display: none }
 		  }
 		}
 	 }
@@ -204,57 +212,50 @@ $polygonHeight: 20vw;
 		.hexagon-#{$i} article > svg {
 			max-width: 100%;
 			min-height: 66px;
-			max-height: 160px;
-			margin-bottom: $website-margin * 2;
+			max-height: 220px;
+			margin-bottom: $website-margin * 1;
 			fill: nth($transformedColorMap, $i);
 		}
 	}
+
+	$hexTransformBreakpoint: "laptop";
 	.hexagon-1 { 
 		transform: translate(20%, 0); 
 
-		@media screen and (max-width: map-get($breakpoints, desktop)) { transform: translate(10%, 0) }
+		@media screen and (max-width: map-get($breakpoints, #{$hexTransformBreakpoint})) { transform: translate(10%, 0) }
 	}
 	.hexagon-2 { 
 		transform: translate(0, 50%);
 
-		@media screen and (max-width: map-get($breakpoints, desktop)) { transform: translate(-10%, 52.5%) }
+		@media screen and (max-width: map-get($breakpoints, #{$hexTransformBreakpoint})) { transform: translate(-10%, 52.5%) }
 	}
 	.hexagon-3 { 
 		transform: translate(-20%, 0%);
 
-		@media screen and (max-width: map-get($breakpoints, desktop)) { transform: translate(-40%, 5%) }
+		@media screen and (max-width: map-get($breakpoints, #{$hexTransformBreakpoint})) { transform: translate(10%, 5%) }
 	}
 }
 
 #wave {
-	height: 420px;
+	height: clamp(260px, 46vw, 420px);
 	background-image: url("../src/assets/images/wave.png");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	background-position: center center;
-	margin-top: -10vh;
+	@include responsiveProperty($waveTopMargin, margin-top);
 }
 
 .card {
 	display: flex;
 	border-radius: 18px;
-	background-image: linear-gradient(90deg, rgba(map-get($presentationColors, azure), 0.75) 0%, transparent 100% );
-	
-	& > .flex-row {
-	  width: calc(100% - 4px);
-	  height: calc(100% - 4px);
-	  margin: 2px;
-	  padding: calc($website-margin * 2);
-	  border-radius: 18px;
-	  background-image: linear-gradient(90deg, rgba(34, 23, 78, 1) 40%, rgba(13, 12, 41, 1) 100%);
-	}
+	background-image: card-gradientBkg(90deg, rgba(map-get($presentationColors, azure), 0.75), transparent, 0%, 100% );
  
 	&--bkg {
 		border-radius: 18px;
 		width: calc(100% - 4px);
 		height: calc(100% - 4px);
-		padding: calc($website-margin * 4);
-		background-image: linear-gradient(-90deg, rgba(12, 55, 89, 0.25) 30%, rgba(13, 12, 41, 0.75) 100%);
+		padding: clamp(1.5rem, 4vw + 1rem, 4.5rem);
+		background-image: card-gradientBkg(-90deg, rgba(12, 55, 89, 0.25), rgba(13, 12, 41, 0.75), 30%, 100%);
 		margin: 2px;
 	}
 	&--icon { 
@@ -262,13 +263,16 @@ $polygonHeight: 20vw;
 
 	  height: auto;
 	  position: absolute;
-	  margin-bottom: calc($website-margin * 2); 
+	  margin-bottom: calc($website-margin * 2);
+
+	  @media screen and (max-width: 667px) { display: none }
 	}
 	&--headline { 
 	  hyphens: none;
 	  padding-left: 1em;
 
 	  @include responsiveProperty($cardMulticoloriconSizes, margin-left);
+	  @media screen and (max-width: 667px) { padding-left: 0 }
 	}
 	&--divider {
 	  border: none;
@@ -281,10 +285,7 @@ $polygonHeight: 20vw;
 		 map-get($presentationColors, violet) 100%);
 	  margin: calc($website-margin * 2) 0;
 	}
-	&--description { 
-		font-size: 1.5rem !important;
-		font-weight: 600; 
-	}
+	&--description { font-weight: 600 }
 	&--image { 
 		display: flex;
 		
@@ -292,12 +293,12 @@ $polygonHeight: 20vw;
 	}
  
 	& + & { 
-		background-image: linear-gradient(-90deg, rgba(map-get($presentationColors, violet), 0.6) 0%, transparent 100% );
+		background-image: card-gradientBkg(-90deg, rgba(map-get($presentationColors, violet), 0.6), transparent, 0%, 100% );
 		margin-bottom: 16vw;
 		margin-top: calc($website-margin * 2);
 
-		& .card--bkg { 
-			background-image: linear-gradient(90deg, rgba(12, 55, 89, 0.25) 30%, rgba(13, 12, 41, 0.75) 100%);
+		& .card--bkg {
+			background-image: card-gradientBkg(90deg, rgba(12, 55, 89, 0.25), rgba(13, 12, 41, 0.75), 30%, 100% );		
 			background-color: rgba(0,0,0, 0.2);
 		}
 	}

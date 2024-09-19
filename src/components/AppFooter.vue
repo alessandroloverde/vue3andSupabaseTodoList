@@ -19,7 +19,7 @@
                                     <a href="#">Terms & Conditions</a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class="fi fi-rr-envelope"></i> Contact</a>
+                                    <a href="#"><i class="fi fi-rr-envelope"></i>&nbsp;Contact</a>
                                 </li>
                             </ul>
                         </nav>

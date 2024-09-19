@@ -42,10 +42,10 @@ $breakpoints: (
 
 $wrapperMargins: (
     default: 0 2rem,
-    tablet: 0 4rem,
+    tablet: 0 2rem,
     laptop: 0 2rem,
-    desktop: 0 2rem,
-    wide: 0 2rem
+    desktop: 0 3rem,
+    wide: 0 4rem
 );
 
 $directions: (
@@ -91,11 +91,11 @@ $h5: (
     wide: 1.563rem,
 );
 $h6: (
-    default: 1rem,
-    tablet: 1.15rem,
-    laptop: 1.25rem,
-    desktop: 1.25rem,
-    wide: 1.25rem,
+    default: 1.5rem,
+    tablet: clamp(15px, 1.65vw, 20px),
+    laptop: clamp(15px, 1.65vw, 20px),
+    desktop: clamp(15px, 1.65vw, 20px),
+    wide: clamp(15px, 1.65vw, 20px),
 );
 
 $mainBkgSize: (
@@ -114,7 +114,7 @@ $containerMaxWidth: (
 );
 
 $cardMulticoloriconSizes: (
-  default: 60px,
+  default: 0,
   tablet: 60px,
   laptop: 70px,
   desktop: 86px,
@@ -122,11 +122,18 @@ $cardMulticoloriconSizes: (
 );
 
 $hexagonMargins: (
-  default: calc($website-margin),
+  default: calc($website-margin) 0,
   tablet: calc($website-margin * 2) calc($website-margin * 4),
   laptop: auto auto,
   desktop: auto auto,
   wide: auto auto,
+);
+$waveTopMargin: (
+  default: -100px,
+  tablet: -150px,
+  laptop: -120px,
+  desktop: -50px,
+  wide: -50px,
 );
 /* –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 

@@ -247,8 +247,6 @@ $gutter-width: 20px;
     @include responsiveProperty($wrapperMargins, padding);
     display: flex;
     flex-wrap: wrap;
-
-    //outline: 2px solid salmon;
 }
 .⭐-Wrapper--full { 
     @extend %⭐-Wrapper;
@@ -263,8 +261,6 @@ $gutter-width: 20px;
     display: flex;
     flex-wrap: wrap;
     flex: 1 1 auto;
-
-    //outline: 1px solid lime;
 }
 .⭐-Row {
     @extend %⭐-Row;
@@ -307,8 +303,6 @@ $gutter-width: 20px;
     flex: 1 1 100%;
     max-width: 100%;
 
-    //outline: 1px solid rgb(81, 108, 189);
-
     &--centered {
         @extend .⭐-Col;
         margin: auto;
@@ -318,7 +312,18 @@ $gutter-width: 20px;
     .⭐-col-#{$i} {
         flex: 0 1 calc(100% * (#{$i} / 12));
 
-        @media (orientation: portrait) and (max-width: map-get($breakpoints, laptop)) {
+        @each $key, $value in $breakpoints {
+            &--#{$key} {
+                @media (max-width: map-get($breakpoints, $key)) {
+                    flex: 0 1 calc(100% * (#{$i} / 12));
+                }
+                @media (orientation: portrait) and (max-width: 667px) {
+                    flex: 1 1 100%;
+                }
+            }
+        }
+
+        @media (orientation: portrait) and (max-width: 667px) {
             flex: 1 1 100%;
         }
     }

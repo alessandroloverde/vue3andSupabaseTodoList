@@ -170,10 +170,10 @@
   }
 }
 @include generate-paddings($directions);
+
+@function card-gradientBkg($angle, $color1, $color2, $dist1, $dist2) {
+  @return linear-gradient($angle, $color1 $dist1, $color2 $dist2 );
+}
  
  
-
-
-
-
 
