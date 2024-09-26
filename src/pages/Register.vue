@@ -2,7 +2,7 @@
   import { ref } from "vue";
   import useAuthUser from "../composables/UseAuthUser";
   import { useRouter } from "vue-router";
-import { AuthError } from "@supabase/supabase-js";
+  import { AuthError } from "@supabase/supabase-js";
 
   const router = useRouter();
   const { register } = useAuthUser();
@@ -35,23 +35,30 @@ import { AuthError } from "@supabase/supabase-js";
 
 <template>
   <div id="Register" class="">
-    <h2 class="WTK-MB-2">Register</h2>
+    <h3>Register</h3>
     <div class="">
       <section class="register--formContent flex-col-lg-12 noPadding">
         <form @submit.prevent="handleSubmit">
           <fieldset>
-            <label for="register-name"><i class="icon-user"></i>Name (optional)</label>
-            <input v-model="form.name" id="register-name" type="text" />
+            <label for="register-name"><i class="fi-rr-user"></i>Name (optional)</label>
+            <input v-model="form.name" id="register-name" type="text" size="1" />
           </fieldset>
           <fieldset>
-            <label for="register-email"><i class="icon-envelope"></i>Email</label>
-            <input v-model="form.email" id="register-email" type="email" />
+            <label for="register-email"><i class="fi-rr-envelope"></i>Email<i class="fi-rr-check-circle validation"></i></label>
+            <input v-model="form.email" id="register-email" type="email" required size="1" />
           </fieldset>
           <fieldset>
-            <label for="register-password"><i class="icon-bookmark"></i>Password</label>
-            <input v-model="form.password" id="register-password" type="password" />
+            <label for="register-password"><i class="fi-rr-lock"></i>Password<i class="fi-rr-check-circle validation"></i></label>
+            <input 
+              v-model="form.password" 
+              id="register-password" 
+              type="password" 
+              required 
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$" size="1" />
           </fieldset>
-          <button class="btn btn--cta">Register</button>
+          <fieldset>
+            <button class="⭐-Btn--primary">Register</button>
+          </fieldset>
         </form>
       </section>
     </div>

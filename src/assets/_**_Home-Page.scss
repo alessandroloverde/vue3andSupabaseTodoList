@@ -88,6 +88,8 @@ $polygonHeight: 20vw;
 	&--footer {
 		$footerHeight: 60px;
 		margin-top: $website-margin;
+
+		@media screen and (max-width: map-get($breakpoints, laptop)) { margin-top: calc($website-margin * 4)}
   
 		&--info {
 		  width: 100%;
@@ -249,6 +251,10 @@ $polygonHeight: 20vw;
 	display: flex;
 	border-radius: 18px;
 	background-image: card-gradientBkg(90deg, rgba(map-get($presentationColors, azure), 0.75), transparent, 0%, 100% );
+
+	@media screen and (max-width: 667px) { 	
+		background-image: card-gradientBkg(180deg, rgba(map-get($presentationColors, azure), 0.75), transparent, 0%, 100% );
+	}
  
 	&--bkg {
 		border-radius: 18px;
@@ -257,6 +263,10 @@ $polygonHeight: 20vw;
 		padding: clamp(1.5rem, 4vw + 1rem, 4.5rem);
 		background-image: card-gradientBkg(-90deg, rgba(12, 55, 89, 0.25), rgba(13, 12, 41, 0.75), 30%, 100%);
 		margin: 2px;
+
+		@media screen and (max-width: 667px) { 	
+			background-image: card-gradientBkg(45deg, rgba(12, 55, 89, 0.25), rgba(13, 12, 41, 0.75), 30%, 100%);
+		}
 	}
 	&--icon { 
 	  @include responsiveProperty($cardMulticoloriconSizes, width);
@@ -297,9 +307,17 @@ $polygonHeight: 20vw;
 		margin-bottom: 16vw;
 		margin-top: calc($website-margin * 2);
 
+		@media screen and (max-width: 667px) {
+			background-image: card-gradientBkg(180deg, rgba(map-get($presentationColors, violet), 0.6), transparent, 0%, 100% );
+		}
+
 		& .card--bkg {
 			background-image: card-gradientBkg(90deg, rgba(12, 55, 89, 0.25), rgba(13, 12, 41, 0.75), 30%, 100% );		
 			background-color: rgba(0,0,0, 0.2);
+
+			@media screen and (max-width: 667px) {
+				background-image: card-gradientBkg(45deg, rgba(12, 55, 89, 0.25), rgba(13, 12, 41, 0.75), 30%, 100% );		
+			}
 		}
 	}
  }
@@ -325,15 +343,22 @@ $polygonHeight: 20vw;
 	bottom: 0;
  }
 
+
 #loginAndRegister { padding-top: $polygonHeight }
-
-
 #Login, 
-#Register { 
-	transform: translateY(-3vw);
-	
-	@media screen and (max-width: map-get($breakpoints, laptop)) { transform: none }
+#Register, 
+#toBeDefined {
+  border-radius: 18px;
+  border: 2px solid;
+  padding: 10%;
+  margin-top: calc($website-margin * 4);
+  margin-bottom: calc($website-margin * 4);
+
+  @media screen and (max-width: map-get($breakpoints, laptop)) {
+		margin: calc($website-margin * 1) 0;
+	}
 }
+
 #Login {
   border-color: map-get($presentationColors, azure);
   background: rgba(map-get($presentationColors, azure), 0.25);
@@ -347,23 +372,47 @@ $polygonHeight: 20vw;
 #toBeDefined {
   border-color: map-get($presentationColors, violet);
   background: rgba(map-get($presentationColors, violet), 0.25);
+
+  & > h3 { margin-bottom: 1rem }
 }
 #Login, 
-#Register, 
-#toBeDefined {
-  border-radius: 18px;
-  border: 2px solid;
-  padding: 10%;
-  margin-top: calc($website-margin * 4);
-  margin-bottom: calc($website-margin * 4);
+#Register { 
+	transform: translateY(-3vw);
 
-  @media screen and (max-width: map-get($breakpoints, laptop)) {
-		margin: calc($website-margin * 1) 0;
+	& .⭐-Btn { margin-top: calc($website-margin * 2) }
+	& > h3 { margin-bottom: calc($website-margin * 2) }
+
+	fieldset:has(input:required:invalid) > label > [class^="fi-rr"].validation {
+		color: rgb(227, 129, 129)
 	}
+	fieldset:has(input:required:valid) > label > [class^="fi-rr"].validation {
+		color: rgb(127, 205, 127)
+	}
+	
+	@media screen and (max-width: map-get($breakpoints, laptop)) { 
+		transform: none;
+		margin: 0; 
+	}
+}
+.login-link { 
+	color: $website-accentedText;
+	text-decoration: none;
+	
+	&:hover { text-decoration: underline }
+}
 
-	fieldset > label > .icon {
-		&-envelope { color: map-get($presentationColors, azure) }
-		&-bookmark { color: map-get($presentationColors, violet) }
-		&-user { color: map-get($presentationColors, blue) }
+[class^="⭐-Col"]:has(#Login) {
+	padding-right: 0;
+	padding-left: 0;
+
+	@media screen and (max-width: map-get($breakpoints, laptop)) and (min-width: 667px) { 
+		order: 2;
+		padding-right: $website-margin; 
+	}
+}
+[class^="⭐-Col"]:has(#Register) {
+	@media screen and (max-width: map-get($breakpoints, laptop)) and (min-width: 667px) { 
+		order: 2;
+		padding-left: $website-margin; 
 	}
 }

@@ -335,17 +335,17 @@
          <section id="loginAndRegister">
             <div class="⭐-Wrapper">
                <div class="⭐-Row">
-                  <div class="⭐-Col ⭐-col-4">
+                  <div class="⭐-Col ⭐-col-4 ⭐-col-6--laptop">
                      <Login></Login>
                   </div>
-                  <div class="⭐-Col ⭐-col-4">
+                  <div class="⭐-Col ⭐-col-4 ⭐-col-12--laptop">
                      <div id="toBeDefined">
-                        <h3>One just small bad news…</h3>
+                        <h3>Only one small bad news…</h3>
                         <p>Wondertask doesn't save your tasks in your browser but in a Supabase database so… well, you need to register.</p>
                         <p>But there's good news also; you have your taks wherever you want. Youst login and you're up to go!</p>
                      </div>
                   </div>
-                  <div class="⭐-Col ⭐-col-4">
+                  <div class="⭐-Col ⭐-col-4 ⭐-col-6--laptop">
                      <Register></Register>
                   </div>
                </div>
@@ -399,27 +399,27 @@
    const loopComplete = () => {
       //anim.value.stop()
 
-      console.log('Loop complete')
+      //console.log('Loop complete')
    }
 
    // called after first loop
    const complete = () => {
-      console.log('First loop complete')
+      //console.log('First loop complete')
    }
 
    // called after first frame entered
    const enterFrame = () => {
-      console.log('Entered first frame')
+      //console.log('Entered first frame')
    }
 
    // called after segment started
    const segmentStart = () => {
-      console.log('Segment started')
+      //console.log('Segment started')
    }
 
    // called after animation stopped
    const stopped = () => {
-      console.log('Stopped')
+      //console.log('Stopped')
    }
 
    const { isLoggedIn } = useAuthUser();

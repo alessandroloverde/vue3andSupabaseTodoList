@@ -12,10 +12,12 @@ input[type="email"],
 input[type="password"] {
   @include Quicksand(600);
 
+  min-width: 120px;
+  max-width: 100%;
   font-size: 16px;
   padding: $website-margin / 1.5;
   border: 2px solid #d1d5db; /* border-gray-300 */
-  border-radius: 0.375rem;
+  border-radius: $website-borderRadius;
   box-shadow: none;
   transition: border-color 0.2s, box-shadow 0.2s;
   -webkit-appearance: none;
@@ -28,6 +30,13 @@ input[type="password"]:focus {
   border-color: $website-mainHeadings;
   outline: none;
   box-shadow: 0 0 0 3px rgba($website-mainHeadings, 0.5);
+
+  &:required:invalid {
+    background-color: rgb(227, 129, 129);
+  }
+  &:required:valid {
+    background-color: rgb(127, 205, 127);
+  }
 }
 
 button {
@@ -41,7 +50,79 @@ button {
 }
 
 
-#Register {
+.⭐-Btn {
+  border-radius: $website-borderRadius;
+  text-align: inherit;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  cursor: pointer;
+  border: none;
+  @include RobotoSlab(500);
+
+  &.icon--enter {
+    &::before {
+      content: "\f5d3";
+
+      font-family: uicons-regular-rounded !important;
+      font-style: normal;
+      font-weight: bold !important;
+      font-variant: normal;
+      text-transform: none;
+      color: $website-accentedText;
+      //line-height: 1;
+      vertical-align: top;
+      margin-right: 0.5em;
+      -moz-osx-font-smoothing: grayscale;
+       -webkit-font-smoothing: antialiased;
+    }
+  }
+}
+
+.⭐-Btn--primary {
+  @extend .⭐-Btn;
+  background-color: $website-mainHeadings;
+  text-align: center;
+  font-size: calc($website-fontSize * 1.5);
+  color: white;
+  text-transform: uppercase;
+  padding: 0.75rem 1rem;
+  letter-spacing: 1px;
+  transition:  background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: color.adjust($website-mainHeadings, $lightness: -10%, $saturation: -10%);
+  }
+  & > i[class^="fi-rr"] { 
+    margin-right: 0.75rem;
+    color: $website-accentedText;
+  }
+}
+
+
+label {
+  color: $website-accentedText;
+  margin-bottom: 0.5rem;
+  margin-left: calc($website-borderRadius / 2);
+  line-height: 1;
+  position: relative;
+  @include RobotoSlab(400);
+
+  & > [class^="fi-rr"] { 
+    margin-right: 0.5rem;
+    color: $website-mainHeadings;
+
+    &.validation { 
+      position: absolute;
+      right: 0; 
+    }
+  }
+}
+
+fieldset + fieldset { margin-top: 1rem }
+
+
+#Register, #Login {
   display: flex;
   flex-direction: column;
 
@@ -56,15 +137,6 @@ button {
   display: flex;
   flex-direction: column;
   background-color: rgb(90, 172, 131);
-}
-#Login {
-  display: flex;
-  flex-direction: column;
-
-  & > form {
-    display: flex;
-    flex-direction: column;
-  }
 }
 #ForgotPassword {
   width: 100%;
